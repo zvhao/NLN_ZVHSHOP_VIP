@@ -1,32 +1,12 @@
-// $(document).ready(function() {
-// 	$(".num-order").change(function () { 
-// 		var id = $(this).attr('data-id');
-// 		var qty = $(this).val();
-// 		var data = {id: id, qty: qty};
-
-// 		$.ajax({
-// 			url: 'cart/update_cart',
-// 			method: 'POST',
-// 			data: data,
-// 			dataType: 'json',
-// 			success: function(data) {
-// 				$("#sub-total-"+id).text(data.sub_total);
-// 				$("#total-price span").text(data.total);
-// 				console.log(1);
-// 			},
-// 			error: function(xhr, ajaxOptions, throwError) {
-// 				alert(xhr.status);
-// 				alert(throwError);
-// 			}
-// 		});
-
-// 	});
-// })
 
 var $url = window.location.href;
+var PATH_ROOT = 'http://localhost/ZVHSHOP/'
+var PATH_IMG_PRODUCT = 'http://localhost/ZVHSHOP/upload/product/'
 
 $(function () {
 	// console.log(action);
+
+	// update num_order cart
 	$(".num-order").change(function (e) {
 		var action = document.querySelector('form.form-update-cart').action
 		// e.preventDefault();
@@ -43,7 +23,7 @@ $(function () {
 			data: formPost,
 			success: function (data) {
 				var dataNew = JSON.parse(data);
-
+				console.log(dataNew);
 				$("#sub_total-" + id).text(dataNew.sub_total.toLocaleString('de-DE') + "₫");
 				$("#total-cart").text(dataNew.total.toLocaleString('de-DE') + "₫");
 				$('.header-cart-notice').text(dataNew.num_order);
@@ -53,7 +33,9 @@ $(function () {
 		e.preventDefault();
 	});
 
-
+// detele cart
+	var headerCart = document.querySelector('.header-cart-list')
+	// console.log(headerCart.innerHTML);
 	$('.del-product').click(function (e) {
 		e.preventDefault();
 		var href = $(this).attr('href')
@@ -70,11 +52,19 @@ $(function () {
 				$(`tr[data-id='${id}']`).remove()
 				$(`li[data-id='${id}']`).remove()
 				$('.header-cart-notice').text(dataNew.num_order);
-				console.log(dataNew.checkEmpty);
+				console.log(dataNew);
 				if(dataNew.checkEmpty == 1) {
 					document.querySelector('.section-render').innerHTML = `<span class="fs-3">Không có sản phẩm nào trong giỏ hàng, click <a href="home">vào đây</a> để về trang chủ</span>`;
-					$('.have-product-cart').remove();
+					$('.header-has-cart').remove();
+					headerCart.innerHTML = `<div class="header-no-cart">
+					<img src="http://localhost/ZVHSHOP/public/client/assets/img/no-cart.png" alt="" class="header-no-cart-img">
+					<span class="header-no-cart-msg">
+						Chưa có sản phẩm
+					</span></div>`
 
+					if(dataNew.check_user == 1) {
+						document.querySelector('.header-no-cart').innerHTML += `<div class="d-flex justify-content-center mb-3"><a class="outline-main p-3 fs-4" href="${PATH_ROOT}bill/show_bill">ĐƠN HÀNG CỦA TÔI</a></div>`
+					}
 
 				}
 

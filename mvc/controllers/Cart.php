@@ -61,6 +61,8 @@ class Cart extends Controller
     {
         $qty = 0;
         $id = 0;
+        $num_order = 0;
+        $total = 0;
 
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
@@ -91,23 +93,36 @@ class Cart extends Controller
             // show_array($_POST);
 
             $detail_cart = $this->cart->getDetailCart(0, $id_cart, $id_pro);
-            $id_detail_cart = $detail_cart[0]['id'];
 
             if (isset($_POST['num_order']) && $detail_cart) {
                 $qty = $_POST['num_order'] + $detail_cart[0]['qty'];
                 // show_array($detail_cart);
                 $price = $detail_cart[0]['price'];
                 $sub_total = $price * $qty;
-                if ($id_detail_cart > 0) {
-                    $this->cart->updateDetailCart($id_detail_cart, $qty, $sub_total);
+                if ($detail_cart[0]['id'] > 0) {
+                    $this->cart->updateDetailCart($detail_cart[0]['id'], $qty, $sub_total);
                 }
             } else if (isset($_POST['num_order'])) {
                 $qty = $_POST['num_order'];
                 $sub_total = $price * $qty;
                 $this->cart->insertDetailCart($id_cart, $id_pro, $image, $name, $price, $qty, $sub_total, $dated_at);
             }
-            // show_array($detail_cart);
-            echo 1;
+            $detailCart = $this->cart->getAllDetailCart($id_user);
+
+            foreach ($detailCart as $item) {
+                $num_order += $item['qty'];
+                $total += $item['sub_total'];
+            }
+            $this->cart->updateCart($id_user, $num_order, $total);
+            $data = array(
+                'info' => array(
+                    'num_order' => $num_order,
+                    'total' => $total,
+                ),
+                'no_user' => 0,
+                'buy' => $detailCart,
+            );
+            print_r(json_encode($data));            
         } else {
             $_SESSION['cart']['buy'][$id] = array(
                 'id' => $product['id'],
@@ -118,10 +133,29 @@ class Cart extends Controller
                 'dated_at' => date('Y-m-d H:i:s'),
                 'sub_total' => $product['price'] * $qty,
             );
+            foreach ($_SESSION['cart']['buy'] as $item) {
+                $num_order += $item['qty'];
+                $total += $item['sub_total'];
+            }
+
+            $_SESSION['cart']['info'] = array(
+                'num_order' => $num_order,
+                'total' => $total,
+            );
+            $_SESSION['cart']['no_user'] = 1;
+            $data = array(
+                'image' => $product['image'],
+                'name' => $product['name'],
+                'price' => $product['price'],
+                'qty' => $qty,
+                'num_order' => $num_order,
+                'total' => $total,
+            );
+            print_r(json_encode($_SESSION['cart']));
         }
 
 
-        $this->update_cart();
+        // $this->update_cart();
 
         // redirectTo('cart');
     }
@@ -141,7 +175,6 @@ class Cart extends Controller
                 'num_order' => $num_order,
                 'total' => $total,
             );
-            echo 1;
         }
 
         if (isset($_SESSION['user']) && $_SESSION['user']['id']) {
@@ -154,11 +187,14 @@ class Cart extends Controller
                 $total += $item['sub_total'];
             }
             $this->cart->updateCart($id_user, $num_order, $total);
-            $total = array(
-                'total' => $total,
-            );
+
             print_r($total);
         }
+        $data = array(
+            'num_order' => $num_order,
+            'total' => $total,
+        );
+        print_r(json_encode($data));
     }
 
 
@@ -171,26 +207,19 @@ class Cart extends Controller
             $product = $this->products->SelectProduct($id);
             $_SESSION['cart']['buy'][$id]['qty'] = $qty;
             $_SESSION['cart']['buy'][$id]['sub_total'] = $qty * $product['price'];
-                $num_order = 0;
-                $total = 0;
+            $num_order = 0;
+            $total = 0;
 
-                foreach ($_SESSION['cart']['buy'] as $item) {
-                    $num_order += $item['qty'];
-                    $total += $item['sub_total'];
-                }
+            foreach ($_SESSION['cart']['buy'] as $item) {
+                $num_order += $item['qty'];
+                $total += $item['sub_total'];
+            }
 
-                $_SESSION['cart']['info'] = array(
-                    'num_order' => $num_order,
-                    'total' => $total,
-                );
-                $sub_total = $_SESSION['cart']['buy'][$id]['sub_total'];
-                $data = array(
-                    'sub_total' => $sub_total,
-                    'total' => $total,
-                );
-                print_r(json_encode($data));
-                
-
+            $_SESSION['cart']['info'] = array(
+                'num_order' => $num_order,
+                'total' => $total,
+            );
+            $sub_total = $_SESSION['cart']['buy'][$id]['sub_total'];
         }
 
         if (isset($_SESSION['user']) && isset($_POST['qty']) && isset($_POST['id'])) {
@@ -209,16 +238,16 @@ class Cart extends Controller
                     $total += $item['sub_total'];
                 }
                 $this->cart->updateCart($id_user, $num_order, $total);
-                $total = array(
-                    'qty' => $_POST['qty'],
-                    'num_order' => $num_order,
-                    'sub_total' => $sub_total,
-                    'total' => $total,
-
-                );
-                print_r(Json_encode($total));
             }
         }
+        $total = array(
+            'qty' => $_POST['qty'],
+            'num_order' => $num_order,
+            'sub_total' => $sub_total,
+            'total' => $total,
+
+        );
+        print_r(Json_encode($total));
 
         // redirectTo('cart');
         // }
@@ -228,6 +257,8 @@ class Cart extends Controller
     public function delete_cart()
     {
         $id = 0;
+        $checkEmpty = 0;
+        $check_user = 0;
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
         }
@@ -235,9 +266,23 @@ class Cart extends Controller
         if (isset($_SESSION['cart'])) {
             if (!empty($id)) {
                 unset($_SESSION['cart']['buy'][$id]);
+                $num_order = 0;
+                $total = 0;
+                foreach ($_SESSION['cart']['buy'] as $item) {
+                    $num_order += $item['qty'];
+                    $total += $item['sub_total'];
+                }
+
+                $_SESSION['cart']['info'] = array(
+                    'num_order' => $num_order,
+                    'total' => $total,
+                );
             }
             if (!empty($id) && empty($_SESSION['cart']['buy'])) {
                 unset($_SESSION['cart']);
+                $checkEmpty = 1;
+                $num_order = 0;
+                $total = 0;
             }
         }
         if (isset($_SESSION['user']) && $_SESSION['user']['id']) {
@@ -249,9 +294,9 @@ class Cart extends Controller
             $id_user = $_SESSION['user']['id'];
             $num_order = 0;
             $total = 0;
-            $checkEmpty = 0;
+
             $detailCart = $this->cart->getAllDetailCart($id_user);
-            if(empty($detailCart)) {
+            if (empty($detailCart)) {
                 $checkEmpty = 1;
             }
             foreach ($detailCart as $item) {
@@ -259,13 +304,15 @@ class Cart extends Controller
                 $total += $item['sub_total'];
             }
             $this->cart->updateCart($id_user, $num_order, $total);
-            $data = array(
-                'checkEmpty' => $checkEmpty,
-                'num_order' => $num_order,
-                'total' => $total,
-            );
-            print_r(json_encode($data));
+            $check_user = 1;
         }
+        $data = array(
+            'check_user' => $check_user,
+            'checkEmpty' => $checkEmpty,
+            'num_order' => $num_order,
+            'total' => $total,
+        );
+        print_r(json_encode($data));
 
 
         // $this->update_cart();

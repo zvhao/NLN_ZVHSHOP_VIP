@@ -107,48 +107,51 @@
                             <?php
                             if (isset($data['detailCart']) && !empty($data['detailCart'])) {
                             ?>
+                                <div class="header-has-cart">
+                                    <span class="header__cart-heading">Sản phẩm thêm mới</span>
 
-                                <span class="header__cart-heading">Sản phẩm thêm mới</span>
+                                    <ul class="header__cart-list-item">
+                                        <?php
+                                        foreach ($data['detailCart'] as $item) {
+                                        ?>
 
-                                <ul class="header__cart-list-item">
-                                    <?php
-                                    foreach ($data['detailCart'] as $item) {
-                                    ?>
-
-                                        <!-- cart -->
-                                        <li class="header__cart-item"  data-id="<?= $item['id'] ?>" >
-                                            <img src="<?= _PATH_IMG_PRODUCT . $item['image'] ?>" alt="" class="header__cart-img">
-                                            <div class="header__cart-item-info">
-                                                <div class="header__cart-item-head">
-                                                    <h5 class="header__cart-item-name"><?= $item['name'] ?></h5>
-                                                    <div class="header__cart-item-price-wrap">
-                                                        <span class="header__cart-item-price" name="qty[<?= $item['id'] ?>]"><?= numberFormat($item['price']) ?></span>
-                                                        <span class="header__cart-item-multiply">x</span>
-                                                        <span class="header__cart-item-qnt"  data-id="<?= $item['id'] ?>" ><?= $item['qty'] ?></span>
+                                            <!-- cart -->
+                                            <li class="header__cart-item" data-id="<?= $item['id'] ?>">
+                                                <img src="<?= _PATH_IMG_PRODUCT . $item['image'] ?>" alt="" class="header__cart-img">
+                                                <div class="header__cart-item-info">
+                                                    <div class="header__cart-item-head">
+                                                        <h5 class="header__cart-item-name"><?= $item['name'] ?></h5>
+                                                        <div class="header__cart-item-price-wrap">
+                                                            <span class="header__cart-item-price" name="qty[<?= $item['id'] ?>]"><?= numberFormat($item['price']) ?></span>
+                                                            <span class="header__cart-item-multiply">x</span>
+                                                            <span class="header__cart-item-qnt" data-id="<?= $item['id'] ?>"><?= $item['qty'] ?></span>
+                                                        </div>
                                                     </div>
+
                                                 </div>
-
-                                            </div>
-                                        </li>
+                                            </li>
 
 
 
-                                    <?php
-                                    }
-                                    ?>
-                                </ul>
+                                        <?php
+                                        }
+                                        ?>
+                                    </ul>
 
-                                <div class="d-flex justify-content-end m-3">
-                                    <?php
-                                    if (!empty($_SESSION['user']['gr_id'])) {
-                                    ?>
-                                        <a class="text-color-main outline-main fs-4 p-2 me-4" href="<?= _WEB_ROOT . '/bill/show_bill' ?>">Đơn hàng của tôi</a>
-                                    <?php
-                                    }
-                                    ?>
-                                    <a class="text-color-main outline-main fs-4 p-2" href="<?= _WEB_ROOT . '/cart' ?>">Xem giỏ hàng</a>
+                                    <div class="footer-has-cart d-flex justify-content-end m-3">
+                                        <?php
+                                        if (!empty($_SESSION['user']['gr_id'])) {
+                                        ?>
+                                            <a class="text-color-main outline-main fs-4 p-2 me-4" href="<?= _WEB_ROOT . '/bill/show_bill' ?>">Đơn hàng của tôi</a>
+                                        <?php
+                                        }
+                                        ?>
+                                        <a class="btn-view-cart-header text-color-main outline-main fs-4 p-2" href="<?= _WEB_ROOT . '/cart' ?>">Xem giỏ hàng</a>
+
+                                    </div>
 
                                 </div>
+
 
                             <?php
 
@@ -156,16 +159,18 @@
 
                             ?>
                                 <!-- No cart .header-no-cart-->
+                                <div class="header-no-cart">
+                                    <img src="<?= _PATH_IMG_PUBLIC ?>no-cart.png" alt="" class="header-no-cart-img">
+                                    <span class="header-no-cart-msg">
+                                        Chưa có sản phẩm
+                                    </span>
+                                    <?php
+                                    if (!empty($_SESSION['user']['gr_id'])) {
+                                    ?>
+                                        <div class="d-flex justify-content-center mb-3"><a class="outline-main p-3 fs-4" href="<?= _WEB_ROOT . '/bill/show_bill' ?>">ĐƠN HÀNG CỦA TÔI</a></div>
+                                    <?php } ?>
+                                </div>
 
-                                <img src="<?= _PATH_IMG_PUBLIC ?>no-cart.png" alt="" class="header-no-cart-img">
-                                <span class="header-no-cart-msg">
-                                    Chưa có sản phẩm
-                                </span>
-                                <?php
-                                if (!empty($_SESSION['user']['gr_id'])) {
-                                ?>
-                                    <div class="d-flex justify-content-center mb-3"><a class="outline-main p-3 fs-4" href="<?= _WEB_ROOT . '/bill/show_bill' ?>">ĐƠN HÀNG CỦA TÔI</a></div>
-                                <?php } ?>
                             <?php }
                             ?>
                         </div>

@@ -106,16 +106,19 @@ for (const [key, value] of Object.entries(rs)) {
 	//   
 }
 
-
-
+var PATH_IMG_PRODUCT = 'http://localhost/ZVHSHOP/upload/product/'
+var PATH_ROOT = 'http://localhost/ZVHSHOP/'
 //add to cart
 $(document).ready(function () {
 	var $action = document.querySelector('form.form-add-to-cart').action
+
 	// console.log($('.num-order').val());
 	$('form.form-add-to-cart').submit(function (e) {
+		var id = $('input[name="id_pro"]').val()
 		var formData = {
 			num_order: $('.num-order').val(),
 			add_to_cart: $('.add-to-cart').val(),
+			id: id,
 		}
 
 		$.ajax({
@@ -132,13 +135,56 @@ $(document).ready(function () {
 					confirmButtonColor: '#037dff',
 					cancelButtonColor: '#d33',
 					confirmButtonText: 'Vào giỏ hàng!',
-					cancelButtonText: 'OK!'
+					cancelButtonText: 'OK!',
+					backdrop: `
+						rgba(0,0,123,0.4)
+
+					`
 				}).then((result) => {
-					if(result.isConfirmed) {
-						window.location.href = ''
+					if (result.isConfirmed) {
+						window.location.href = $('.btn-view-cart-header').attr('href')
 					}
 				})
+				var dataNew = JSON.parse(data);
+				// console.log(dataNew);
+				$('.header-cart-notice').text(dataNew.info.num_order);
+				// console.log(Object.entries(dataNew.buy).length);
+				if (Object.entries(dataNew.buy).length > 0) {
+					if ($('.header-no-cart').length == 1) {
+						$('.header-no-cart').remove()
+						document.querySelector('.header-cart-list').innerHTML = `<div class="header-has-cart"><span class="header__cart-heading">Sản phẩm thêm mới</span><ul class="header__cart-list-item"></ul></div>`
+					}
+					var hasCart = document.querySelector('.header-has-cart')
+					// hasCart.innerHTML = ''
+					document.querySelector('.header__cart-list-item').innerHTML = ''
+					for (const [key, value] of Object.entries(dataNew.buy)) {
+						document.querySelector('.header__cart-list-item').innerHTML += `<li class="header__cart-item"  data-id="${value.id}" >
+						<img src="${PATH_IMG_PRODUCT}${value.image}" alt="" class="header__cart-img">
+						<div class="header__cart-item-info">
+							<div class="header__cart-item-head">
+								<h5 class="header__cart-item-name">${value.name}</h5>
+								<div class="header__cart-item-price-wrap">
+									<span class="header__cart-item-price" name="qty[${id}]">${value.price.toLocaleString('de-DE') + "₫"}</span>
+									<span class="header__cart-item-multiply">x</span>
+									<span class="header__cart-item-qnt"  data-id="${id}" >${value.qty}</span>
+								</div>
+							</div>
+		
+						</div>
+					</li>`
+					}
+					hasCart.innerHTML += `<div class="footer-has-cart d-flex justify-content-end m-3"></div>`
+					document.querySelector('.footer-has-cart').innerHTML = ''
+					if (dataNew.no_user != 1) {
+						document.querySelector('.footer-has-cart').innerHTML += `<a class="text-color-main outline-main fs-4 p-2 me-4" href="${PATH_ROOT}bill/show_bill">Đơn hàng của tôi</a>`
+					}
+					document.querySelector('.footer-has-cart').innerHTML += `<a class="btn-view-cart-header text-color-main outline-main fs-4 p-2" href="${PATH_ROOT}cart">Xem giỏ hàng</a>`
+
+				}
+
+
 			},
+
 			error: function (xhr, ajaxOptions, throwError) {
 				alert(xhr.status);
 				alert(throwError);
@@ -147,9 +193,8 @@ $(document).ready(function () {
 
 		});
 		e.preventDefault();
-		$(".a-header-right.header-cart-link").load($url + " .a-header-right.header-cart-link")
-		$(".header-cart-list").load($url + " .header-cart-list")
-		
+
+
 	});
 
 

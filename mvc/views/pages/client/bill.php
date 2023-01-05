@@ -1,5 +1,5 @@
 <?php
-if (empty($_SESSION['user']['gr_id'])) {
+if (!isset($_SESSION['user'])) {
 	redirectTo('');
 }
 

@@ -66,7 +66,7 @@
             <div class="right-product col-7" data-aos="fade-left">
 
                 <form class="form-add-to-cart" action="<?= _WEB_ROOT . '/cart/add_cart?id=' . $data['product']['id'] ?>" method="post">
-
+                        <input type="hidden" name="id_pro" value="<?= $data['product']['id'] ?>">
                     <p class="title-product"><?= $data['product']['name'] ?></p>
                     <p class="code-product">Mã sản phẩm:
                         <span><?= $data['product']['id'] ?></span>
