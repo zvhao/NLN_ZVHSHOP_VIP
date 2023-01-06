@@ -61,12 +61,22 @@
                         </div>
                         <div class="home-product-item-body">
                             <h4 class="home-product-item__name"><?= $item['name'] ?></h4>
-                            <div class="home-product-item__price">
+                            <div class="d-flex justify-content-between">
 
                                 <span class="home-product-item__price-current"><?= numberFormat($item['price']) ?></span>
+                                <span style="font-size: 16px;" class="home-product-item__favorite">
+                                                            <i class="<?= $item['liked'] == 1?'fa-solid':'fa-regular' ?> fa-heart"></i>
+                                                        </span>
                             </div>
+                            <div style="font-size: 14px;" class="home-product-item__action">
+                                                        <div class="d-flex justify-content-between">
+                                                            <div class="home-product-item__rating">
+                                                            <?= getRatingStarRound($item['total_rating']) ?>
+                                                            </div>
+                                                            <div class="home-product-item__sold">Đã bán <?= $item['sold'] ?></div>
+                                                        </div>
+                                                    </div>
 
-                            <span class="home-product-item__brand">Lining</span>
                         </div>
                     </a>
                 </div>

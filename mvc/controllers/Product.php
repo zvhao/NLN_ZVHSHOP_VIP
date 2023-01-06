@@ -18,6 +18,7 @@ class Product extends Controller
     {
         $infoCart = [];
         $detailCart = [];
+        $liked = 0;
         if (isset($_SESSION['user']) && $_SESSION['user']['id']) {
             $id_user = $_SESSION['user']['id'];
             $detailCart = $this->cart->getAllDetailCart($id_user);
@@ -48,28 +49,42 @@ class Product extends Controller
             $keyword = '';
         }
         $products = $this->products->getAll($keyword, 0, $cate);
-        foreach ($products as $item) {
-            if (!empty($this->products->getProImg($item['id']))) {
-                $item['detail_img'] = $this->products->getProImg($item['id'])['image'];
-            }
-            array_push($productNew, $item);
-        }
 
-        // show_array($productNew);
-        $count_product = !empty($productNew) ? count($productNew) : 0;
 
+        $count_product = !empty($products) ? count($products) : 0;
+        
         $num_per_page = 8;
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $start = ($page - 1) * $num_per_page;
         $SelectProByPage = $this->products->SelectProByPage($start, $num_per_page, $keyword, 0, $cate);
+        foreach ($SelectProByPage as $item) {
+            $soldArr = $this->products->soldPro($item['id']);            
+            $item['sold'] = 0;
+            $item['liked'] = 0;
+            if($soldArr) {
+                $item['sold'] = $soldArr['sold'];
+            }
+            if (isset($_SESSION['user'])) {
+                $likedPro = $this->products->checkLikedPro($id_user, $item['id']);
+                // show_array($likedPro);
+                if ($likedPro) {
+                    $item['liked'] = 1;
+                }
+            }
+        //     if (!empty($this->products->getProImg($item['id']))) {
+        //         $item['detail_img'] = $this->products->getProImg($item['id'])['image'];
+        //     }
+            array_push($productNew, $item);
+        }
+        // show_array($productNew);
         return $this->view('client', [
             'page' => 'product',
             'css' => ['base', 'main'],
             'js' => ['main'],
             'title' => 'Sản phẩm',
-            'products' => $productNew,
+            'products' => $products,
             'categories' => $categories,
-            'SelectProByPage' => $SelectProByPage,
+            'SelectProByPage' => $productNew,
             'keyword' => $keyword,
             'num_per_page' => $num_per_page,
             'cate' => $cate,

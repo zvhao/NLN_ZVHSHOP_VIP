@@ -1,5 +1,3 @@
-
-
 <div class="grid wide">
     <nav>
         <ol class="breadcrumb">
@@ -66,12 +64,30 @@
             <div class="right-product col-7" data-aos="fade-left">
 
                 <form class="form-add-to-cart" action="<?= _WEB_ROOT . '/cart/add_cart?id=' . $data['product']['id'] ?>" method="post">
-                        <input type="hidden" name="id_pro" value="<?= $data['product']['id'] ?>">
+                    <input type="hidden" name="id_pro" value="<?= $data['product']['id'] ?>">
+                    <input type="hidden" name="id_user" value="<?php if(isset($_SESSION['user']['id'])) echo $_SESSION['user']['id'] ?>">
                     <p class="title-product"><?= $data['product']['name'] ?></p>
-                    <p class="code-product">Mã sản phẩm:
-                        <span><?= $data['product']['id'] ?></span>
-                    </p>
-                    <p class="price-product"><?php numberFormat($data['product']['price']) ?></p>
+                    <div class="info-product-short my-3">
+
+                        <span class="me-3 text-color-main fs-3"><?= $data['avgRating'] ?></span>
+                        <span class="icon-main text-center font-size-14 me-5">
+                            <?= getRatingStarRound($data['avgRating']) ?>
+                        </span>
+
+                        <span class="home-product-item__favorite me-5">
+                            <?php if ($data['liked'] == 1) {
+                            ?>
+                                <i class="icon-favorite fs-2 fa-solid fa-heart px-2"></i>
+                            <?php
+                            } else {
+                            ?>
+                                <i class="icon-favorite fs-2 fa-regular fa-heart px-2"></i>
+                            <?php } ?>
+                            <span class="fs-3"><span class="favorites"><?= $data['favorites'] ?></span> lượt thích</span>
+                        </span>
+                        <span class="fs-3">đã bán: <?= $data['sold'] ?></span>
+                    </div>
+                    <p class="price-product fs-1"><?php numberFormat($data['product']['price']) ?></p>
                     <div class="num-order-product">
                         <span>Số lượng:</span>
                         <input type="number" name="num_order" value="1" min="1" class="num-order mb-3 ">
@@ -123,7 +139,7 @@
                                                         } else echo _PATH_IMG_PUBLIC . '/profile.jpg'; ?>" alt="" style="width: 60px; height: 60px; max-width: 100%; object-fit: cover; object-position: center; margin-bottom: 5px;">
 
                 </div>
-                <fieldset class="col-11 font-size-14 mb-5" <?= $data['isBuy'] ?> >
+                <fieldset class="col-11 font-size-14 mb-5" <?= $data['isBuy'] ?>>
                     <div class="icon-detail">
                         <span class="fs-4">Chất lượng sản phẩm:</span>
                         <div class="rating">
@@ -195,3 +211,11 @@
     </div>
 
 </div>
+
+
+<script>
+    // $('.fa-heart').click(function (e) { 
+    //     e.preventDefault();
+
+    // });
+</script>

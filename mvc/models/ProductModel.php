@@ -38,7 +38,7 @@ class ProductModel extends DB
         return $this->pdo_query($select);
     }
 
-    function getNewProduct($cate_id = 0){
+    function getProductByCate($cate_id = 0){
         $select = "SELECT * from products WHERE 1 order by created_at DESC";
         return $this->pdo_query($select);
     }
@@ -71,6 +71,11 @@ class ProductModel extends DB
         } else {
             return [];
         }
+    }
+
+    function soldPro($id_pro) {
+        $select = "SELECT SUM(detail_bill.qty) as sold  FROM bills JOIN detail_bill ON bills.id = detail_bill.id_bill where status = 2 AND detail_bill.id_pro = $id_pro GROUP by detail_bill.id_pro";
+        return $this->pdo_query_one($select);
     }
 
 
@@ -109,11 +114,6 @@ class ProductModel extends DB
         return $this->pdo_execute($update);
     }
 
-    function getTrendPro()
-    {
-        $pro = "SELECT * FROM products ORDER BY view DESC LIMIT 3 ";
-        return $this->pdo_query($pro);
-    }
 
     function getTrendProImg($id)
     {
@@ -171,4 +171,39 @@ class ProductModel extends DB
     }
 
 
+    
+    function getAllFavorite() {
+        $select = "SELECT * FROM favorite";
+        return $this->pdo_query($select);
+    }
+    
+    function getAllFavoriteByUser($id_user) {
+        $select = "SELECT * FROM favorite WHERE id_user = $id_user";
+        return $this->pdo_query($select);
+    }
+    function checkLikedPro($id_user, $id_pro) {
+        $select = "SELECT * FROM favorite WHERE id_user = $id_user AND id_pro = $id_pro";
+        if ($this->pdo_query_one($select)) {
+            return $this->pdo_query_one($select);
+        } else {
+            return [];
+        }
+    }
+    
+    function insertFavorite($id_user, $id_pro, $created_at) {
+        $sql = "INSERT INTO favorite(id_user, id_pro, created_at) VALUES('$id_user', '$id_pro', '$created_at')";
+        return $this->pdo_execute_lastInsertID($sql);
+    }
+
+    function deleteFavorite($id_user, $id_pro) {
+        $delete = "DELETE FROM favorite WHERE id_user = $id_user AND id_pro = $id_pro";
+        return $this->pdo_execute($delete);
+    }
+
+    function countFavoritePro($id_pro) {
+        $select = "SELECT count(*) FROM `favorite` WHERE id_pro = $id_pro";
+        return $this->pdo_query_value($select);
+    }
 }
+
+

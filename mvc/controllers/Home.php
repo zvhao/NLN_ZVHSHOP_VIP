@@ -32,14 +32,31 @@ class Home extends Controller
         $cate = 0;
         $products = $this->products->getAll('', 0, $cate);
 
-        $productNew = [];
-        foreach ($products as $item) {
-            // $item['detail_img'] = $this->products->getProImg($item['id'])['image'];
-            array_push($productNew, $item);
-        }
         $cate_id = 0;
 
-        $new_product = $this->products->getNewProduct($cate_id);
+        $getProductByCate = $this->products->getProductByCate($cate_id);
+
+        $productNew = [];
+        foreach ($getProductByCate as $item) {
+            $soldArr = $this->products->soldPro($item['id']);            
+            $item['sold'] = 0;
+            $item['liked'] = 0;
+            if($soldArr) {
+                $item['sold'] = $soldArr['sold'];
+            }
+            if (isset($_SESSION['user'])) {
+                $likedPro = $this->products->checkLikedPro($id_user, $item['id']);
+                // show_array($likedPro);
+                if ($likedPro) {
+                    $item['liked'] = 1;
+                }
+            }
+        //     if (!empty($this->products->getProImg($item['id']))) {
+        //         $item['detail_img'] = $this->products->getProImg($item['id'])['image'];
+        //     }
+            array_push($productNew, $item);
+        }
+
 
 
 
@@ -49,9 +66,8 @@ class Home extends Controller
             'title' => 'Trang chủ',
             'css' => ['base', 'main'],
             'js' => ['main'],
-            'products' => $productNew,
             'categories' => $categories,
-            'new_product' => $new_product,
+            'productNew' => $productNew,
             'cate_id' => $cate_id,
             'infoCart' => $infoCart,
             'detailCart' => $detailCart,

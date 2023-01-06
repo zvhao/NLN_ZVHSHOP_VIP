@@ -21,6 +21,8 @@ class DetailProduct extends Controller
 
         $infoCart = [];
         $detailCart = [];
+        $liked = 0;
+        $sold =0;
         if (isset($_SESSION['user']) && $_SESSION['user']['id']) {
             $id_user = $_SESSION['user']['id'];
             $detailCart = $this->cart->getAllDetailCart($id_user);
@@ -38,7 +40,22 @@ class DetailProduct extends Controller
         $nameCate = $this->categories->getNameCate($id);
         $avgRating = $this->products->getOneRating($id);
         $comments = $this->comment->getAllComment($id);
-        // show_array($comments);
+        $favorites = $this->products->countFavoritePro($id);
+        $soldArr = $this->products->soldPro($id);
+        if($soldArr) {
+            $sold = $soldArr['sold'];
+        }  
+        // show_array($sold);
+
+
+        if (isset($_SESSION['user'])) {
+            $likedPro = $this->products->checkLikedPro($id_user, $id);
+            // show_array($likedPro);
+            if ($likedPro) {
+                $liked = 1;
+            }
+        }
+
 
         if (isset($_SESSION['user'])) {
             $boughtById = $this->bills->boughtById($_SESSION['user']['id'], $id);
@@ -72,12 +89,44 @@ class DetailProduct extends Controller
             'img_product' => $img_product,
             'nameCate' => $nameCate,
             'infoCart' => $infoCart,
-            'infoCart' => $infoCart,
             'detailCart' => $detailCart,
             'comments' => $comments,
             'isBuy' => $isBuy,
             'avgRating' => $avgRating,
+            'liked' => $liked,
+            'favorites' => $favorites,
+            'sold' => $sold,
 
         ]);
+    }
+
+    function add_favorite()
+    {
+        if (isset($_POST['id_pro']) && isset($_SESSION['user']['id'])) {
+            $id_pro = $_POST['id_pro'];
+            $id_user = $_SESSION['user']['id'];
+            $created_at = date('Y-m-d H:i:s');
+
+            $status = $this->products->insertFavorite($id_user, $id_pro, $created_at);
+        }
+        if ($status) {
+            echo json_encode($status);
+        }
+    }
+
+    function delete_favorite()
+    {
+        if (isset($_POST['id_pro']) && isset($_SESSION['user']['id'])) {
+            $id_pro = $_POST['id_pro'];
+            $id_user = $_SESSION['user']['id'];
+            $likedPro = $this->products->checkLikedPro($id_user, $id_pro);
+            if ($likedPro) {
+                $this->products->deleteFavorite($id_user, $id_pro);
+                $status = 1;
+            }
+        }
+        if ($status) {
+            echo json_encode($status);
+        }
     }
 }

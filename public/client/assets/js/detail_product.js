@@ -1,3 +1,83 @@
+$(function () {
+	$('.icon-favorite').click(function (e) {
+		e.preventDefault();
+		var id_user = $('input[name="id_user"]').val()
+		// console.log(id_user);
+		if(id_user) {
+			if ($(this).hasClass("fa-regular")) {
+	
+				var formData = {
+					id_pro: $('input[name="id_pro"]').val()
+				}
+	
+				$.ajax({
+					type: "POST",
+					url: "http://localhost/ZVHSHOP/detailproduct/add_favorite",
+					data: formData,
+					// dataType: "dataType",
+					success: function (data) {
+						$('.icon-favorite').removeClass("fa-regular");
+						$('.icon-favorite').addClass("fa-solid");
+						Swal.fire({
+							position: 'center',
+							icon: 'success',
+							title: 'Đã thêm sản phẩm yêu thích!',
+							showConfirmButton: false,
+							timer: 1000
+						})
+						let favorites = document.querySelector('.favorites').innerHTML
+						console.log(favorites);
+						let favoritesNew = parseInt(favorites) + 1
+						$('.favorites').text(favoritesNew);
+					},
+					error: function (xhr, ajaxOptions, throwError) {
+						alert(xhr.status);
+						alert(throwError);
+					}
+				});
+			}
+			else {
+				var formData = {
+					id_pro: $('input[name="id_pro"]').val()
+				}
+				$.ajax({
+					type: "POST",
+					url: "http://localhost/ZVHSHOP/detailproduct/delete_favorite",
+					data: formData,
+					// dataType: "dataType",
+					success: function (data) {
+						Swal.fire({
+							position: 'center',
+							icon: 'success',
+							title: 'Đã xoá sản phẩm yêu thích!',
+							showConfirmButton: false,
+							timer: 1000
+						})
+						let favorites = document.querySelector('.favorites').innerHTML
+						console.log(favorites);
+						let favoritesNew = parseInt(favorites) - 1
+						$('.favorites').text(favoritesNew);
+
+						$('.icon-favorite').removeClass("fa-solid");
+						$('.icon-favorite').addClass("fa-regular");
+	
+					},
+					error: function (xhr, ajaxOptions, throwError) {
+						alert(xhr.status);
+						alert(throwError);
+					}
+				});
+	
+			}
+
+		}
+		
+
+	});
+})
+
+
+
 // Thu gọn detail_product
 $(function () {
 	const contentDetail = document.querySelector(".desc-short-product");

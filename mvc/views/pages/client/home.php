@@ -7,30 +7,30 @@
 ?>
 
 <div id="carouselExampleIndicators" class="carousel slide " data-bs-ride="carousel" data-aos="fade-up">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="<?= _PATH_IMG_PUBLIC . '/slide/1.png' ?>" class="d-block w-100" alt="...">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
-    <div class="carousel-item">
-      <img src="<?= _PATH_IMG_PUBLIC . '/slide/2.png' ?>" class="d-block w-100" alt="...">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="<?= _PATH_IMG_PUBLIC . '/slide/1.png' ?>" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="<?= _PATH_IMG_PUBLIC . '/slide/2.png' ?>" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="<?= _PATH_IMG_PUBLIC . '/slide/3.png' ?>" class="d-block w-100" alt="...">
+        </div>
     </div>
-    <div class="carousel-item">
-      <img src="<?= _PATH_IMG_PUBLIC . '/slide/3.png' ?>" class="d-block w-100" alt="...">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
 
 
@@ -77,7 +77,7 @@
                                 <?php
                                 // show_array($data['cate_id']);
 
-                                foreach ($data['new_product'] as $key => $product) {
+                                foreach ($data['productNew'] as $key => $product) {
                                     $data['cate_id'] = $category['id_cate'];
                                     if ($count <= 4 && $product['cate_id'] == $category['id_cate'] && $data['cate_id'] == $category['id_cate']) {
                                         $count++;
@@ -89,15 +89,26 @@
                                                 </div>
                                                 <div class="home-product-item-body">
                                                     <h4 class="home-product-item__name"><?= $product['name'] ?></h4>
-                                                    <div class="home-product-item__price">
+                                                    <div class="d-flex justify-content-between">
                                                         <span class="home-product-item__price-current"><?= numberFormat($product['price']) ?></span>
+                                                        <span class="home-product-item__favorite font-size-14">
+                                                        <i class="<?= $product['liked'] == 1?'fa-solid':'fa-regular' ?> fa-heart"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="home-product-item__action font-size-14">
+                                                        <div class="d-flex justify-content-between">
+                                                            <div class="home-product-item__rating">
+                                                            <?= getRatingStarRound($product['total_rating']) ?>
+                                                            </div>
+                                                            <div class="home-product-item__sold">Đã bán <?= $product['sold'] ?></div>
+                                                        </div>
                                                     </div>
 
                                                     <!-- <div class="home-product-item__origin">
                                                         <span class="home-product-item__brand">Lining</span>
                                                         <div class="home-product-item__origin-name">Korea</div>
                                                     </div> -->
-                                                    <div class="home-product-item__favourite">
+                                                    <div class="home-product-item__latest">
                                                         <i class="fa-solid fa-check"></i>
                                                         <span>Mới nhất</span>
                                                     </div>
@@ -156,115 +167,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="product-item col-lg-3">
-                    <a href="#" class="home-product-item">
-                        <div class="home-product-item__img">
-                            <img src="http:\\localhost\nlcs_mvc/public/img/votcaulong/vot-cau-long-lining-axforce-90-xanh-dragon-max-chinh-hang.jpg" alt="" srcset="">
-                        </div>
-                        <div class="home-product-item-body">
-                            <h4 class="home-product-item__name">Vợt Cầu Lông Lining Axforce 90 Xanh
-                                Dragon Max Chính Hãng</h4>
-                            <div class="home-product-item__price">
-                                <span class="home-product-item__price-old">1.200.000₫</span>
-                                <span class="home-product-item__price-current">999.000₫</span>
-                            </div>
 
-                            <div class="home-product-item__origin">
-                                <span class="home-product-item__brand">Lining</span>
-                                <div class="home-product-item__origin-name">Korea</div>
-                            </div>
-
-
-                        </div>
-                    </a>
-                </div>
-                <div class="product-item col-lg-3">
-                    <a href="#" class="home-product-item">
-                        <div class="home-product-item__img">
-                            <img src="http:\\localhost\nlcs_mvc/public/img/votcaulong/vot-cau-long-lining-axforce-90-xanh-dragon-max-chinh-hang.jpg" alt="" srcset="">
-                        </div>
-                        <div class="home-product-item-body">
-                            <h4 class="home-product-item__name">Vợt Cầu Lông Lining Axforce 90 Xanh
-                                Dragon Max Chính Hãng</h4>
-                            <div class="home-product-item__price">
-                                <span class="home-product-item__price-old">1.200.000₫</span>
-                                <span class="home-product-item__price-current">999.000₫</span>
-                            </div>
-
-                            <div class="home-product-item__origin">
-                                <span class="home-product-item__brand">Lining</span>
-                                <div class="home-product-item__origin-name">Korea</div>
-                            </div>
-
-                        </div>
-                    </a>
-                </div>
-                <div class="product-item col-lg-3">
-                    <a href="#" class="home-product-item">
-                        <div class="home-product-item__img">
-                            <img src="http:\\localhost\nlcs_mvc/public/img/votcaulong/vot-cau-long-lining-axforce-90-xanh-dragon-max-chinh-hang.jpg" alt="" srcset="">
-                        </div>
-                        <div class="home-product-item-body">
-                            <h4 class="home-product-item__name">Vợt Cầu Lông Lining Axforce 90 Xanh
-                                Dragon Max Chính Hãng</h4>
-                            <div class="home-product-item__price">
-                                <span class="home-product-item__price-old">1.200.000₫</span>
-                                <span class="home-product-item__price-current">999.000₫</span>
-                            </div>
-
-                            <div class="home-product-item__origin">
-                                <span class="home-product-item__brand">Lining</span>
-                                <div class="home-product-item__origin-name">Korea</div>
-                            </div>
-
-
-                        </div>
-                    </a>
-                </div>
-                <div class="product-item col-lg-3">
-                    <a href="#" class="home-product-item">
-                        <div class="home-product-item__img">
-                            <img src="http:\\localhost\nlcs_mvc/public/img/votcaulong/vot-cau-long-lining-axforce-90-xanh-dragon-max-chinh-hang.jpg" alt="" srcset="">
-                        </div>
-                        <div class="home-product-item-body">
-                            <h4 class="home-product-item__name">Vợt Cầu Lông Lining Axforce 90 Xanh
-                                Dragon Max Chính Hãng</h4>
-                            <div class="home-product-item__price">
-                                <span class="home-product-item__price-old">1.200.000₫</span>
-                                <span class="home-product-item__price-current">999.000₫</span>
-                            </div>
-
-                            <div class="home-product-item__origin">
-                                <span class="home-product-item__brand">Lining</span>
-                                <div class="home-product-item__origin-name">Korea</div>
-                            </div>
-
-
-                        </div>
-                    </a>
-                </div>
-                <div class="product-item col-lg-3">
-                    <a href="#" class="home-product-item">
-                        <div class="home-product-item__img">
-                            <img src="http:\\localhost\nlcs_mvc/public/img/votcaulong/vot-cau-long-lining-axforce-90-xanh-dragon-max-chinh-hang.jpg" alt="" srcset="">
-                        </div>
-                        <div class="home-product-item-body">
-                            <h4 class="home-product-item__name">Vợt Cầu Lông Lining Axforce 90 Xanh
-                                Dragon Max Chính Hãng</h4>
-                            <div class="home-product-item__price">
-                                <span class="home-product-item__price-old">1.200.000₫</span>
-                                <span class="home-product-item__price-current">999.000₫</span>
-                            </div>
-
-                            <div class="home-product-item__origin">
-                                <span class="home-product-item__brand">Lining</span>
-                                <div class="home-product-item__origin-name">Korea</div>
-                            </div>
-
-
-                        </div>
-                    </a>
-                </div>
             </div>
         </section> -->
     </div>

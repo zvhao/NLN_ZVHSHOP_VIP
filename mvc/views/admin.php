@@ -105,7 +105,7 @@ if ((int)$_SESSION['user']['gr_id'] != 1) {
                with font-awesome or any other icon font library -->
 
             <li class="nav-item">
-              <a href="<?php echo _WEB_ROOT . "/admin/statistical" ?>" class="nav-link <?php if ($data['page'] == 'manager/statistical') echo 'active' ?>">
+              <a href="<?php echo _WEB_ROOT . "/statistical" ?>" class="nav-link <?php if ($data['page'] == 'manager/statistical') echo 'active' ?>">
                 <i class="fas fa-users"></i>
                 <p class="pl-3">
                   Thống kê doanh thu

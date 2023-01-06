@@ -72,4 +72,10 @@ $(function () {
 		});
 	});
 
+
+	$('.btn-view-cart-header').click(function (e) { 
+		e.preventDefault();
+		
+	});
+
 });

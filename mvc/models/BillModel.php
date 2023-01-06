@@ -127,4 +127,11 @@ class BillModel extends DB
 		$select = "SELECT detail_bill.id FROM detail_bill JOIN bills ON bills.id = detail_bill.id_bill WHERE bills.user_id = '$id_user' AND detail_bill.id_pro = '$id_pro'";
 		return $this->pdo_query($select);
 	}
+
+	public function numBuyOneProduct($id_pro) {
+		return $this->pdo_query_value("SELECT SUM(qty) FROM `detail_bill` WHERE id_pro = $id_pro");
+	}
+
+
+	
 }
