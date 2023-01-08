@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 04, 2023 at 07:10 PM
+-- Generation Time: Jan 07, 2023 at 05:53 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -48,16 +48,16 @@ CREATE TABLE `bills` (
 
 INSERT INTO `bills` (`id`, `fullname`, `tel`, `email`, `address`, `note`, `total`, `status`, `method`, `user_id`, `created_at`, `updated_at`) VALUES
 (106, 'tran cong minh', '0189898989', 'congminh@gmail.com', '139, Nguyễn Đệ', '', 29498000, '2', 'payment-cod', 20, '2022-12-31 18:11:17', '0000-00-00 00:00:00'),
-(107, 'Nguyễn Văn Hào', '0989898989', 'hao@gmail.com', '1 test', '', 6392000, '0', 'payment-cod', 0, '2022-12-31 18:13:21', NULL),
-(108, 'nguyenvanhao', '0989898989', 'hao@gmail.com', '1', 'vn', 4450000, '0', 'Vn_pay', 0, '2022-12-31 18:14:50', NULL),
-(134, 'tran cong minh', '0189898989', 'congminh@gmail.com', '139, Nguyễn Đệ', '', 29498000, '0', 'Vn_pay', 20, '2022-12-31 18:25:46', NULL),
-(135, 'nguyenvanhao', '0989898989', 'danh@gmail.com', '12, 3/2', '', 3899000, '0', 'Vn_pay', 0, '2022-12-31 20:23:08', NULL),
-(136, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '139, Nguyễn Đệ', '', 2787000, '0', 'payment-bank', 23, '2022-12-31 20:31:10', NULL),
-(137, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '12, 3/2', '', 5887000, '0', 'payment-cod', 23, '2022-12-31 20:56:21', NULL),
+(107, 'Nguyễn Văn Hào', '0989898989', 'hao@gmail.com', '1 test', '', 6392000, '2', 'payment-cod', 0, '2022-12-31 18:13:21', '0000-00-00 00:00:00'),
+(108, 'nguyenvanhao', '0989898989', 'hao@gmail.com', '1', 'vn', 4450000, '2', 'Vn_pay', 0, '2022-12-31 18:14:50', '0000-00-00 00:00:00'),
+(134, 'tran cong minh', '0189898989', 'congminh@gmail.com', '139, Nguyễn Đệ', '', 29498000, '2', 'Vn_pay', 20, '2022-12-31 18:25:46', '0000-00-00 00:00:00'),
+(135, 'nguyenvanhao', '0989898989', 'danh@gmail.com', '12, 3/2', '', 3899000, '2', 'Vn_pay', 0, '2022-12-31 20:23:08', '0000-00-00 00:00:00'),
+(136, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '139, Nguyễn Đệ', '', 2787000, '2', 'payment-bank', 23, '2022-12-31 20:31:10', '0000-00-00 00:00:00'),
+(137, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '12, 3/2', '', 5887000, '1', 'payment-cod', 23, '2022-12-31 20:56:21', '0000-00-00 00:00:00'),
 (138, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '12, 3/2', '', 5887000, '0', 'payment-cod', 23, '2022-12-31 20:57:53', NULL),
-(139, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '139, Nguyễn Đệ', '', 70807000, '0', 'payment-bank', 23, '2022-12-31 22:35:06', NULL),
-(140, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '139, Nguyễn Đệ', '', 70807000, '0', 'payment-cod', 23, '2022-12-31 22:37:34', NULL),
-(141, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '139, Nguyễn Đệ', '', 70807000, '0', 'payment-cod', 23, '2022-12-31 22:46:24', NULL),
+(139, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '139, Nguyễn Đệ', '', 70807000, '2', 'payment-bank', 23, '2022-12-31 22:35:06', '0000-00-00 00:00:00'),
+(140, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '139, Nguyễn Đệ', '', 70807000, '2', 'payment-cod', 23, '2022-12-31 22:37:34', '0000-00-00 00:00:00'),
+(141, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '139, Nguyễn Đệ', '', 70807000, '2', 'payment-cod', 23, '2022-12-31 22:46:24', '0000-00-00 00:00:00'),
 (142, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '139, Nguyễn Đệ', '', 16910000, '0', 'payment-cod', 23, '2022-12-31 22:50:23', NULL),
 (143, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '139, Nguyễn Đệ', '', 799000, '0', 'payment-cod', 23, '2022-12-31 22:51:40', NULL),
 (144, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '139, Nguyễn Đệ', '', 3490000, '0', 'payment-cod', 23, '2022-12-31 23:03:24', NULL),
@@ -70,7 +70,10 @@ INSERT INTO `bills` (`id`, `fullname`, `tel`, `email`, `address`, `note`, `total
 (151, 'Huỳnh Thanh Thương', '0869353760', 'thuong0810@gmail.com', '139 duong Nguyen De, khu vuc 5, phuong An Hoa, quan Ninh Kieu, thanh pho Can Tho', '', 3869000, '0', 'Vn_pay', 24, '2023-01-02 09:58:59', NULL),
 (153, 'tran cong minh', '0189898989', 'congminh@gmail.com', '139 nguyen de', '', 799000, '0', 'payment-cod', 20, '2023-01-03 10:44:54', NULL),
 (154, 'tran cong minh', '0189898989', 'congminh@gmail.com', '139 nguyen de', '', 4340000, '0', 'payment-cod', 20, '2023-01-03 10:55:19', NULL),
-(155, 'tran cong minh', '0189898989', 'congminh@gmail.com', '139, Nguyễn Đệ', '', 14330000, '0', 'payment-bank', 20, '2023-01-04 12:20:16', NULL);
+(155, 'tran cong minh', '0189898989', 'congminh@gmail.com', '139, Nguyễn Đệ', '', 14330000, '2', 'payment-bank', 20, '2023-01-04 12:20:16', '0000-00-00 00:00:00'),
+(156, 'Nguyễn Văn Hào', '0989898989', 'danh@gmail.com', '139 nguyen de', '', 4450000, '0', 'payment-cod', 0, '2023-01-06 19:10:28', NULL),
+(157, 'tran cong minh', '0189898989', 'congminh@gmail.com', '139, Nguyễn Đệ', '', 3550000, '0', 'payment-bank', 0, '2023-01-06 19:11:12', NULL),
+(158, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '139, Nguyễn Đệ, An Hoà, Ninh Kiều, Cần Thơ', '', 19980000, '0', 'payment-cod', 23, '2023-01-06 20:59:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -91,7 +94,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `id_user`, `num_order`, `total`, `created_at`) VALUES
-(2, 20, 12, 37200000, '2022-12-31 12:05:32'),
+(2, 20, 13, 21892000, '2022-12-31 12:05:32'),
 (4, 22, 0, 0, '2022-12-31 12:45:00'),
 (5, 23, 0, 0, '2022-12-31 20:02:20'),
 (6, 24, 1, 0, '2023-01-02 09:50:23');
@@ -253,7 +256,11 @@ INSERT INTO `detail_bill` (`id`, `id_bill`, `id_pro`, `qty`, `price`, `sub_total
 (145, 155, 29, 1, 3560000, 3560000, '16666039961788879204.jpg', 'Vợt Cầu Lông Yonex Nanoflare 700 (Cyan)', '2023-01-04 12:20:16', NULL),
 (146, 155, 31, 1, 3720000, 3720000, '16666333261910135561.jpg', 'Vợt Cầu Lông Yonex Astrox 77 Pro', '2023-01-04 12:20:16', NULL),
 (147, 155, 33, 1, 2600000, 2600000, '16668780091504408310.jpg', 'Vợt Cầu Lông Lining Axforce 50', '2023-01-04 12:20:16', NULL),
-(148, 155, 37, 1, 4450000, 4450000, '16675303581424640371.jpg', 'Vợt Cầu Lông Yonex NanoFlare 700 - Xanh', '2023-01-04 12:20:16', NULL);
+(148, 155, 37, 1, 4450000, 4450000, '16675303581424640371.jpg', 'Vợt Cầu Lông Yonex NanoFlare 700 - Xanh', '2023-01-04 12:20:16', NULL),
+(149, 156, 37, 1, 4450000, 4450000, '16675303581424640371.jpg', 'Vợt Cầu Lông Yonex NanoFlare 700 - Xanh', '2023-01-06 19:10:28', NULL),
+(150, 157, 15, 1, 3550000, 3550000, '16665026651676912011.jpg', 'Giày Cầu Lông Victor P9200II TTY Trắng Nội Địa', '2023-01-06 19:11:12', NULL),
+(151, 158, 29, 3, 3560000, 10680000, '16666039961788879204.jpg', 'Vợt Cầu Lông Yonex Nanoflare 700 (Cyan)', '2023-01-06 20:59:25', NULL),
+(152, 158, 36, 3, 3100000, 9300000, '1667530071376616849.jpeg', 'Vợt Cầu Lông Yonex Arcsaber 11 2017', '2023-01-06 20:59:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -278,8 +285,39 @@ CREATE TABLE `detail_cart` (
 --
 
 INSERT INTO `detail_cart` (`id`, `id_cart`, `id_pro`, `image`, `name`, `price`, `qty`, `sub_total`, `created_at`) VALUES
-(79, 6, 35, '1667529713921198222.jpg', 'Vợt Cầu Lông Yonex NanoFlare Drive', 799000, 1, 0, '2023-01-02 22:45:47'),
-(194, 2, 36, '1667530071376616849.jpeg', 'Vợt Cầu Lông Yonex Arcsaber 11 2017', 3100000, 12, 37200000, '2023-01-05 00:57:44');
+(79, 6, 35, '1667529713921198222.jpg', 'Vợt Cầu Lông Yonex NanoFlare Drive', 799000, 7, 5593000, '2023-01-02 22:45:47'),
+(211, 2, 35, '1667529713921198222.jpg', 'Vợt Cầu Lông Yonex NanoFlare Drive', 799000, 8, 6392000, '2023-01-05 23:12:52'),
+(212, 2, 36, '1667530071376616849.jpeg', 'Vợt Cầu Lông Yonex Arcsaber 11 2017', 3100000, 5, 15500000, '2023-01-06 19:20:09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `favorite`
+--
+
+CREATE TABLE `favorite` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_pro` int(11) NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `favorite`
+--
+
+INSERT INTO `favorite` (`id`, `id_user`, `id_pro`, `created_at`) VALUES
+(8, 20, 36, '2023-01-06 17:39:37'),
+(10, 20, 15, '2023-01-06 17:54:16'),
+(28, 20, 34, '2023-01-06 19:22:57'),
+(29, 20, 35, '2023-01-06 19:26:28'),
+(30, 23, 36, '2023-01-06 19:26:55'),
+(43, 1, 36, '2023-01-06 20:04:03'),
+(44, 1, 9, '2023-01-06 20:14:26'),
+(45, 23, 25, '2023-01-06 20:55:28'),
+(47, 23, 29, '2023-01-06 20:59:02'),
+(48, 20, 37, '2023-01-06 22:09:17'),
+(49, 20, 10, '2023-01-06 22:19:08');
 
 -- --------------------------------------------------------
 
@@ -494,6 +532,12 @@ ALTER TABLE `detail_cart`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `favorite`
+--
+ALTER TABLE `favorite`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `groups_user`
 --
 ALTER TABLE `groups_user`
@@ -528,7 +572,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bills`
 --
 ALTER TABLE `bills`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
 -- AUTO_INCREMENT for table `cart`
@@ -558,13 +602,19 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `detail_bill`
 --
 ALTER TABLE `detail_bill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 
 --
 -- AUTO_INCREMENT for table `detail_cart`
 --
 ALTER TABLE `detail_cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=195;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=215;
+
+--
+-- AUTO_INCREMENT for table `favorite`
+--
+ALTER TABLE `favorite`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `groups_user`

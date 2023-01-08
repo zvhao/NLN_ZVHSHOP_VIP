@@ -178,7 +178,7 @@ class ProductModel extends DB
     }
     
     function getAllFavoriteByUser($id_user) {
-        $select = "SELECT * FROM favorite WHERE id_user = $id_user";
+        $select = "SELECT products.id, products.name, products.image, products.price, products.total_rating FROM favorite JOIN products on favorite.id_pro = products.id  WHERE id_user = $id_user";
         return $this->pdo_query($select);
     }
     function checkLikedPro($id_user, $id_pro) {

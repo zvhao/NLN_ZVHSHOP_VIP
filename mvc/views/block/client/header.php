@@ -43,14 +43,14 @@
                         </ul>
                     </div>
                 </div>
-                <div class="header-right col-2">
+                <div class="header-right d-flex justify-content-center col-2">
                     <div class="header-item header-account">
                         <a href="#" class="a-header-right header-account-link">
                             <span class="box-icon">
                                 <?= avatarHeader() ?>
 
                             </span>
-                            <span class="item-title">TÀI KHOẢN</span>
+                            <span class="item-title text-uppercase"><?= isset($_SESSION['user'])?getLastName($_SESSION['user']['name']):'TÀI KHOẢN' ?></span>
                             <ul class="header-account-option">
                                 <?php
                                 if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
@@ -59,8 +59,13 @@
                                         <a href="<?php if ($_SESSION['user']['gr_id'] == 1) echo _WEB_ROOT . '/admin';
                                                     else echo _WEB_ROOT . '/user/profile' ?>" class="a-option d-flex m-0 justify-content-center">
                                             <i class="fa-solid fa-user-check"></i>
-                                            <span class="" style="white-space: nowrap;"><?php echo $_SESSION['user']['name'] ?></span>
+                                            <span class="" style="white-space: nowrap;">Hồ sơ</span>
                                         </a>
+                                    </li>
+                                    <li class="option-select">
+                                        <a class="a-option" href="<?= _WEB_ROOT . '/product/liked_product' ?>">
+                                            <i class="fa-solid fa-heart"></i>
+                                            Yêu thích</a>
                                     </li>
                                     <li class="option-select">
                                         <a class="a-option heading-regis" href="<?= _WEB_ROOT . '/Auth/logout' ?>">

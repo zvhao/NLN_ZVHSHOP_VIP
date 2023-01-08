@@ -14,6 +14,11 @@ function getNameUser($id){
     return $conn->pdo_query_one($sql);
 }
 
+function getLastName($name) {
+    $fullName = explode(' ', trim($name));
+    return end($fullName);
+}
+
 function getNameUserGroup($gr_id)
 {
     $name = '';

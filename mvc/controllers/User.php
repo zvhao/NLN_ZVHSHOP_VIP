@@ -208,7 +208,7 @@ class User extends Controller
             'page' => 'profile',
             'title' => 'HỒ SƠ',
             'css' => ['base', 'main'],
-            'js' => ['main'],
+            'js' => ['main', 'profile'],
             'user' => $user,
             'categories' => $categories,
             'infoCart' => $infoCart,
@@ -233,7 +233,7 @@ class User extends Controller
             $status = $this->user->updateProfile($id, $name, $avatar, $email, $phone, $address, $desc, $updated_at);
             if (isset($_SESSION['user'])) {
                 $email = $_SESSION['user']['email'];
-                $_SESSION['user'] = $this->user->SelectOneUser($email);
+                $_SESSION['user'] = $this->user->SelectUser($id);
             }
 
             if ($status) {

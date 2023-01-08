@@ -1,3 +1,10 @@
+<?php
+redirectToDetailBill($data['listIdBill'])
+
+// show_array($_SESSION);
+
+?>
+
 <div class="grid wide mb-5">
 	<nav>
 		<ol class="breadcrumb">
@@ -7,7 +14,7 @@
 	</nav>
 
 	<div>
-		<h2 class="text-center text-uppercase text-color-main">Cảm ơn bạn đã đặt hàng, hãy xem lại đơn hàng</h2>
+		<h2 class="text-center text-uppercase text-color-main">Cảm ơn bạn đã đặt hàng, <b class="text-danger">hãy kiểm tra thật kĩ trước khi rời khỏi</b></h2>
 
 		<div class="row" style="font-size: 1.6rem;">
 			<div class="d-flex flex-column col-6">

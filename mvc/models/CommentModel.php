@@ -41,4 +41,9 @@ class CommentModel extends DB
 		$sql = "SELECT avg(rating) as total_rating FROM `comments` WHERE id_pro = '$id_pro'";
 		return $this->pdo_query_value($sql);
 	}
+
+	function  countComment($id_pro) {
+		$select = "SELECT COUNT(*) FROM `comments` WHERE id_pro = $id_pro";
+		return $this->pdo_query_value($select);
+	}
 }

@@ -96,7 +96,8 @@ if (!isset($_SESSION['user'])) {
 							}
 							?>
 						</ul>
-						<div class="d-flex justify-content-end fs-3 p-3 pe-5 bill-total">
+						<div class="d-flex justify-content-between align-items-lg-center fs-3 p-3 pe-5 bill-total">
+							<a href="<?= _WEB_ROOT . '/bill/detail_bill/' . $bill['id'] ?>" class="text-color-main outline-main p-2">Chi tiết đơn hàng</a>
 							<div>
 								<span>Tổng số tiền: </span>
 								<span class="text-color-main fw-bold fs-2"><?= numberFormat($bill['total']) ?></span>

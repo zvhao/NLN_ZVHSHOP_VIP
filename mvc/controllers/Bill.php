@@ -126,7 +126,18 @@ class Bill extends Controller
 		$categories = $this->categories->getAllCl();
 		$bill = $this->bills->SelectOneBill($id);
 		$detailBill = $this->bills->getDetailBill($id);
-		// show_array($detailBill);
+		$listIdBill = array();
+		if(isset($_SESSION['user'])) {
+			$id_user = $_SESSION['user']['id'];
+			$getAllBill = $this->bills->getAllBill(-1, $id_user,'');
+			foreach($getAllBill as $item) {
+				// echo '<pre>';
+				// print_r($item['id']);
+				$listIdBill[$item['id']] = $item['id'];
+			}
+			// die();
+		}
+		// show_array($listIdBill);
 		return $this->view("client", [
 			'page' => 'detail_bill',
 			'title' => 'Chi tiết đơn hàng',
@@ -135,6 +146,7 @@ class Bill extends Controller
 			'bill' => $bill,
 			'detailBill' => $detailBill,
 			'categories' => $categories,
+			'listIdBill' => $listIdBill,
 
 		]);
 	}
@@ -182,9 +194,10 @@ class Bill extends Controller
 					}
 					unset($_SESSION['cart']);
 				}
+				$_SESSION['bill_new'] = $idBill;
 			}
 
-			// show_array($bill);
+			// show_array($_SESSION['bill_new']);
 			redirectTo("bill/detail_bill/$idBill");
 		}
 	}

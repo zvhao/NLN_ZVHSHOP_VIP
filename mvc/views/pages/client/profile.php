@@ -10,7 +10,7 @@ if (!isset($_SESSION['user'])) {
 			<li class="breadcrumb-item active"><?= $data['title'] ?></li>
 		</ol>
 	</nav>
-	<form action="<?= _WEB_ROOT . '/user/update_profile' ?>" method="post" enctype="multipart/form-data" class="mb-3">
+	<form action="<?= _WEB_ROOT . '/user/update_profile' ?>" method="post" enctype="multipart/form-data" class="mb-3 form-profile">
 		<?php
 		if (isset($_SESSION['msg']) && !empty($_SESSION['msg'])) {
 		?>
@@ -30,7 +30,7 @@ if (!isset($_SESSION['user'])) {
 				</div>
 				<div class="col fs-3 text-center">
 					<label for="">Cập nhật ảnh đại diện</label>
-					<input type="file" name="avatar" id="avatar" value="" class="file-upload">
+					<input type="file" name="avatar" id="avatar" value="<?= $data['user']['avatar'] ?>" class="file-upload">
 				</div>
 			</div>
 			<div class="col-8 fs-3" data-aos="fade-left">

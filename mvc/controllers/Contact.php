@@ -45,7 +45,7 @@ class Contact extends Controller
             'page' => 'contact',
             'title' => 'Liên hệ',
             'css' => ['base', 'main'],
-            'js' => ['main'],
+            'js' => ['main', 'contact'],
             'categories' => $categories,
             'products' => $productNew,
             'infoCart' => $infoCart,
@@ -64,13 +64,13 @@ class Contact extends Controller
 
             $status = $this->contacts->insertContact($name, $phone, $email, $content, $created_at);
 
-            if ($status) {
-                $_SESSION['msg'] = "Bạn đã gửi thành công!";
-            } else {
-                $_SESSION['msg'] = "Gửi thất bại";
-            }
-
-            redirectTo('contact');
+            // if ($status) {
+            //     $_SESSION['msg'] = "Bạn đã gửi thành công!";
+            //     echo $status;
+            // } else {
+            //     $_SESSION['msg'] = "Gửi thất bại";
+            // }
+            // // redirectTo('contact');
         }
     }
 }

@@ -10,8 +10,7 @@ class Product extends Controller
     {
         $this->products = $this->model('ProductModel');
         $this->categories = $this->model('CategoryModel');
-		$this->cart = $this->model('CartModel');
-
+        $this->cart = $this->model('CartModel');
     }
 
     function show_product()
@@ -52,16 +51,16 @@ class Product extends Controller
 
 
         $count_product = !empty($products) ? count($products) : 0;
-        
+
         $num_per_page = 8;
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $start = ($page - 1) * $num_per_page;
         $SelectProByPage = $this->products->SelectProByPage($start, $num_per_page, $keyword, 0, $cate);
         foreach ($SelectProByPage as $item) {
-            $soldArr = $this->products->soldPro($item['id']);            
+            $soldArr = $this->products->soldPro($item['id']);
             $item['sold'] = 0;
             $item['liked'] = 0;
-            if($soldArr) {
+            if ($soldArr) {
                 $item['sold'] = $soldArr['sold'];
             }
             if (isset($_SESSION['user'])) {
@@ -71,9 +70,6 @@ class Product extends Controller
                     $item['liked'] = 1;
                 }
             }
-        //     if (!empty($this->products->getProImg($item['id']))) {
-        //         $item['detail_img'] = $this->products->getProImg($item['id'])['image'];
-        //     }
             array_push($productNew, $item);
         }
         // show_array($productNew);
@@ -91,6 +87,39 @@ class Product extends Controller
             'count_product' => $count_product,
             'infoCart' => $infoCart,
             'detailCart' => $detailCart,
+        ]);
+    }
+
+    function liked_product()
+    {
+
+        $likedproduct = [];
+        $likedproductNew = [];
+        if (isset($_SESSION['user'])) {
+            $id_user = $_SESSION['user']['id'];
+            $getAllFavoriteByUser = $this->products->getAllFavoriteByUser($id_user);
+
+            foreach ($getAllFavoriteByUser as $item) {
+                $soldArr = $this->products->soldPro($item['id']);
+                $item['sold'] = 0;
+                $item['liked'] = 0;
+                if ($soldArr) {
+                    $item['sold'] = $soldArr['sold'];
+                }
+                $item['liked'] = 1;
+
+                array_push($likedproductNew, $item);
+            }
+        }
+
+        // show_array($likedproductNew);
+        return $this->view('client', [
+            'page' => 'liked_product',
+            'css' => ['base', 'main'],
+            'js' => ['main'],
+            'title' => 'Sản phẩm yêu thích',
+            'likedproductNew' => $likedproductNew,
+
         ]);
     }
 

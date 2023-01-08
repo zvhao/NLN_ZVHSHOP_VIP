@@ -42,6 +42,7 @@ class DetailProduct extends Controller
         $comments = $this->comment->getAllComment($id);
         $favorites = $this->products->countFavoritePro($id);
         $soldArr = $this->products->soldPro($id);
+        $countComment = $this->comment->countComment($id);
         if($soldArr) {
             $sold = $soldArr['sold'];
         }  
@@ -96,6 +97,7 @@ class DetailProduct extends Controller
             'liked' => $liked,
             'favorites' => $favorites,
             'sold' => $sold,
+            'countComment' => $countComment,
 
         ]);
     }

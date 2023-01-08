@@ -69,7 +69,7 @@ if (isset($_POST['btn-statistical']) && !isset($_SESSION['msg'])) {
 
 			?>
 					<tr>
-						<th scope="row" class="align-middle"><?php echo $bill['id'] ?></th>
+						<th scope="row" class="align-middle"  ><?php echo $bill['id'] ?></th>
 						<td class="align-middle"><?= $bill['user_id'] . "</br>" ?>
 							<p style="width:150px; overflow: hidden; white-space: wrap; text-overflow:ellipsis; margin: 0;"><?= $bill['email_user'] . "</br>" . $bill['name_user']; ?></p>
 						</td>
@@ -105,68 +105,10 @@ if (isset($_POST['btn-statistical']) && !isset($_SESSION['msg'])) {
 		</tbody>
 	</table>
 
-
+<!-- 
 	<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-		<div class="modal-dialog" style="max-width: 75%;">
 
-			<div class="modal-content">
-
-				<div class="modal-header">
-					<h5 class="modal-title" id="ModalLabel">Chi tiết đơn hàng</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body fs-3">
-					<div class="row" style="font-size: 1rem;">
-						<div class="d-flex flex-column col-6">
-							<div class="checkout-heading mb-3">Thông tin khách hàng</div>
-							<div>
-								<p>Họ và tên: <span class=""><?= $bill['name_user'] ?></span></p>
-								<p>Số điện thoại: <span class=""><?= $bill['tel'] ?></span> </p>
-							</div>
-							<p>Email: <span class=""><?= $bill['email_user'] ?></span> </p>
-							<p>Địa chỉ nhận hàng: <span class=""><?= $bill['address'] ?></span> </p>
-							<p>Ghi chú: <?= $bill['note'] ?></p>
-
-						</div>
-						<div class="col-6">
-							<div class="checkout-heading">Thông tin đơn hàng</div>
-
-							<?php
-							if ($bill['detail']) {
-								foreach ($bill['detail'] as $item) {
-							?>
-									<div class="row checkout-item-pro">
-										<p class="col-2 m-0"><img width="60px" src="<?= _PATH_IMG_PRODUCT . $item['image'] ?>" alt=""></p>
-										<div class="col-7">
-
-											<p class="checkout-item-name"><?= $item['name_pro'] ?></p>
-											<strong> x <?= $item['qty'] ?></strong>
-										</div>
-										<p class="m-0 col-3 d-flex justify-content-end adivgn-items-center  fw-bold"><?= numberFormat($item['price']) ?></p>
-									</div>
-
-							<?php
-								}
-							}
-							?>
-
-							<div class="fs-2 text-right mt-3">
-								<span>Tổng giá: <?= numberFormat($item['price']) ?></span>
-								<span class=" fw-bold"></span>
-							</div>
-							<div class="row my-3">
-								<div class="col text-right">Phương thức thanh toán: <span class=""><?= $bill['method'] ?></span></div>
-							</div>
-
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
+	</div> -->
 
 
 <?php

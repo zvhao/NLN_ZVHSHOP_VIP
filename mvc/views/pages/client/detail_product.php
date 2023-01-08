@@ -65,7 +65,7 @@
 
                 <form class="form-add-to-cart" action="<?= _WEB_ROOT . '/cart/add_cart?id=' . $data['product']['id'] ?>" method="post">
                     <input type="hidden" name="id_pro" value="<?= $data['product']['id'] ?>">
-                    <input type="hidden" name="id_user" value="<?php if(isset($_SESSION['user']['id'])) echo $_SESSION['user']['id'] ?>">
+                    <input type="hidden" name="id_user" value="<?php if (isset($_SESSION['user']['id'])) echo $_SESSION['user']['id'] ?>">
                     <p class="title-product"><?= $data['product']['name'] ?></p>
                     <div class="info-product-short my-3">
 
@@ -85,7 +85,8 @@
                             <?php } ?>
                             <span class="fs-3"><span class="favorites"><?= $data['favorites'] ?></span> lượt thích</span>
                         </span>
-                        <span class="fs-3">đã bán: <?= $data['sold'] ?></span>
+                        <span class="fs-3 me-5"><span class="text-color-main"><?= $data['sold'] ?></span> đã bán</span>
+                        <span class="fs-3"><span class="text-color-main"><?= $data['countComment'] ?></span> đánh giá</span>
                     </div>
                     <p class="price-product fs-1"><?php numberFormat($data['product']['price']) ?></p>
                     <div class="num-order-product">
@@ -124,7 +125,8 @@
                     <?= getRatingStarRound($data['avgRating']) ?>
                 </p>
             </div>
-            <div class="col-9">
+            <div class="col-9 d-flex align-items-center">
+                <span class="fs-3"><span class="text-color-main"><?= $data['countComment'] ?></span> đánh giá</span>
 
             </div>
             <hr>

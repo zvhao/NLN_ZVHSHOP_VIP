@@ -8,7 +8,7 @@ function avatarHeader() {
 		} else {
 			$avt .= _PATH_IMG_PUBLIC . "/profile.jpg";
 		}
-		$avt .= "' alt='' style='width: 30px; height: 30px; max-width: 100%; object-fit: cover; object-position: center; margin-bottom: 5px;'>";
+		$avt .= "' alt='' style='width: 25px; height: 25px; max-width: 100%; object-fit: cover; object-position: center; margin-bottom: 5px;'>";
 	} else {
 		$avt = "<i class='fa-solid fa-user'></i>";
 	}

@@ -31,16 +31,16 @@
             <p>Chúng tôi mong muốn lắng nghe từ bạn. Hãy liên hệ với chúng tôi và một thành viên của chúng tôi
                 sẽ liên lạc với bạn trong thời gian sớm nhất. Chúng tôi yêu thích việc nhận được email của bạn
                 mỗi ngày.</p>
-            <form method="post" class="bg-form-control p-3 border-radius-main border-main" action="<?= _WEB_ROOT . '/contact/send_contact' ?>">
+            <form method="post" class="bg-form-control p-3 border-radius-main border-main form-contact" action="<?= _WEB_ROOT . '/contact/send_contact' ?>">
                 <div class="row contact-group">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                        <input placeholder="Họ và tên" type="text" class=" form-control  form-control-lg" required="" value="<?php if (isset($_SESSION['user'])) echo $_SESSION['user']['name'] ?>" name="name">
+                        <input placeholder="Họ và tên" type="text" class=" form-control  form-control-lg" required value="<?php if (isset($_SESSION['user'])) echo $_SESSION['user']['name'] ?>" name="name">
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                        <input type="text" placeholder="Điện thoại" name="phone" class=" form-control form-control-lg" required="" value="<?php if (isset($_SESSION['user'])) echo $_SESSION['user']['phone'] ?>">
+                        <input type="text" placeholder="Điện thoại" name="phone" class=" form-control form-control-lg" required value="<?php if (isset($_SESSION['user'])) echo $_SESSION['user']['phone'] ?>">
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                        <input placeholder="Email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required="" id="email1" class=" form-control form-control-lg" value="<?php if (isset($_SESSION['user'])) echo $_SESSION['user']['email'] ?>" name="email">
+                        <input placeholder="Email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required class=" form-control form-control-lg" value="<?php if (isset($_SESSION['user'])) echo $_SESSION['user']['email'] ?>" name="email">
                     </div>
 
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
@@ -56,15 +56,5 @@
         </div>
     </div>
 
-    <?php
-    if (isset($_SESSION['msg']) && !empty($_SESSION['msg'])) {
-    ?>
-        <div id="message" style="position: fixed; top: 130px; right: 100px; z-index: 1; width: 400px;" class="alert alert-success mt-3 fs-3" role="alert">
-            <?= $_SESSION['msg'] ?>
-        </div>
-    <?php
-        $_SESSION['msg'] = '';
-    }
-    ?>
 
 </div>
