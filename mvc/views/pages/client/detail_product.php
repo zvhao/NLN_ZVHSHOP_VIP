@@ -120,13 +120,13 @@
         <p class="mb-5 heading-detail-section">ĐÁNH GIÁ SẢN PHẨM</p>
         <div class="row">
             <div class="col-3 fs-2">
-                <p class="mb-0 text-color-main text-center lh-1"><span style="font-size: 4rem;"><?= $data['avgRating'] ?></span> trên 5</p>
+                <p class="mb-0 text-color-main text-center lh-1"><span class="avg-rating" style="font-size: 4rem;"><?= $data['avgRating'] ?></span> trên 5</p>
                 <p class="icon-main text-center">
                     <?= getRatingStarRound($data['avgRating']) ?>
                 </p>
             </div>
             <div class="col-9 d-flex align-items-center">
-                <span class="fs-3"><span class="text-color-main"><?= $data['countComment'] ?></span> đánh giá</span>
+                <span class="fs-3"><span class="text-color-main count-comment"><?= $data['countComment'] ?></span> đánh giá</span>
 
             </div>
             <hr>

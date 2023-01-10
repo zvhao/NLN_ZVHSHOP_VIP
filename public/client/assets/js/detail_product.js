@@ -167,7 +167,10 @@ $(document).ready(function () {
 					showConfirmButton: false,
 					timer: 1500
 				})
+				// var dataNew = JSON.parse(data)
 				console.log(data);
+				$('.avg-rating').text(data.avgRound);
+				$('.count-comment').text(data.countComment);
 				$(".form-comment").load($url + " .form-comment")
 				$(".table-comments").load($url + " .table-comments")
 			},

@@ -29,13 +29,21 @@ class Comment extends Controller
 			// foreach($arrTotalRating as $item) {
 			// 	$this->products->updateRating($item['id_pro'], round($item['total_rating'], 1));
 			// }
+			$countComment = $this->comment->countComment($id_pro);
 
-			$avgTaring = $this->comment->avgTotalRatingOne($id_pro);
-			// show_array($avgTaring);
+
+			$avgRating = $this->comment->avgTotalRatingOne($id_pro);
+			// show_array($avgRating);
+
+			$avgRound = round($avgRating, 1);
 			
-			$this->products->updateRating($id_pro, round($avgTaring, 1));
+			$this->products->updateRating($id_pro, round($avgRating, 1));
 			$comments = $this->comment->getAllComment($id_pro);
-			print_r(json_encode($comments));
+			$data = array(
+				'avgRound' => $avgRound,
+				'countComment' => $countComment
+			);
+			print_r(json_encode($data));
 			// redirectTo("detailproduct/product/$id_pro");
 		}
 	}
