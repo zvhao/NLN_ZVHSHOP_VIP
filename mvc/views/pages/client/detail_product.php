@@ -16,7 +16,7 @@
         <?php
         ?>
         <div class="info-product row">
-            <div class="left-product col-5 d-flex" data-aos="fade-right">
+            <div class="left-product col-6 d-flex" data-aos="fade-right">
                 <div thumbsSlider="" class="col-3 swiper mySwiper">
                     <div class="swiper-wrapper d-flex">
                         <div class="swiper-slide swiper-slide-l">
@@ -40,14 +40,14 @@
                 <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="col-9 swiper mySwiper2">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide swiper-slide-r">
-                            <img class="col w-100" style="width: 330px; height: 400px; max-width: 100%; object-fit: cover; object-position: center;" src="<?php echo _PATH_IMG_PRODUCT . $data['product']['image'] ?>" alt="">
+                            <img class="col w-100" style="width: 380px; height: 380px; max-width: 100%; object-fit: cover; object-position: center;" src="<?php echo _PATH_IMG_PRODUCT . $data['product']['image'] ?>" alt="">
                         </div>
                         <?php
                         if (isset($data['img_product']) && $data['img_product'] != '') {
                             foreach ($data['img_product'] as $item) {
                         ?>
                                 <div class="swiper-slide swiper-slide-r">
-                                    <img class="col w-100" style="width: 330px; height: 330px; max-width: 100%; object-fit: cover; object-position: center;" src="<?php echo _PATH_IMG_PRODUCT . $item['image'] ?>" alt="">
+                                    <img class="col w-100" style="width: 380px; height: 380px; max-width: 100%; object-fit: cover; object-position: center;" src="<?php echo _PATH_IMG_PRODUCT . $item['image'] ?>" alt="">
 
                                 </div>
                         <?php
@@ -61,7 +61,7 @@
 
 
             </div>
-            <div class="right-product col-7" data-aos="fade-left">
+            <div class="right-product col-6" data-aos="fade-left">
 
                 <form class="form-add-to-cart" action="<?= _WEB_ROOT . '/cart/add_cart?id=' . $data['product']['id'] ?>" method="post">
                     <input type="hidden" name="id_pro" value="<?= $data['product']['id'] ?>">

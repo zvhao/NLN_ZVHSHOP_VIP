@@ -50,8 +50,8 @@
 
                 </div>
                 <input type="hidden" name="register" value="register">
-                <div class="input-field button">
-                    <button type="submit">Đăng ký</button>
+                <div class="input-field">
+                    <button class="w-100 btn-main p-4" type="submit">Đăng ký</button>
                 </div>
             </form>
 

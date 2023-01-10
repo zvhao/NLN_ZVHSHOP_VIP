@@ -73,13 +73,14 @@ if (!empty($_SESSION['msg'])) {
 								}  ?></span>
 						<p class="m-0">Tổng tiền: <?= $this->numberFormat($bill['total']) ?></p>
 					</td>
-					<td class="align-middle"><?= $this->getStatusBill($bill['status']) ?></td>
+					<td class="align-middle" data-id="<?= $bill['id'] ?>" ><?= $this->getStatusBill($bill['status']) ?></td>
 					<td class="align-middle"><?= $bill['method'] ?></td>
 					<td class="align-middle"><?php echo $bill['created_at'] ?></td>
 					<td class="text-center align-middle">
-						<a class="btn btn-outline-primary <?php if ($bill['status'] == 2) echo 'disabled' ?>" href="<?php echo _WEB_ROOT . '/bill/update_bill/' . $bill['id'] ?>">
-							<i class="fa-solid fa-dolly"></i>
-						</a>
+						<input type="hidden" name="href-<?= $bill['id'] ?>" value="<?php echo _WEB_ROOT . '/bill/update_bill/' . $bill['id'] ?>">
+						<button class="btn btn-outline-primary btn-update-status" href="<?php echo _WEB_ROOT . '/bill/update_bill/' . $bill['id'] ?>" data-id="<?= $bill['id'] ?>"  <?php if ($bill['status'] == 2) echo 'disabled' ?> >
+							<i class="fa-solid fa-dolly" data-id="<?= $bill['id'] ?>"></i>
+						</button>
 						<a class="handle_delete btn btn-outline-danger ml-2" href="<?php echo _WEB_ROOT . '/bill/delete_bill/' . $bill['id'] ?>">
 							<i class="fas fa-trash-alt"></i>
 						</a>

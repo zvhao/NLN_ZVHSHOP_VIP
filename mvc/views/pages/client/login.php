@@ -45,8 +45,8 @@
                 </div> -->
                 
                 <input type="hidden" name="login" value="login">
-                <div class="input-field button">
-                    <button class="" type="submit">Đăng nhập ngay</button>
+                <div class="input-field">
+                    <button class="w-100 btn-main p-4" type="submit">Đăng nhập ngay</button>
                 </div>
             </form>
 

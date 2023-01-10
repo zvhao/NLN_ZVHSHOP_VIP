@@ -1,6 +1,6 @@
 window.addEventListener('load',function(){
     const btnDelete = document.querySelectorAll('.handle_delete');
-    console.log(btnDelete);
+    // console.log(btnDelete);
     const deleteData = function (e){
         e.preventDefault();
         if(e.target.matches('.handle_delete i')){

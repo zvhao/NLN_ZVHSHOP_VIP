@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 07, 2023 at 05:53 PM
+-- Generation Time: Jan 08, 2023 at 03:35 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -73,7 +73,15 @@ INSERT INTO `bills` (`id`, `fullname`, `tel`, `email`, `address`, `note`, `total
 (155, 'tran cong minh', '0189898989', 'congminh@gmail.com', '139, Nguyễn Đệ', '', 14330000, '2', 'payment-bank', 20, '2023-01-04 12:20:16', '0000-00-00 00:00:00'),
 (156, 'Nguyễn Văn Hào', '0989898989', 'danh@gmail.com', '139 nguyen de', '', 4450000, '0', 'payment-cod', 0, '2023-01-06 19:10:28', NULL),
 (157, 'tran cong minh', '0189898989', 'congminh@gmail.com', '139, Nguyễn Đệ', '', 3550000, '0', 'payment-bank', 0, '2023-01-06 19:11:12', NULL),
-(158, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '139, Nguyễn Đệ, An Hoà, Ninh Kiều, Cần Thơ', '', 19980000, '0', 'payment-cod', 23, '2023-01-06 20:59:25', NULL);
+(158, 'Nguyễn Văn Hào', '0938744376', 'haob1910217@student.ctu.edu.vn', '139, Nguyễn Đệ, An Hoà, Ninh Kiều, Cần Thơ', '', 19980000, '0', 'payment-cod', 23, '2023-01-06 20:59:25', NULL),
+(159, 'Nguyen Van A', '0303030303', 'a@gmail.com', '139 nguyen de', 'ok', 4450000, '0', 'payment-cod', 0, '2023-01-08 12:38:53', NULL),
+(160, 'Nguyen Van A', '0303030303', 'a@gmail.com', '139 nguyen de', 'ok', 4450000, '0', 'payment-cod', 0, '2023-01-08 12:39:24', NULL),
+(161, 'Nguyen Van A', '0303030303', 'a@gmail.com', '139 nguyen de', '', 3100000, '0', 'payment-cod', 0, '2023-01-08 12:57:28', NULL),
+(162, 'Nguyen Van A', '0303030303', 'a@gmail.com', '139 nguyen de', '', 799000, '0', 'payment-cod', 0, '2023-01-08 12:58:15', NULL),
+(163, 'Nguyen Van A', '0303030303', 'a@gmail.com', '139 nguyen de', '', 799000, '0', 'payment-cod', 0, '2023-01-08 12:58:29', NULL),
+(164, 'Nguyen Van A', '0303030303', 'a@gmail.com', '139 nguyen de', 'a', 4450000, '0', 'payment-cod', 0, '2023-01-08 12:59:09', NULL),
+(165, 'Nguyen Van A', '0303030303', '2hd@gmail.com', '139 nguyen de', '', 799000, '0', 'payment-cod', 0, '2023-01-08 12:59:35', NULL),
+(166, 'tran cong minh', '0189898989', 'congminh@gmail.com', '12, 3/2', '', 21892000, '0', 'payment-cod', 20, '2023-01-08 16:05:33', NULL);
 
 -- --------------------------------------------------------
 
@@ -94,7 +102,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `id_user`, `num_order`, `total`, `created_at`) VALUES
-(2, 20, 13, 21892000, '2022-12-31 12:05:32'),
+(2, 20, 1, 3100000, '2022-12-31 12:05:32'),
 (4, 22, 0, 0, '2022-12-31 12:45:00'),
 (5, 23, 0, 0, '2022-12-31 20:02:20'),
 (6, 24, 1, 0, '2023-01-02 09:50:23');
@@ -260,7 +268,15 @@ INSERT INTO `detail_bill` (`id`, `id_bill`, `id_pro`, `qty`, `price`, `sub_total
 (149, 156, 37, 1, 4450000, 4450000, '16675303581424640371.jpg', 'Vợt Cầu Lông Yonex NanoFlare 700 - Xanh', '2023-01-06 19:10:28', NULL),
 (150, 157, 15, 1, 3550000, 3550000, '16665026651676912011.jpg', 'Giày Cầu Lông Victor P9200II TTY Trắng Nội Địa', '2023-01-06 19:11:12', NULL),
 (151, 158, 29, 3, 3560000, 10680000, '16666039961788879204.jpg', 'Vợt Cầu Lông Yonex Nanoflare 700 (Cyan)', '2023-01-06 20:59:25', NULL),
-(152, 158, 36, 3, 3100000, 9300000, '1667530071376616849.jpeg', 'Vợt Cầu Lông Yonex Arcsaber 11 2017', '2023-01-06 20:59:25', NULL);
+(152, 158, 36, 3, 3100000, 9300000, '1667530071376616849.jpeg', 'Vợt Cầu Lông Yonex Arcsaber 11 2017', '2023-01-06 20:59:25', NULL),
+(153, 159, 37, 1, 4450000, 4450000, '16675303581424640371.jpg', 'Vợt Cầu Lông Yonex NanoFlare 700 - Xanh', '2023-01-08 12:38:53', NULL),
+(154, 160, 37, 1, 4450000, 4450000, '16675303581424640371.jpg', 'Vợt Cầu Lông Yonex NanoFlare 700 - Xanh', '2023-01-08 12:39:24', NULL),
+(155, 161, 36, 1, 3100000, 3100000, '1667530071376616849.jpeg', 'Vợt Cầu Lông Yonex Arcsaber 11 2017', '2023-01-08 12:57:28', NULL),
+(156, 162, 35, 1, 799000, 799000, '1667529713921198222.jpg', 'Vợt Cầu Lông Yonex NanoFlare Drive', '2023-01-08 12:58:15', NULL),
+(157, 164, 37, 1, 4450000, 4450000, '16675303581424640371.jpg', 'Vợt Cầu Lông Yonex NanoFlare 700 - Xanh', '2023-01-08 12:59:09', NULL),
+(158, 165, 34, 1, 799000, 799000, '1667528870298238714.png', 'Vợt Cầu Lông Yonex Nanoray Light 11i', '2023-01-08 12:59:35', NULL),
+(159, 166, 36, 5, 3100000, 15500000, '1667530071376616849.jpeg', 'Vợt Cầu Lông Yonex Arcsaber 11 2017', '2023-01-08 16:05:33', NULL),
+(160, 166, 35, 8, 799000, 6392000, '1667529713921198222.jpg', 'Vợt Cầu Lông Yonex NanoFlare Drive', '2023-01-08 16:05:33', NULL);
 
 -- --------------------------------------------------------
 
@@ -286,8 +302,8 @@ CREATE TABLE `detail_cart` (
 
 INSERT INTO `detail_cart` (`id`, `id_cart`, `id_pro`, `image`, `name`, `price`, `qty`, `sub_total`, `created_at`) VALUES
 (79, 6, 35, '1667529713921198222.jpg', 'Vợt Cầu Lông Yonex NanoFlare Drive', 799000, 7, 5593000, '2023-01-02 22:45:47'),
-(211, 2, 35, '1667529713921198222.jpg', 'Vợt Cầu Lông Yonex NanoFlare Drive', 799000, 8, 6392000, '2023-01-05 23:12:52'),
-(212, 2, 36, '1667530071376616849.jpeg', 'Vợt Cầu Lông Yonex Arcsaber 11 2017', 3100000, 5, 15500000, '2023-01-06 19:20:09');
+(215, 0, 16, '1666502820762601655.jpg', 'Giày Cầu Lông Lining AYAR 025-2', 3400000, 3, 10200000, '2023-01-08 20:07:12'),
+(216, 2, 36, '1667530071376616849.jpeg', 'Vợt Cầu Lông Yonex Arcsaber 11 2017', 3100000, 1, 3100000, '2023-01-08 20:10:03');
 
 -- --------------------------------------------------------
 
@@ -572,7 +588,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bills`
 --
 ALTER TABLE `bills`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
 
 --
 -- AUTO_INCREMENT for table `cart`
@@ -602,13 +618,13 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `detail_bill`
 --
 ALTER TABLE `detail_bill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
 
 --
 -- AUTO_INCREMENT for table `detail_cart`
 --
 ALTER TABLE `detail_cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=215;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
 
 --
 -- AUTO_INCREMENT for table `favorite`

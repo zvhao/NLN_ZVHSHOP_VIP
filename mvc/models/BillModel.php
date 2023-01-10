@@ -69,7 +69,7 @@ class BillModel extends DB
 	{
 		$sql = "UPDATE bills SET status= '$status', updated_at= '$updated_at' WHERE id= '$id' ";
 
-		return $this->pdo_execute($sql);
+		return $this->pdo_execute_lastInsertID($sql);
 	}
 
 	public function deleteBill($id)

@@ -88,7 +88,7 @@
 			</div>
 		</form>
 		<div class="section-detail fs-4 mt-3">
-			<p class="title">Click vào <span class="text-color-main">“Cập nhật giỏ hàng”</span> để cập nhật số lượng. Nhấn vào thanh toán để vào trang thanh toán.</p>
+			<p class="title text-end">Nhấn vào <b>thanh toán</b> để vào trang thanh toán và điền thông tin.</p>
 			<!-- <a href="" title="" id="delete-cart">Xóa giỏ hàng</a> -->
 		</div>
 

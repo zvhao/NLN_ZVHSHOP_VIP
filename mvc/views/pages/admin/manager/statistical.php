@@ -52,6 +52,7 @@ if (isset($_POST['btn-statistical']) && !isset($_SESSION['msg'])) {
 		<h4>Tổng doanh thu là <b class="text-primary"><?= numberFormat($data['sumBillStatistical']) ?></b></h4>
 	</div>
 
+
 	<table class="table table-striped table_bill">
 		<thead>
 			<tr>
@@ -69,7 +70,7 @@ if (isset($_POST['btn-statistical']) && !isset($_SESSION['msg'])) {
 
 			?>
 					<tr>
-						<th scope="row" class="align-middle"  ><?php echo $bill['id'] ?></th>
+						<th scope="row" class="align-middle"><?php echo $bill['id'] ?></th>
 						<td class="align-middle"><?= $bill['user_id'] . "</br>" ?>
 							<p style="width:150px; overflow: hidden; white-space: wrap; text-overflow:ellipsis; margin: 0;"><?= $bill['email_user'] . "</br>" . $bill['name_user']; ?></p>
 						</td>
@@ -78,7 +79,7 @@ if (isset($_POST['btn-statistical']) && !isset($_SESSION['msg'])) {
 						<td class="align-middle"><?php echo $bill['created_at'] ?></td>
 						<td class="align-middle">
 							<input type="hidden" name="bill" value="<?= $bill['id'] ?>">
-							<button type="submit" class="btn btn-primary btn-detail-bill" data-toggle="modal" data-target="#Modal" data-id="<?= $bill['id'] ?>">Xem</button>
+							<button type="button" class="btn btn-primary btn-detail-bill" data-id="<?= $bill['id'] ?>" data-toggle="modal" data-target="#modal">Xem</button>
 
 
 
@@ -87,7 +88,6 @@ if (isset($_POST['btn-statistical']) && !isset($_SESSION['msg'])) {
 
 					</tr>
 
-					<!-- Modal -->
 
 				<?php
 
@@ -105,10 +105,38 @@ if (isset($_POST['btn-statistical']) && !isset($_SESSION['msg'])) {
 		</tbody>
 	</table>
 
-<!-- 
-	<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
 
-	</div> -->
+	<!-- Modal -->
+	<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="max-width: 75%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalLabel">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body row" style="font-size: 1rem;">
+					<div class="d-flex flex-column col-5 bill-info-user">
+					</div>
+
+					<div class="col-7 bill-info-product">
+						<div class="checkout-heading mb-3 text-primary font-weight-bold" style="font-size: 1.6rem;">Thông tin đơn hàng</div>
+						<div class="bill-info-pro-list" style=" max-height: 40vh; overflow-y: auto;">
+
+						</div>
+						<div class="bill-info-bill">
+
+						</div>
+						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 <?php

@@ -69,3 +69,47 @@ document.querySelector('#Modal').innerHTML += `
 
 </div >
 </div >
+
+
+
+
+
+
+
+
+
+					dataNew.detail.forEach(e => {
+						document.querySelector('.bill-info').innerHTML += `
+	<div class="row checkout-item-pro">
+		<p class="col-2 m-0"><img width="60px" height="60px" src="http://localhost/ZVHSHOP/upload/product/${e.image}" alt="" style="object-fit: cover; object-position: center;" ></p>
+		<div class="col-7">
+
+			<p class="checkout-item-name">${e.name_pro}</p>
+			<strong> x ${e.qty}</strong>
+		</div>
+		<p class="m-0 col-3 d-flex justify-content-end align-items-center font-weight-bold text-primary">${e.price.toLocaleString('de-DE') + "₫"}</p>
+	</div>
+
+`
+
+					});
+					document.querySelector('.bill-info').innerHTML += `
+<div class=" text-right mt-3 border-top border-primary pt-2" style="font-size: 1.2rem;">
+	<span class="font-weight-bold text-primary">Tổng giá: ${dataNew.total.toLocaleString('de-DE') + "₫"}</span>
+	<span class=" font-size-bold"></span>
+</div>
+<div class="row my-3">
+	<div class="col text-right">Phương thức thanh toán: <span class="">${dataNew.method}</span></div>
+</div>
+
+`
+
+
+
+
+
+
+
+
+
+

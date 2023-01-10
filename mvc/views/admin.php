@@ -106,7 +106,7 @@ if ((int)$_SESSION['user']['gr_id'] != 1) {
 
             <li class="nav-item">
               <a href="<?php echo _WEB_ROOT . "/statistical" ?>" class="nav-link <?php if ($data['page'] == 'manager/statistical') echo 'active' ?>">
-                <i class="fas fa-users"></i>
+              <i class="fa-solid fa-chart-bar"></i>
                 <p class="pl-3">
                   Thống kê doanh thu
                   <!-- <span class="right badge badge-danger">New</span> -->
@@ -163,6 +163,19 @@ if ((int)$_SESSION['user']['gr_id'] != 1) {
                   <!-- <span class="right badge badge-danger">New</span> -->
                 </p>
               </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-warehouse"></i>
+                <p class="px-3">
+                  Kho hàng
+                </p>
+              </a>
+              <div class="dropdown-menu bg-gradient-gray-dark">
+                <a class="dropdown-item" href="#">Đơn vị</a>
+                <a class="dropdown-item" href="#">Nhà cung cấp</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
             </li>
 
           </ul>

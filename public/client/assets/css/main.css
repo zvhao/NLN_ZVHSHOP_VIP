@@ -1773,6 +1773,7 @@ a.google {
 
 .mySwiper {
     height: 400px;
+    padding: 10px;
 }
 
 .swiper-slide {
@@ -2028,6 +2029,10 @@ a.google {
     -webkit-line-clamp: 2;
     overflow: hidden;
     width: 80%;
+}
+
+#checkout-cart {
+    line-height: 33px;
 }
 
 

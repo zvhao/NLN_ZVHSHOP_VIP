@@ -64,7 +64,7 @@ class Bill extends Controller
 		return $this->view('admin', [
 			'page' => 'bill/list',
 			// 'getAllBill' => $billsNew,
-			'js' => ['deletedata', 'search'],
+			'js' => ['deletedata', 'search', 'bill'],
 			'title' => 'DANH SÁCH ĐƠN HÀNG',
 			'keyword' => $keyword,
 			'billsNew' => $billsNew,
@@ -209,8 +209,11 @@ class Bill extends Controller
 
 		if (!empty($bill)) {
 			$updated_at = ('Y-m-d H:i:s');
-			$update = $this->bills->editStatus($id, (int)$bill['status'] + 1, $updated_at);
-			header('Location:' . _WEB_ROOT . '/bill');
+			$status = ((int)$bill['status'] + 1);
+			$update = $this->bills->editStatus($id, $status, $updated_at);
+			// header('Location:' . _WEB_ROOT . '/bill');
+			echo $status;
+
 		}
 	}
 
