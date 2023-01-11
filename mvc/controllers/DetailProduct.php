@@ -2,11 +2,11 @@
 
 class DetailProduct extends Controller
 {
-    private $products;
-    private $categories;
-    private $cart;
-    private $bills;
-    private $comment;
+    private ProductModel $products;
+    private CategoryModel $categories;
+    private CartModel $cart;
+    private BillModel $bills;
+    private CommentModel $comment;
     function __construct()
     {
         $this->products = $this->model('ProductModel');
@@ -70,7 +70,7 @@ class DetailProduct extends Controller
                 $_SESSION['msg_check_is_buy'] = "Bạn đã đánh giá.";
             } else {
                 $isBuy = 'disabled';
-                $_SESSION['msg_check_is_buy'] = "Bạn chưa mua sản phẩm này!";
+                $_SESSION['msg_check_is_buy'] = "Chưa hoàn thành đơn hàng nào có sản phẩm này!";
             }
         } else {
             $isBuy = 'disabled';

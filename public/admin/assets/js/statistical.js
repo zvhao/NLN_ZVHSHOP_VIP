@@ -1,12 +1,8 @@
 $(function () {
-	// const modalContent = $('.modal-content').html()
-	// console.log(modalContent);
 	var btnDetailBill = document.querySelectorAll('.btn-detail-bill')
-	// var rs = Object.entries(btnDetailBill)
-	var idDetailBill
 	btnDetailBill.forEach(element =>
 		element.onclick = function (e) {
-			idDetailBill = e.target.dataset.id;
+			var idDetailBill = e.target.dataset.id;
 			e.preventDefault()
 			console.log(idDetailBill);
 			var formData = {
@@ -21,6 +17,19 @@ $(function () {
 				success: function (data) {
 					dataNew = JSON.parse(data)
 					console.log(dataNew);
+					var statusBill
+					
+					if(dataNew.status == 0) {
+						statusBill = 'Đang xác nhận'
+					}
+					if(dataNew.status == 1) {
+						statusBill = 'Đang vận chuyển'
+					}
+					if(dataNew.status == 2) {
+						statusBill = 'Đã giao'
+					}
+
+					$('#modalLabel').text('ĐƠN HÀNG #' + idDetailBill);
 
 					document.querySelector('.bill-info-user').innerHTML = `
 						<div>
@@ -62,9 +71,13 @@ $(function () {
 					});
 
 					document.querySelector('.bill-info-bill').innerHTML = `
-							<div class="text-right border-top border-primary pt-3 pr-3" style="font-size: 1.2rem;">
-								<span class="font-weight-bold text-primary">Tổng giá: ${dataNew.total.toLocaleString('de-DE') + "₫"}</span>
-								<p class="py-2">Phương thức thanh toán: <span class="text-primary">${dataNew.method}</span></p>
+							<div class="col">
+								<p>Thời gian tạo: <span class="text-primary">${dataNew.created_at}</span></p>
+								<p>Trạng thái đơn hàng: <span class="text-primary">${statusBill}</p>
+							</div>
+							<div class="col text-right">
+								<p class="font-weight-bold text-primary">Tổng giá: ${dataNew.total.toLocaleString('de-DE') + "₫"}</p>
+								<p class="">Phương thức thanh toán: <span class="text-primary">${dataNew.method}</span></p>
 							</div>
 
 						`

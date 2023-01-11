@@ -2,19 +2,21 @@
 
 class checkOut extends Controller
 {
-	private $products;
-	private $categories;
-	private $bills;
-	private $user;
-	private $cart;
-
+	private BillModel $bills;
+	private CartModel $cart;
+	private CategoryModel $categories;
+	private CommentModel $comment;
+	private ProductModel $products;
+	private UserModel $users;
 	function __construct()
 	{
-		$this->products = $this->model('ProductModel');
-		$this->categories = $this->model('CategoryModel');
 		$this->bills = $this->model('BillModel');
-		$this->user = $this->model('UserModel');
 		$this->cart = $this->model('CartModel');
+		$this->categories = $this->model('CategoryModel');
+		$this->comment = $this->model('CommentModel');
+		$this->products = $this->model('ProductModel');
+		$this->users = $this->model('UserModel');
+
 	}
 
 	public function index()
@@ -23,7 +25,7 @@ class checkOut extends Controller
 		$categories = $this->categories->getAllCl();
 		if (isset($_SESSION['user'])) {
 			$email = $_SESSION['user']['email'];
-			$user = $this->user->SelectOneUser($email);
+			$user = $this->users->SelectOneUser($email);
 			$id_user = $user['id'];
 			// $detailCart = $this->cart->getAllDetailCart($id_user);
 		} else $user = '';

@@ -11,8 +11,8 @@ function getMethodPayment($method) {
 			Chủ TK: <b>Nguyễn Văn Hào</b> <br>
 			Nội dung chuyển khoản: Tên + Số ĐT đặt hàng</p>
 	</div>";
-	} else if($method == 'payment-bank') {
-		$msg = "<p>Bạn đã thanh toán thành công bằng ví điện tử</p>";
+	} else if($method == 'Vn_pay') {
+		$msg = "<p class='text-end'>Bạn đã thanh toán thành công bằng ví điện tử</p>";
 	}
 	return $msg;
 }

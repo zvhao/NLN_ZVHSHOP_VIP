@@ -55,8 +55,7 @@ if (!empty($data['products'])) {
                 <th scope="col">DANH MỤC</th>
                 <th scope="col">GIÁ</th>
                 <th scope="col">THỜI GIAN TẠO</th>
-                <th class="text-center" scope="col">SỬA</th>
-                <th class="text-center" scope="col">XOÁ</th>
+                <th class="text-center" scope="col">THAO TÁC</th>
             </tr>
         </thead>
         <tbody>
@@ -71,11 +70,10 @@ if (!empty($data['products'])) {
                     <td class="align-middle"><?php echo  numberFormat($product['price']) ?></td>
                     <td class="align-middle"><?php echo $product['created_at'] ?></td>
                     <td class="align-middle text-center">
+                        <a class="btn btn-primary btn-detail-bill" href="<?php echo _WEB_ROOT . '/product/detail_product_admin/' . $product['id'] ?>" data-id="<?= $bill['id'] ?>">Xem</a>
                         <a class="btn btn-outline-primary" href="<?php echo _WEB_ROOT . '/product/update_product/' . $product['id'] ?>">
                             <i class="far fa-edit"></i>
                         </a>
-                    </td>
-                    <td class="align-middle text-center">
                         <a class="btn btn-outline-danger delete_product handle_delete" href="<?php echo _WEB_ROOT . '/product/delete_product/' . $product['id'] ?>">
                             <i class="fas fa-trash-alt"></i>
                         </a>

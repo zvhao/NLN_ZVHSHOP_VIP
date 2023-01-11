@@ -111,7 +111,7 @@ if (isset($_POST['btn-statistical']) && !isset($_SESSION['msg'])) {
 		<div class="modal-dialog" style="max-width: 75%;">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="modalLabel">Modal title</h5>
+					<h5 class="modal-title" id="modalLabel">ĐƠN HÀNG</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -125,7 +125,7 @@ if (isset($_POST['btn-statistical']) && !isset($_SESSION['msg'])) {
 						<div class="bill-info-pro-list" style=" max-height: 40vh; overflow-y: auto;">
 
 						</div>
-						<div class="bill-info-bill">
+						<div class="bill-info-bill row border-top border-primary pt-3 pr-3">
 
 						</div>
 						

@@ -2,12 +2,22 @@
 
 class News extends Controller
 {
-    private $cart;
-    function __construct()
-    {
+	private BillModel $bills;
+	private CartModel $cart;
+	private CategoryModel $categories;
+	private CommentModel $comment;
+	private ProductModel $products;
+	private UserModel $users;
+	function __construct()
+	{
+		$this->bills = $this->model('BillModel');
 		$this->cart = $this->model('CartModel');
+		$this->categories = $this->model('CategoryModel');
+		$this->comment = $this->model('CommentModel');
+		$this->products = $this->model('ProductModel');
+		$this->users = $this->model('UserModel');
 
-    }
+	}
 
     public function index()
     {

@@ -2,15 +2,78 @@
 class Product extends Controller
 {
 
-    private $products;
-    private $categories;
-    private $cart;
-
+    private BillModel $bills;
+    private CartModel $cart;
+    private CategoryModel $categories;
+    private CommentModel $comment;
+    private ProductModel $products;
+    private UserModel $users;
     function __construct()
     {
-        $this->products = $this->model('ProductModel');
-        $this->categories = $this->model('CategoryModel');
+        $this->bills = $this->model('BillModel');
         $this->cart = $this->model('CartModel');
+        $this->categories = $this->model('CategoryModel');
+        $this->comment = $this->model('CommentModel');
+        $this->products = $this->model('ProductModel');
+        $this->users = $this->model('UserModel');
+    }
+
+    function index()
+    {
+        $cate = 0;
+        if (isset($_POST['cate'])) {
+
+            $cate  = $_POST['cate'];
+        }
+
+        $categories = $this->categories->getAllCl();
+        $productNew = [];
+
+        $keyword = '';
+        $cate = 0;
+        if (isset($_GET['search'])) {
+            $keyword = $_GET['search'];
+            $cate = 0;
+        } elseif (isset($_POST['cate'])) {
+
+            $cate  = $_POST['cate'];
+            $keyword = '';
+        } elseif (isset($_GET['cate'])) {
+
+            $cate  = $_GET['cate'];
+            $keyword = '';
+        }
+        $products = $this->products->getAll($keyword, 0, $cate);
+        foreach ($products as $item) {
+            if (!empty($this->products->getProImg($item['id']))) {
+                $item['detail_img'] = $this->products->getProImg($item['id'])['image'];
+            }
+            array_push($productNew, $item);
+        }
+
+        // show_array($productNew);
+        $count_product = !empty($productNew) ? count($productNew) : 0;
+
+        $num_per_page = 8;
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $start = ($page - 1) * $num_per_page;
+        $SelectProByPage = $this->products->SelectProByPage($start, $num_per_page, $keyword, 0, $cate);
+
+        return $this->view('admin', [
+            'page' => 'product/list',
+            'js' => ['deletedata', 'search'],
+            'title' => 'SẢN PHẨM',
+            'products' => $productNew,
+            'categories' => $categories,
+            'SelectProByPage' => $SelectProByPage,
+            'keyword' => $keyword,
+            'num_per_page' => $num_per_page,
+            'cate' => $cate,
+            'count_product' => $count_product,
+            'keyword' => $keyword,
+            'pagePag' => 'product'
+
+        ]);
     }
 
     function show_product()
@@ -90,8 +153,43 @@ class Product extends Controller
         ]);
     }
 
+    function detail_product_admin($id) {
+        $product = $this->products->SelectProduct($id);
+        $img_product = $this->products->SelectProductImg($id);
+        $products = $this->products->getAll();
+        $categories = $this->categories->getAllCl();
+        $nameCate = $this->categories->getNameCate($id);
+        $avgRating = $this->products->getOneRating($id);
+        $comments = $this->comment->getAllComment($id);
+        $favorites = $this->products->countFavoritePro($id);
+        $soldArr = $this->products->soldPro($id);
+        $countComment = $this->comment->countComment($id);
+        return $this->view('admin', [
+            'page' => 'product/detail',
+            'js' => ['deletedata'],
+            'title' => 'CHI TIẾT SẢN PHẨM',
+            'product' => $product
+
+
+        ]);
+    }
+
     function liked_product()
     {
+        $infoCart = [];
+        $detailCart = [];
+        if (isset($_SESSION['user']) && $_SESSION['user']['id']) {
+            $id_user = $_SESSION['user']['id'];
+            $detailCart = $this->cart->getAllDetailCart($id_user);
+            $infoCart = $this->cart->SelectCart($id_user);
+            // show_array($infoCart);
+        }
+        if (isset($_SESSION['cart']['buy'])) {
+            $detailCart = $_SESSION['cart']['buy'];
+            $infoCart = $this->cart->infoCart();
+        }
+
+        $categories = $this->categories->getAllCl();
 
         $likedproduct = [];
         $likedproductNew = [];
@@ -118,65 +216,10 @@ class Product extends Controller
             'css' => ['base', 'main'],
             'js' => ['main'],
             'title' => 'Sản phẩm yêu thích',
-            'likedproductNew' => $likedproductNew,
-
-        ]);
-    }
-
-    function index()
-    {
-        $cate = 0;
-        if (isset($_POST['cate'])) {
-
-            $cate  = $_POST['cate'];
-        }
-
-        $categories = $this->categories->getAllCl();
-        $productNew = [];
-
-        $keyword = '';
-        $cate = 0;
-        if (isset($_GET['search'])) {
-            $keyword = $_GET['search'];
-            $cate = 0;
-        } elseif (isset($_POST['cate'])) {
-
-            $cate  = $_POST['cate'];
-            $keyword = '';
-        } elseif (isset($_GET['cate'])) {
-
-            $cate  = $_GET['cate'];
-            $keyword = '';
-        }
-        $products = $this->products->getAll($keyword, 0, $cate);
-        foreach ($products as $item) {
-            if (!empty($this->products->getProImg($item['id']))) {
-                $item['detail_img'] = $this->products->getProImg($item['id'])['image'];
-            }
-            array_push($productNew, $item);
-        }
-
-        // show_array($productNew);
-        $count_product = !empty($productNew) ? count($productNew) : 0;
-
-        $num_per_page = 8;
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $start = ($page - 1) * $num_per_page;
-        $SelectProByPage = $this->products->SelectProByPage($start, $num_per_page, $keyword, 0, $cate);
-
-        return $this->view('admin', [
-            'page' => 'product/list',
-            'js' => ['deletedata', 'search'],
-            'title' => 'SẢN PHẨM',
-            'products' => $productNew,
             'categories' => $categories,
-            'SelectProByPage' => $SelectProByPage,
-            'keyword' => $keyword,
-            'num_per_page' => $num_per_page,
-            'cate' => $cate,
-            'count_product' => $count_product,
-            'keyword' => $keyword,
-            'pagePag' => 'product'
+            'likedproductNew' => $likedproductNew,
+            'infoCart' => $infoCart,
+            'detailCart' => $detailCart,
 
         ]);
     }

@@ -50,20 +50,29 @@ redirectToDetailBill($data['listIdBill'])
 					}
 				}
 				?>
-				<div class="fs-2 text-end mt-3">
-					<span>Tổng giá:</span>
-					<span class="text-color-main fw-bold">
-						<?php if ($data['bill']) {
-							echo numberFormat($data['bill']['total']);
-						}
-						?>
-					</span>
+				<div class="row mt-3">
+					<div class="col">
+						Thời gian tạo: <span class="text-color-main"><?= $data['bill']['created_at'] ?></span>
+					</div>
+					<div class="col fs-2 text-end ">
+						<span>Tổng giá:</span>
+						<span class="text-color-main fw-bold">
+							<?php if ($data['bill']) {
+								echo numberFormat($data['bill']['total']);
+							}
+							?>
+						</span>
+					</div>
 				</div>
 				<div class="row my-3">
-					<div class="col text-start">Trạng thái đơn hàng: <span class="text-color-main"><?= getStatusBill($data['bill']['status']) ?></div>
-					<div class="col text-end">Phương thức thanh toán: <span class="text-color-main"><?= $data['bill']['method'] ?></span></div>
+					<div class="col">Trạng thái đơn hàng: <span class="text-color-main"><?= getStatusBill($data['bill']['status']) ?></div>
+					<div class="col text-end">
+						<p>Phương thức thanh toán: <span class="text-color-main"><?= $data['bill']['method'] ?></span></p>
+					</div>
+					
 				</div>
 				<?= getMethodPayment($data['bill']['method']) ?>
+
 			</div>
 		</div>
 

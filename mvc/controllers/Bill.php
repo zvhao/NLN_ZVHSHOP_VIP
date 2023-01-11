@@ -2,19 +2,20 @@
 class Bill extends Controller
 {
 
-	private $users;
-	private $products;
-    private $categories;
-    private $cart;
-    private $bills;
-    private $comment;
+	private BillModel $bills;
+	private CartModel $cart;
+	private CategoryModel $categories;
+	private CommentModel $comment;
+	private ProductModel $products;
+	private UserModel $users;
 	function __construct()
 	{
-		$this->users = $this->model('UserModel');
-		$this->products = $this->model('ProductModel');
-		$this->categories = $this->model('CategoryModel');
 		$this->bills = $this->model('BillModel');
 		$this->cart = $this->model('CartModel');
+		$this->categories = $this->model('CategoryModel');
+		$this->comment = $this->model('CommentModel');
+		$this->products = $this->model('ProductModel');
+		$this->users = $this->model('UserModel');
 	}
 
 	public function index()
@@ -64,7 +65,7 @@ class Bill extends Controller
 		return $this->view('admin', [
 			'page' => 'bill/list',
 			// 'getAllBill' => $billsNew,
-			'js' => ['deletedata', 'search', 'bill'],
+			'js' => ['deletedata', 'search', 'bill', 'statistical'],
 			'title' => 'DANH SÁCH ĐƠN HÀNG',
 			'keyword' => $keyword,
 			'billsNew' => $billsNew,
@@ -121,16 +122,29 @@ class Bill extends Controller
 		]);
 	}
 
-	public function detail_bill($id) {
+	public function detail_bill($id)
+	{
+		$infoCart = [];
+		$detailCart = [];
+		if (isset($_SESSION['user']) && $_SESSION['user']['id']) {
+			$id_user = $_SESSION['user']['id'];
+			$detailCart = $this->cart->getAllDetailCart($id_user);
+			$infoCart = $this->cart->SelectCart($id_user);
+			// show_array($infoCart);
+		}
+		if (isset($_SESSION['cart']['buy'])) {
+			$detailCart = $_SESSION['cart']['buy'];
+			$infoCart = $this->cart->infoCart();
+		}
 
 		$categories = $this->categories->getAllCl();
 		$bill = $this->bills->SelectOneBill($id);
 		$detailBill = $this->bills->getDetailBill($id);
 		$listIdBill = array();
-		if(isset($_SESSION['user'])) {
+		if (isset($_SESSION['user'])) {
 			$id_user = $_SESSION['user']['id'];
-			$getAllBill = $this->bills->getAllBill(-1, $id_user,'');
-			foreach($getAllBill as $item) {
+			$getAllBill = $this->bills->getAllBill(-1, $id_user, '');
+			foreach ($getAllBill as $item) {
 				// echo '<pre>';
 				// print_r($item['id']);
 				$listIdBill[$item['id']] = $item['id'];
@@ -147,6 +161,8 @@ class Bill extends Controller
 			'detailBill' => $detailBill,
 			'categories' => $categories,
 			'listIdBill' => $listIdBill,
+			'infoCart' => $infoCart,
+			'detailCart' => $detailCart,
 
 		]);
 	}
@@ -213,7 +229,6 @@ class Bill extends Controller
 			$update = $this->bills->editStatus($id, $status, $updated_at);
 			// header('Location:' . _WEB_ROOT . '/bill');
 			echo $status;
-
 		}
 	}
 
@@ -234,6 +249,7 @@ class Bill extends Controller
 			'js' => ['vn_pay']
 		]);
 	}
+
 	function vnPay()
 	{
 
@@ -309,5 +325,25 @@ class Bill extends Controller
 			echo json_encode($returnData);
 		}
 		// vui lòng tham khảo thêm tại code demo
+	}
+
+
+	function show_detail()
+	{
+		if (isset($_POST['id']) && $_POST['id']) {
+			$id_bill = $_POST['id'];
+			$detailBillStatistical = $this->bills->detailBillStatistical($id_bill);
+			$detailBillStatistical['detail'] = $this->bills->getDetailBill($id_bill);
+			if ($detailBillStatistical['user_id'] > 0) {
+				$detailBillStatistical['email_user'] = $this->users->SelectUser($detailBillStatistical['user_id'])['email'];
+				$detailBillStatistical['name_user'] = $this->users->SelectUser($detailBillStatistical['user_id'])['name'];
+			} else {
+				$detailBillStatistical['email_user'] = '';
+				$detailBillStatistical['name_user'] = '';
+				$detailBillStatistical['user_id'] = 'Không có tài khoản';
+			}
+			// array_push($detailBillStatisticalNew, $detailBillStatistical);
+			print_r(json_encode($detailBillStatistical));
+		}
 	}
 }
