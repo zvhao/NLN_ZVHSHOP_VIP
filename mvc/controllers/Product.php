@@ -44,25 +44,30 @@ class Product extends Controller
             $keyword = '';
         }
         $products = $this->products->getAll($keyword, 0, $cate);
-        foreach ($products as $item) {
-            if (!empty($this->products->getProImg($item['id']))) {
-                $item['detail_img'] = $this->products->getProImg($item['id'])['image'];
-            }
-            array_push($productNew, $item);
-        }
 
-        // show_array($productNew);
         $count_product = !empty($productNew) ? count($productNew) : 0;
-
+        
         $num_per_page = 8;
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $start = ($page - 1) * $num_per_page;
         $SelectProByPage = $this->products->SelectProByPage($start, $num_per_page, $keyword, 0, $cate);
-
+        
+        foreach ($SelectProByPage as $item) {
+            if (!empty($this->products->soldPro($item['id']))) {
+                $item['sold'] = $this->products->soldPro($item['id'])['sold'];
+            } else $item['sold'] = 0;
+            if (!empty($this->comment->countComment($item['id']))) {
+                $item['countCmt'] = $this->comment->countComment($item['id']);
+            } else $item['countCmt'] = 0;
+            
+            array_push($productNew, $item);
+        }
+        // show_array($productNew);
         return $this->view('admin', [
             'page' => 'product/list',
             'js' => ['deletedata', 'search'],
             'title' => 'SẢN PHẨM',
+            'pagePag' => 'product',
             'products' => $productNew,
             'categories' => $categories,
             'SelectProByPage' => $SelectProByPage,
@@ -71,7 +76,6 @@ class Product extends Controller
             'cate' => $cate,
             'count_product' => $count_product,
             'keyword' => $keyword,
-            'pagePag' => 'product'
 
         ]);
     }
@@ -164,11 +168,23 @@ class Product extends Controller
         $favorites = $this->products->countFavoritePro($id);
         $soldArr = $this->products->soldPro($id);
         $countComment = $this->comment->countComment($id);
+        if($soldArr) {
+            $sold = $soldArr['sold'];
+        }  
         return $this->view('admin', [
             'page' => 'product/detail',
-            'js' => ['deletedata'],
             'title' => 'CHI TIẾT SẢN PHẨM',
-            'product' => $product
+            'product' => $product,
+            'products' => $products,
+            'categories' => $categories,
+            'product' => $product,
+            'img_product' => $img_product,
+            'nameCate' => $nameCate,
+            'comments' => $comments,
+            'avgRating' => $avgRating,
+            'favorites' => $favorites,
+            'sold' => $sold,
+            'countComment' => $countComment,
 
 
         ]);

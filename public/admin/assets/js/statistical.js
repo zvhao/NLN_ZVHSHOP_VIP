@@ -76,7 +76,7 @@ $(function () {
 								<p>Trạng thái đơn hàng: <span class="text-primary">${statusBill}</p>
 							</div>
 							<div class="col text-right">
-								<p class="font-weight-bold text-primary">Tổng giá: ${dataNew.total.toLocaleString('de-DE') + "₫"}</p>
+								<p class="font-weight-bold text-primary" style="font-size:1.2rem">Tổng giá: ${dataNew.total.toLocaleString('de-DE') + "₫"}</p>
 								<p class="">Phương thức thanh toán: <span class="text-primary">${dataNew.method}</span></p>
 							</div>
 

@@ -50,17 +50,28 @@
                                 <?= avatarHeader() ?>
 
                             </span>
-                            <span class="item-title text-uppercase"><?= isset($_SESSION['user'])?getLastName($_SESSION['user']['name']):'TÀI KHOẢN' ?></span>
+                            <span class="item-title text-uppercase"><?= isset($_SESSION['user']) ? getLastName($_SESSION['user']['name']) : 'TÀI KHOẢN' ?></span>
                             <ul class="header-account-option">
                                 <?php
                                 if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                                 ?>
                                     <li class="option-select">
-                                        <a href="<?php if ($_SESSION['user']['gr_id'] == 1) echo _WEB_ROOT . '/admin';
-                                                    else echo _WEB_ROOT . '/user/profile' ?>" class="a-option d-flex m-0 justify-content-center">
-                                            <i class="fa-solid fa-user-check"></i>
-                                            <span class="" style="white-space: nowrap;">Hồ sơ</span>
-                                        </a>
+                                        <?php if ($_SESSION['user']['gr_id'] == 1) {
+                                        ?>
+                                            <a href="<?= _WEB_ROOT . '/admin' ?>" class="a-option d-flex m-0 justify-content-center">
+                                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                                                <span class="" style="white-space: nowrap;">TRANG QUẢN TRỊ</span>
+                                            </a>
+
+                                        <?php
+
+                                        } else {
+                                        ?>
+                                            <a href="<?= _WEB_ROOT . '/user/profile' ?>" class="a-option d-flex m-0 justify-content-center">
+                                                <i class="fa-solid fa-user-check"></i>
+                                                <span class="" style="white-space: nowrap;">Hồ sơ</span>
+                                            </a>
+                                        <?php } ?>
                                     </li>
                                     <li class="option-select">
                                         <a class="a-option" href="<?= _WEB_ROOT . '/product/liked_product' ?>">

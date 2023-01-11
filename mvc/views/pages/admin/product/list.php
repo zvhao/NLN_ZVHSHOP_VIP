@@ -54,24 +54,31 @@ if (!empty($data['products'])) {
                 <th scope="col">ẢNH</th>
                 <th scope="col">DANH MỤC</th>
                 <th scope="col">GIÁ</th>
-                <th scope="col">THỜI GIAN TẠO</th>
+                <th scope="col">PHỔ BIẾN</th>
                 <th class="text-center" scope="col">THAO TÁC</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            foreach ($data['SelectProByPage'] as $product) {
+            foreach ($data['products'] as $product) {
             ?>
                 <tr>
                     <td class="align-middle" scope="row"><b><?php echo $product['id'] ?></b></td>
-                    <td class="align-middle w-25"><?php echo $product['name'] ?></td>
+                    <td class="align-middle" style="width:150px; overflow: hidden; white-space: nowrap; text-overflow:ellipsis; margin: 0;"><?php echo $product['name'] ?></td>
                     <td class="align-middle"><img style="width: 70px; height: 70px; margin-top: 5px; max-width: 100%; object-fit: cover; object-position: center;" class="img-thumbnail" src="<?php echo _PATH_IMG_PRODUCT . $product['image'] ?>" width="60px"></td>
                     <td class="align-middle"><?php echo getNameCate($product['cate_id'])['name'] ?></td>
-                    <td class="align-middle"><?php echo  numberFormat($product['price']) ?></td>
-                    <td class="align-middle"><?php echo $product['created_at'] ?></td>
+                    <td class="align-middle">
+                        <span class=""><?php echo  numberFormat($product['price']) ?></span>
+                    </td>
+                    <td class="align-middle">
+                        <p class="m-0"><?= $product['total_rating']. ' sao' ?></p>
+                        <p class="m-0"><?= $product['sold']. ' đã bán' ?></p>
+                        <p class="m-0"><?= $product['countCmt']. ' đánh giá' ?></p>
+                       
+                </td>
                     <td class="align-middle text-center">
-                        <a class="btn btn-primary btn-detail-bill" href="<?php echo _WEB_ROOT . '/product/detail_product_admin/' . $product['id'] ?>" data-id="<?= $bill['id'] ?>">Xem</a>
-                        <a class="btn btn-outline-primary" href="<?php echo _WEB_ROOT . '/product/update_product/' . $product['id'] ?>">
+                        <a class="btn btn-primary btn-detail-bill mr-2" href="<?php echo _WEB_ROOT . '/product/detail_product_admin/' . $product['id'] ?>" data-id="<?= $bill['id'] ?>">Xem</a>
+                        <a class="btn btn-outline-primary mr-2" href="<?php echo _WEB_ROOT . '/product/update_product/' . $product['id'] ?>">
                             <i class="far fa-edit"></i>
                         </a>
                         <a class="btn btn-outline-danger delete_product handle_delete" href="<?php echo _WEB_ROOT . '/product/delete_product/' . $product['id'] ?>">
