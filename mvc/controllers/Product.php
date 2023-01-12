@@ -45,7 +45,7 @@ class Product extends Controller
         }
         $products = $this->products->getAll($keyword, 0, $cate);
 
-        $count_product = !empty($productNew) ? count($productNew) : 0;
+        $count_product = !empty($products) ? count($products) : 0;
         
         $num_per_page = 8;
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -68,7 +68,8 @@ class Product extends Controller
             'js' => ['deletedata', 'search'],
             'title' => 'SẢN PHẨM',
             'pagePag' => 'product',
-            'products' => $productNew,
+            'products' => $products,
+            'productNew' => $productNew,
             'categories' => $categories,
             'SelectProByPage' => $SelectProByPage,
             'keyword' => $keyword,
@@ -170,10 +171,12 @@ class Product extends Controller
         $countComment = $this->comment->countComment($id);
         if($soldArr) {
             $sold = $soldArr['sold'];
-        }  
+        }  else $sold = 0;
+        // show_array($sold);
         return $this->view('admin', [
             'page' => 'product/detail',
             'title' => 'CHI TIẾT SẢN PHẨM',
+            'js' => ['comment'],
             'product' => $product,
             'products' => $products,
             'categories' => $categories,

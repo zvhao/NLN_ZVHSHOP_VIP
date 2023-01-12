@@ -1,7 +1,12 @@
 <?php
 class UserModel extends DB
 {
-
+    function verifyEmail($email){
+        $date = date("Y-m-d H:i:s");
+        $update = "UPDATE users SET email_verify = '$date' WHERE email = '$email'";
+        return $this->pdo_execute($update);
+    }
+    
     function getAll($keyword = '', $id = 0, $gr_id = 0)
     {
         $sql = "SELECT * FROM users WHERE 1";

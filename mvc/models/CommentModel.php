@@ -10,7 +10,7 @@ class CommentModel extends DB
 
 	function getAllComment($id_pro)
 	{
-		$select = "SELECT users.name, users.avatar, comments.id, comments.id_user, comments.id_pro, comments.comment, comments.rating, comments.created_at FROM comments JOIN users ON comments.id_user = users.id WHERE comments.id_pro = '$id_pro' order by created_at desc";
+		$select = "SELECT users.name, users.avatar, comments.id, comments.id_user, comments.id_pro, comments.comment, comments.rating, comments.created_at, comments.responded FROM comments JOIN users ON comments.id_user = users.id WHERE comments.id_pro = '$id_pro' order by created_at desc";
 		return $this->pdo_query($select);
 	}
 
@@ -32,18 +32,34 @@ class CommentModel extends DB
 		return $this->pdo_query($select);
 	}
 
-	function avgTotalRating() {
+	function avgTotalRating()
+	{
 		$sql = "SELECT id_pro, avg(rating) as total_rating FROM `comments` GROUP BY id_pro";
 		return $this->pdo_query($sql);
 	}
 
-	function avgTotalRatingOne($id_pro) {
+	function avgTotalRatingOne($id_pro)
+	{
 		$sql = "SELECT avg(rating) as total_rating FROM `comments` WHERE id_pro = '$id_pro'";
 		return $this->pdo_query_value($sql);
 	}
 
-	function  countComment($id_pro) {
+	function  countComment($id_pro)
+	{
 		$select = "SELECT COUNT(*) FROM `comments` WHERE id_pro = $id_pro";
 		return $this->pdo_query_value($select);
+	}
+
+
+	function updateRespondedComment($id, $date)
+	{
+		$sql = "UPDATE comments SET responded = '$date' WHERE id = '$id' ";
+		return $this->pdo_execute($sql);
+	}
+
+	function replyComment($id_cmt, $content, $created_at)
+	{
+		$sql = "INSERT INTO reply_comment(id_cmt, content, created_at) VALUES('$id_cmt', '$content', '$created_at')";
+		return $this->pdo_execute_lastInsertID($sql);
 	}
 }

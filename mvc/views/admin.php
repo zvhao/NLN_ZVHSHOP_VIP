@@ -35,8 +35,11 @@ if ((int)$_SESSION['user']['gr_id'] != 1) {
   <link rel="stylesheet" href="<?php echo _PATH_ROOT_PUBLIC . "/admin/" ?>plugins/summernote/summernote-bs4.min.css">
   <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-minimal@4/minimal.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+  <link rel="stylesheet" href="<?php echo _PATH_ROOT_PUBLIC . "/admin/" ?>assets/css/normalize.css">
 
+  <style>
 
+  </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -106,7 +109,7 @@ if ((int)$_SESSION['user']['gr_id'] != 1) {
 
             <li class="nav-item">
               <a href="<?php echo _WEB_ROOT . "/statistical" ?>" class="nav-link <?php if ($data['page'] == 'manager/statistical') echo 'active' ?>">
-              <i class="fa-solid fa-chart-bar"></i>
+                <i class="fa-solid fa-chart-bar"></i>
                 <p class="pl-3">
                   Thống kê doanh thu
                   <!-- <span class="right badge badge-danger">New</span> -->

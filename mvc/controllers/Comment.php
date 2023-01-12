@@ -3,7 +3,7 @@
 class Comment extends Controller
 {
 	private $products;
-    private $comment;
+	private $comment;
 
 	function __construct()
 	{
@@ -13,9 +13,9 @@ class Comment extends Controller
 
 	public function add_comment()
 	{
-		
+
 		// show_array($_POST);
-		if(isset($_POST['btn_submit']) && $_SESSION['user']) {
+		if (isset($_POST['btn_submit']) && $_SESSION['user']) {
 			$id_user = $_POST['id_user'];
 			$id_pro = $_POST['id_pro'];
 			$comment = $_POST['comment'];
@@ -36,7 +36,7 @@ class Comment extends Controller
 			// show_array($avgRating);
 
 			$avgRound = round($avgRating, 1);
-			
+
 			$this->products->updateRating($id_pro, round($avgRating, 1));
 			$comments = $this->comment->getAllComment($id_pro);
 			$data = array(
@@ -45,6 +45,27 @@ class Comment extends Controller
 			);
 			print_r(json_encode($data));
 			// redirectTo("detailproduct/product/$id_pro");
+		}
+	}
+
+	public function reply_comment()
+	{
+		if (isset($_POST['btn_reply_cmt'])) {
+			$id_cmt = $_POST['id_cmt'];
+			$reply_comment = $_POST['reply_comment'];
+			$created_at = date("Y-m-d H:i:s");
+
+			if ($this->comment->updateRespondedComment($id_cmt, $created_at)) {
+				$this->comment->updateRespondedComment($id_cmt, $created_at);
+				$status = $this->comment->replyComment($id_cmt, $reply_comment, $created_at);
+				$data = array(
+					'id_cmt' => $id_cmt,
+					'status' => $status,
+					'reply_comment' => $reply_comment,
+					'responded' => 'Đã phản hồi'
+				);
+				print_r(json_encode($data));
+			}
 		}
 	}
 }

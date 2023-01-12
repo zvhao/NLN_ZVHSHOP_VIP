@@ -60,7 +60,7 @@ if (!empty($data['products'])) {
         </thead>
         <tbody>
             <?php
-            foreach ($data['products'] as $product) {
+            foreach ($data['productNew'] as $product) {
             ?>
                 <tr>
                     <td class="align-middle" scope="row"><b><?php echo $product['id'] ?></b></td>

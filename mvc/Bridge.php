@@ -11,12 +11,16 @@ define('_PUBLIC', _WEB_ROOT . '/public');
 define('_PATH_IMG_PRODUCT', _WEB_ROOT . '/upload/product/');
 
 
+require_once "./mvc/util/sendMail.php";
 
 // Process URL from browser
 require_once "./mvc/core/App.php";
 
 // How controllers call Views & Models
 require_once "./mvc/core/Controller.php";
+
+
+
 
 // Connect Database
 require_once "./mvc/core/DB.php";
@@ -31,4 +35,5 @@ require_once './mvc/helper/getPaging.php';
 require_once './mvc/helper/getMethodPayment.php';
 require_once './mvc/helper/getRatingStar.php';
 require_once './mvc/helper/avatarHeader.php';
+require_once './mvc/helper/getSampleComment.php';
 ?>

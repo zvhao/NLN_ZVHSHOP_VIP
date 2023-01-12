@@ -94,7 +94,7 @@ class Auth extends Controller
         ]);
     }
 
-    function handleRegister()
+    function handleRegister() 
     {
 
         if (isset($_POST['register']) && $_POST['register'] != '') {
@@ -132,9 +132,25 @@ class Auth extends Controller
                     $this->cart->insertCart($id_user, 0, 0, $create_at);
 
                     if ($status) {
-                        $checkLogin = true;
+                       
+                        $emailHash = password_hash($email,PASSWORD_DEFAULT);
+                        $linkActive = _WEB_ROOT . '/auth/verify_email/?email='.$email."&accessEmail=".$emailHash;
 
-                        $message = 'Đăng ký tài khoản thành công';
+                        $subject =  $name . ' vui lòng kích hoạt tài khoản';
+                        $content = 'Chào ' . $name . '</br>';
+                        $content .= 'Vui lòng click vào link dưới đây để kích hoạt tài khoản: ';
+                        $content .= $linkActive . '</br>';
+                        $content .= 'Trân trọng cảm ơn';
+                        $statusMail = sendMail( $email,$subject,$content);
+                        if($statusMail){
+                            $checkLogin = true;
+
+                            $message = 'Đăng ký tài khoản thành công';
+                        }else{
+                            $checkLogin = false;
+
+                            $message = 'Gửi mail xác thực thất bại';
+                        }
                     } else {
                         $message = 'Đã xảy ra sự cố với hệ thống, vui lòng thử lại sau';
                         $checkLogin = false;
@@ -167,19 +183,25 @@ class Auth extends Controller
 
             if (!empty($user)) {
                 if (password_verify($password, $user['password'])) {
-                    $_SESSION['user'] = $user;
-                    if ((int)$user['gr_id'] ==  1) {
-                        header('Location: ' . _WEB_ROOT . '/admin');
+                    
+                    if(!empty($user['email_verify'])) {
+                        $_SESSION['user'] = $user;
+                        if ((int)$user['gr_id'] ==  1) {
+                            header('Location: ' . _WEB_ROOT . '/admin');
+                        } else {
+                            header('Location: ' . _WEB_ROOT . '/home');
+                            unset($_SESSION['cart']);
+                        }
                     } else {
-                        header('Location: ' . _WEB_ROOT . '/home');
-                        unset($_SESSION['cart']);
+                        $_SESSION['msglg'] = 'Vui lòng xác thực tài khoản!';
+                        $_SESSION['typelg'] = 'danger';
+    
+                        header('Location: ' . _WEB_ROOT . '/Auth/login');
+
                     }
                 } else {
-                    $_SESSION['msglg'] = 'Mật khẩu không đúng';
-                    $_SESSION['typelg'] = 'danger';
-
-                    header('Location: ' . _WEB_ROOT . '/Auth/login');
                 }
+                
             } else {
                 $_SESSION['msglg'] = 'Email không chính xác';
                 $_SESSION['typelg'] = 'danger';
@@ -193,5 +215,21 @@ class Auth extends Controller
     {
         unset($_SESSION['user']);
         header('Location: ' . _WEB_ROOT . '/Auth/login');
+    }
+
+    function verify_email(){
+        $email = $_GET['email'];
+        $emailAccess = $_GET['accessEmail'];
+        if (password_verify($email, $emailAccess)) {
+            $statusVerify =  $this->users->verifyEmail($email);
+            $_SESSION['msglg'] = 'Xác thực thành công bạn có thể đăng nhâp ngay bay giờ';
+            $_SESSION['typelg'] = 'success';
+            header('Location: ' . _WEB_ROOT . '/Auth/login');
+
+        }else{
+            $_SESSION['msglg'] = 'Xác thực thất bại';
+            $_SESSION['typelg'] = 'danger';
+            header('Location: ' . _WEB_ROOT . '/Auth/login');
+        }
     }
 }
