@@ -56,6 +56,15 @@ class DetailProduct extends Controller
                 $liked = 1;
             }
         }
+        $commentsNew = [];
+        foreach($comments as $comment) {
+            if($this->comment->getRespond($comment['id'])) {
+                $comment['respond_content'] = $this->comment->getRespond($comment['id'])['content'];
+            } else {
+                $comment['respond_content'] = '';
+            }
+            array_push($commentsNew, $comment);
+        }
 
 
         if (isset($_SESSION['user'])) {
@@ -91,7 +100,7 @@ class DetailProduct extends Controller
             'nameCate' => $nameCate,
             'infoCart' => $infoCart,
             'detailCart' => $detailCart,
-            'comments' => $comments,
+            'comments' => $commentsNew,
             'isBuy' => $isBuy,
             'avgRating' => $avgRating,
             'liked' => $liked,

@@ -58,7 +58,7 @@ class Auth extends Controller
     public function register()
     {
         $infoCart = [];
-        $detailCart= [];
+        $detailCart = [];
         if (isset($_SESSION['user']) && $_SESSION['user']['id']) {
             $id_user = $_SESSION['user']['id'];
             $detailCart = $this->cart->getAllDetailCart($id_user);
@@ -94,7 +94,7 @@ class Auth extends Controller
         ]);
     }
 
-    function handleRegister() 
+    function handleRegister()
     {
 
         if (isset($_POST['register']) && $_POST['register'] != '') {
@@ -103,7 +103,7 @@ class Auth extends Controller
             $tel = $_POST['tel'];
             $password = $_POST['password'];
             $confirm_password = $_POST['confirm_password'];
-            $create_at = date('Y-m-d H:i:s');
+            $created_at = date('Y-m-d H:i:s');
             $users = $this->users->getAll();
             $checkEmail = false;
             $message = '';
@@ -125,28 +125,28 @@ class Auth extends Controller
             } else {
                 if ($password === $confirm_password) {
                     $password = password_hash($password, PASSWORD_DEFAULT);
-                    $status = $this->users->InsertUser($name, $email, $password, $tel, $create_at);
+                    $status = $this->users->InsertUser($name, $email, $password, $tel, $created_at);
 
                     $userNew = $this->users->SelectOneUser($email);
                     $id_user = $userNew['id'];
-                    $this->cart->insertCart($id_user, 0, 0, $create_at);
+                    $this->cart->insertCart($id_user, 0, 0, $created_at);
 
                     if ($status) {
-                       
-                        $emailHash = password_hash($email,PASSWORD_DEFAULT);
-                        $linkActive = _WEB_ROOT . '/auth/verify_email/?email='.$email."&accessEmail=".$emailHash;
+
+                        $emailHash = password_hash($email, PASSWORD_DEFAULT);
+                        $linkActive = _WEB_ROOT . '/auth/verify_email/?email=' . $email . "&accessEmail=" . $emailHash;
 
                         $subject =  $name . ' vui lòng kích hoạt tài khoản';
                         $content = 'Chào ' . $name . '</br>';
                         $content .= 'Vui lòng click vào link dưới đây để kích hoạt tài khoản: ';
                         $content .= $linkActive . '</br>';
                         $content .= 'Trân trọng cảm ơn';
-                        $statusMail = sendMail( $email,$subject,$content);
-                        if($statusMail){
+                        $statusMail = sendMail($email, $subject, $content);
+                        if ($statusMail) {
                             $checkLogin = true;
 
                             $message = 'Đăng ký tài khoản thành công';
-                        }else{
+                        } else {
                             $checkLogin = false;
 
                             $message = 'Gửi mail xác thực thất bại';
@@ -183,8 +183,8 @@ class Auth extends Controller
 
             if (!empty($user)) {
                 if (password_verify($password, $user['password'])) {
-                    
-                    if(!empty($user['email_verify'])) {
+
+                    if (!empty($user['email_verify'])) {
                         $_SESSION['user'] = $user;
                         if ((int)$user['gr_id'] ==  1) {
                             header('Location: ' . _WEB_ROOT . '/admin');
@@ -195,13 +195,11 @@ class Auth extends Controller
                     } else {
                         $_SESSION['msglg'] = 'Vui lòng xác thực tài khoản!';
                         $_SESSION['typelg'] = 'danger';
-    
-                        header('Location: ' . _WEB_ROOT . '/Auth/login');
 
+                        header('Location: ' . _WEB_ROOT . '/Auth/login');
                     }
                 } else {
                 }
-                
             } else {
                 $_SESSION['msglg'] = 'Email không chính xác';
                 $_SESSION['typelg'] = 'danger';
@@ -217,7 +215,8 @@ class Auth extends Controller
         header('Location: ' . _WEB_ROOT . '/Auth/login');
     }
 
-    function verify_email(){
+    function verify_email()
+    {
         $email = $_GET['email'];
         $emailAccess = $_GET['accessEmail'];
         if (password_verify($email, $emailAccess)) {
@@ -225,11 +224,10 @@ class Auth extends Controller
             $_SESSION['msglg'] = 'Xác thực thành công bạn có thể đăng nhâp ngay bay giờ';
             $_SESSION['typelg'] = 'success';
             header('Location: ' . _WEB_ROOT . '/Auth/login');
-
-        }else{
+        } else {
             $_SESSION['msglg'] = 'Xác thực thất bại';
             $_SESSION['typelg'] = 'danger';
-            header('Location: ' . _WEB_ROOT . '/Auth/login');
+            header('Location: ' . _WEB_ROOT . '/Auth/register');
         }
     }
 }

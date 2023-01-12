@@ -53,14 +53,11 @@ class Comment extends Controller
 		if (isset($_POST['btn_reply_cmt'])) {
 			$id_cmt = $_POST['id_cmt'];
 			$reply_comment = $_POST['reply_comment'];
-			$created_at = date("Y-m-d H:i:s");
 
-			if ($this->comment->updateRespondedComment($id_cmt, $created_at)) {
-				$this->comment->updateRespondedComment($id_cmt, $created_at);
-				$status = $this->comment->replyComment($id_cmt, $reply_comment, $created_at);
+			if ($this->comment->updateRespondedComment($id_cmt, $reply_comment)) {
+				$this->comment->updateRespondedComment($id_cmt, $reply_comment);
 				$data = array(
 					'id_cmt' => $id_cmt,
-					'status' => $status,
 					'reply_comment' => $reply_comment,
 					'responded' => 'Đã phản hồi'
 				);

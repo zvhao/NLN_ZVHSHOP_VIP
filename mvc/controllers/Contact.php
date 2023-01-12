@@ -12,8 +12,7 @@ class Contact extends Controller
         $this->products = $this->model('ProductModel');
         $this->categories = $this->model('CategoryModel');
         $this->contacts = $this->model('ContactModel');
-		$this->cart = $this->model('CartModel');
-
+        $this->cart = $this->model('CartModel');
     }
 
     public function index()
@@ -53,6 +52,19 @@ class Contact extends Controller
         ]);
     }
 
+    public function admin()
+    {
+
+        $contacts = $this->contacts->getAllContact();
+
+        return $this->view("admin", [
+            'page' => 'contact/list',
+            'title' => 'LIÊN HỆ',
+            'js' => ['contact'],
+            'contacts' => $contacts,
+        ]);
+    }
+
     public function send_contact()
     {
         if (isset($_POST['send_contact']) && $_POST['send_contact']) {
@@ -64,13 +76,59 @@ class Contact extends Controller
 
             $status = $this->contacts->insertContact($name, $phone, $email, $content, $created_at);
 
-            // if ($status) {
-            //     $_SESSION['msg'] = "Bạn đã gửi thành công!";
-            //     echo $status;
-            // } else {
-            //     $_SESSION['msg'] = "Gửi thất bại";
-            // }
             // // redirectTo('contact');
+        }
+    }
+
+    public function respond()
+    {
+        if (isset($_POST['btn_respond']) && $_POST['respond'] != '') {
+            $id_contact = $_POST['id_contact'];
+            $email = $_POST['email'];
+            $contentContact = $_POST['content'];
+            $respond = $_POST['respond'];
+            $name = $_POST['name'];
+
+            // $data = array(
+            //     'id_contact' => $id_contact,
+            //     'contentContact' => $contentContact,
+            //     'respond' => $respond,
+            //     'name' => $name,
+            // );
+            // show_array($data);
+
+            $status = $this->contacts->respondContact($id_contact, $respond);
+            if ($status) {
+
+                $subject =  'ZVHSHOP phản hồi liên hệ';
+                $content = 'Chào ' . $name . '</br>';
+                $content .= 'Cảm ơn bạn đã liên hệ với chúng tôi với nội dung: </br>';
+                $content .= $contentContact . '</br></br>';
+                $content .= 'Phản hồi từ quản trị viên:</br>';
+                $content .= $respond . '</br></br>';
+                $content .= 'Nếu có mọi thắc mắc, phản hồi nào cần ZVHSHOP giải đáp, vui lòng reply mail này.</br>';
+                $content .= 'Trân trọng cảm ơn';
+                $statusMail = sendMail($email, $subject, $content);
+                if ($statusMail) {
+                    $checkLogin = true;
+
+                    $message = 'Phản hồi thành công';
+                } else {
+                    $checkLogin = false;
+
+                    $message = 'Phản hồi thất bại thất bại';
+                }
+            } else {
+                $message = 'Đã xảy ra sự cố với hệ thống, vui lòng thử lại sau';
+                $checkLogin = false;
+            }
+            if ($checkLogin) {
+                $_SESSION['msg'] = $message;
+                header('Location: ' . _WEB_ROOT . '/contact/admin');
+            } else {
+
+                header('Location: ' . _WEB_ROOT . '/contact/admin');
+            }
         }
     }
 }

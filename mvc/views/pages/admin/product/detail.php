@@ -52,7 +52,7 @@
 							</div>
 							<div class="col-10 ">
 								<span class="" style="white-space: nowrap;"><?= $item['name'] ?></span>
-								<p class="">
+								<p class="text-primary">
 									<?php getRatingStar($item['rating']) ?>
 								</p>
 							</div>
@@ -61,15 +61,16 @@
 							<div class="col-2"></div>
 							<div class="col-10">
 								<p class="" style="color: #666"><?= $item['created_at'] ?></p>
-								<p class=""><?= $item['comment'] ?></p>
+								<p class="pr-3"><?= $item['comment'] ?></p>
 							</div>
 						</div>
 					</div>
-					<fieldset class="col-6" <?= $item['responded']?'disabled':'' ?>>
+					<fieldset class="col-6" data-id="<?= $item['id'] ?>" <?= $item['responded'] ? 'disabled' : '' ?>>
 						<textarea class="form-control" name="reply_comment" id="" rows="3" data-id="<?= $item['id'] ?>"><?= getSampleComment($item['rating']) ?></textarea>
-						<p class="d-flex justify-content-end">
-							<button type="submit" class="btn btn-primary mt-2" name="btn_reply_cmt" data-id="<?= $item['id'] ?>"><?= $item['responded']?'Đã phản hồi':'Gửi phản hồi' ?> </button>
-						</p>
+						<div class="d-flex justify-content-end align-items-center mt-3">
+							<i class="mr-3 text-primary <?= $item['responded'] ? 'fa-regular fa-circle-check' : '' ?>" style="font-size: 1.8rem;" name="id-<?= $item['id'] ?>"></i>
+							<button type="submit" class="btn btn-primary" name="btn_reply_cmt" data-id="<?= $item['id'] ?>"><?= $item['responded'] ? 'Đã phản hồi' : 'Gửi phản hồi' ?> </button>
+						</div>
 					</fieldset>
 				</form>
 				<hr>

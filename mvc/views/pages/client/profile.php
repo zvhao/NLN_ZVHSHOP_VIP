@@ -43,7 +43,7 @@ if (!isset($_SESSION['user'])) {
 						<div class="col"><label>Số điện thoại</label><input type="text" name="phone" class="form-control" placeholder="Điền số điện thoại" value="<?= $_SESSION['user']['phone'] ?? '' ?>"></div>
 					</div>
 					<div class="row mt-3">
-						<div class="col mb-3"><label>Email</label><input type="text" name="email" class="form-control" placeholder="" value="<?= $data['user']['email'] ?? '' ?>"></div>
+						<div class="col mb-3"><label>Email</label><input type="text" name="email" class="form-control" placeholder="" value="<?= $data['user']['email'] ?>" disabled></div>
 					</div>
 					<div class="col-12"><label>Địa chỉ nhận hàng</label><input name="address" type="text" class="form-control" placeholder="Ghi rõ địa chỉ" value="<?= $data['user']['address'] ?? '' ?>"></div>
 					<div class="col-12 mt-3"><label>Mô tả</label><textarea rows="3" name="desc" type="text" class="form-control" placeholder="Hãy viết về bản thân của bạn" value=""><?= $data['user']['description'] ?? '' ?></textarea></div>

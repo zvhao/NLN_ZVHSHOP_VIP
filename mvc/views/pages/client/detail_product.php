@@ -195,6 +195,20 @@
                                     <p class=""><?= $item['comment'] ?></p>
                                 </div>
                             </div>
+                            <?php
+                            if ($item['respond_content']) {
+                            ?>
+                                <div class="row reply-comment font-size-14 mt-4">
+                                    <div class="col-1"></div>
+                                    <div class="col-11 ps-5">
+                                        <p class="text-color-main" style="color: #666">PHẢN HỒI TỪ ZVHSHOP</p>
+                                        <p class="bg-form-control p-3"><?= $item['respond_content'] ?></p>
+                                    </div>
+                                </div>
+                            <?php
+                            }
+                            ?>
+
                             <hr>
                         </div>
 
@@ -213,11 +227,3 @@
     </div>
 
 </div>
-
-
-<script>
-    // $('.fa-heart').click(function (e) { 
-    //     e.preventDefault();
-
-    // });
-</script>

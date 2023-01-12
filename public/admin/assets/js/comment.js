@@ -7,13 +7,14 @@ $(function () {
 			e.preventDefault();
 			var idCmt = e.target.dataset.id
 			var content = $(`textarea[data-id=${idCmt}]`).text()
-			console.log(idCmt);
+			// console.log(idCmt);
 
 			var data = {
 				id_cmt: idCmt,
 				reply_comment: content,
 				btn_reply_cmt: 1
 			}
+
 			$.ajax({
 				type: "POST",
 				url: action,
@@ -21,7 +22,16 @@ $(function () {
 				// dataType: "dataType",
 				success: function (data) {
 					var dataNew = JSON.parse(data)
-					console.log(dataNew);
+					// console.log(dataNew);
+					$(`fieldset[data-id=${idCmt}]`).attr('disabled', 'disabled');
+					$(`i[name=id-${idCmt}]`).addClass('fa-regular fa-circle-check');
+					Swal.fire({
+						icon: 'success',
+						title: 'Phản hồi thành công!',
+						showConfirmButton: false,
+						timer: 1500
+					})
+
 				}
 			});
 		});

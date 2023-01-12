@@ -51,15 +51,11 @@ class CommentModel extends DB
 	}
 
 
-	function updateRespondedComment($id, $date)
+	function updateRespondedComment($id, $responded)
 	{
-		$sql = "UPDATE comments SET responded = '$date' WHERE id = '$id' ";
+		$sql = "UPDATE comments SET responded = '$responded' WHERE id = '$id' ";
 		return $this->pdo_execute($sql);
 	}
 
-	function replyComment($id_cmt, $content, $created_at)
-	{
-		$sql = "INSERT INTO reply_comment(id_cmt, content, created_at) VALUES('$id_cmt', '$content', '$created_at')";
-		return $this->pdo_execute_lastInsertID($sql);
-	}
+
 }

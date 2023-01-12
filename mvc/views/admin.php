@@ -56,7 +56,7 @@ if ((int)$_SESSION['user']['gr_id'] != 1) {
           <a href="<?= _WEB_ROOT . '/admin' ?>" class="nav-link">Quản lý</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Liên hệ</a>
+          <a href="<?= _WEB_ROOT . '/contact/admin' ?>" class="nav-link">Liên hệ</a>
         </li>
       </ul>
 
