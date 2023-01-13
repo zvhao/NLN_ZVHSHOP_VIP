@@ -41,8 +41,9 @@
                         <label for="logCheck" class="text">Ghi nhớ tôi</label>
                     </div>
 
-                    <a href="#" class="text">Quên mật khẩu?</a>
                 </div> -->
+                <p class="text-end"><a href="<?= _WEB_ROOT . '/auth/enterEmail' ?>" class="text p-2">Quên mật khẩu?</a></p>
+                    
                 
                 <input type="hidden" name="login" value="login">
                 <div class="input-field">

@@ -6,6 +6,10 @@ class UserModel extends DB
         $update = "UPDATE users SET email_verify = '$date' WHERE email = '$email'";
         return $this->pdo_execute($update);
     }
+    function updatePassword($email, $password){
+        $update = "UPDATE users SET password = '$password' WHERE email = '$email'";
+        return $this->pdo_execute($update);
+    }
     
     function getAll($keyword = '', $id = 0, $gr_id = 0)
     {

@@ -3,10 +3,10 @@
 class Auth extends Controller
 {
 
-    private $products;
-    private $categories;
-    private $users;
-    private $cart;
+    private ProductModel $products;
+    private CategoryModel $categories;
+    private UserModel $users;
+    private CartModel $cart;
 
     function __construct()
     {
@@ -104,7 +104,7 @@ class Auth extends Controller
             $password = $_POST['password'];
             $confirm_password = $_POST['confirm_password'];
             $created_at = date('Y-m-d H:i:s');
-            $users = $this->users->getAll();
+            $users = $this->users->getAll('', 0, 0);
             $checkEmail = false;
             $message = '';
             if (!empty($users)) {
@@ -199,6 +199,10 @@ class Auth extends Controller
                         header('Location: ' . _WEB_ROOT . '/Auth/login');
                     }
                 } else {
+                    $_SESSION['msglg'] = 'Mật khẩu không đúng';
+                    $_SESSION['typelg'] = 'danger';
+
+                    header('Location: ' . _WEB_ROOT . '/Auth/login');
                 }
             } else {
                 $_SESSION['msglg'] = 'Email không chính xác';
@@ -215,6 +219,87 @@ class Auth extends Controller
         header('Location: ' . _WEB_ROOT . '/Auth/login');
     }
 
+    function enterEmail()
+    {
+
+        $this->view("client", [
+            'page' => 'enter_email',
+            'title' => 'Kiểm tra tài khoản',
+            'css' => ['base', 'main'],
+            'js' => ['main', 'jquery.validate', 'form_validate'],
+
+
+        ]);
+    }
+
+    function checkEmail()
+    {
+        if (isset($_POST['email']) && $_POST['email']) {
+            $email = $_POST['email'];
+            $users = $this->users->getAll('', 0, 0);
+            $checkEmail = false;
+            $message = '';
+            $fullName = '';
+            if (!empty($users)) {
+                foreach ($users as $user) {
+                    if ($user['email'] == $email) {
+                        $fullName = $user['name'];
+                        $checkEmail = true;
+                        break;
+                    }
+                }
+            } else {
+                $checkEmail = false;
+            }
+
+            if ($checkEmail) {
+                $_SESSION['msg_true_email'] = "Bạn vui lòng check mail vừa được gửi tới gmail: $email";
+
+                $emailHash = password_hash($email, PASSWORD_DEFAULT);
+                $linkActive = _WEB_ROOT . '/auth/treatment_email/?email=' . $email . "&accessEmail=" . $emailHash;
+                $linkContact = _WEB_ROOT . '/contact';
+                $subject = 'Thay đổi mật khẩu';
+                $content = 'Chào ' . $fullName . '</br>';
+                $content .= 'Vui lòng click vào link dưới đây để thay đổi mật khẩu: ';
+                $content .= $linkActive . '</br>';
+                $content .= 'Nếu bạn không yêu cầu thay đổi mật khẩu, vui lòng bỏ qua mail này hoặc liên hệ ngay với chúng tôi qua link:</br>';
+                $content .= $linkContact . '</br>';
+                $content .= 'Trân trọng cảm ơn';
+                $statusMail = sendMail($email, $subject, $content);
+                if ($statusMail) {
+                    $checkLogin = true;
+
+                    $message = 'Đăng ký tài khoản thành công';
+                } else {
+                    $checkLogin = false;
+
+                    $message = 'Gửi mail xác thực thất bại';
+                }
+
+                header('Location: ' . _WEB_ROOT . '/Auth/enterEmail');
+            } else {
+                $_SESSION['msg_false_email'] = "Email không thuộc tài khoản nào! Vui lòng nhập lại!";
+                header('Location: ' . _WEB_ROOT . '/Auth/enterEmail');
+            }
+        }
+    }
+
+
+
+    function changePassword()
+    {
+        $email = $_GET['email'];
+        $emailAccess = $_GET['accessEmail'];
+        $this->view("client", [
+            'page' => 'change_password',
+            'title' => 'Thay đổi mật khẩu',
+            'css' => ['base', 'main'],
+            'js' => ['main', 'jquery.validate', 'form_validate'],
+            'email' => $email,
+            'emailAccess' => $emailAccess,
+        ]);
+    }
+
     function verify_email()
     {
         $email = $_GET['email'];
@@ -228,6 +313,46 @@ class Auth extends Controller
             $_SESSION['msglg'] = 'Xác thực thất bại';
             $_SESSION['typelg'] = 'danger';
             header('Location: ' . _WEB_ROOT . '/Auth/register');
+        }
+    }
+
+    function treatment_email()
+    {
+        $email = $_GET['email'];
+        $emailAccess = $_GET['accessEmail'];
+        if (password_verify($email, $emailAccess)) {
+
+            header('Location: ' . _WEB_ROOT . "/Auth/changePassword?email=$email&accessEmail=$emailAccess");
+        } else {
+            $_SESSION['msg_false'] = 'Xác thực thất bại';
+            $_SESSION['type_false'] = 'danger';
+            header('Location: ' . _WEB_ROOT . '/Auth/enterEmail');
+        }
+    }
+
+    function treatment_password()
+    {
+        if (isset($_POST['btn-submit'])) {
+            $email = $_POST['email'];
+            $emailAccess = $_POST['accessEmail'];
+            if (password_verify($email, $emailAccess)) {
+                $password = $_POST['password'];
+                $confirm_password = $_POST['confirm_password'];
+                if ($password === $confirm_password) {
+                    $password = password_hash($password, PASSWORD_DEFAULT);
+                    $status = $this->users->updatePassword($email, $password);
+                    $_SESSION['msg'] = 'Thay đổi mật khẩu thành công, bạn có thể đăng nhập bằng mật khẩu mới';
+                    header('Location: ' . _WEB_ROOT . "/Auth/login");
+                } else {
+                    $_SESSION['msg_false'] = 'Vui lòng nhập lại mật khẩu khác ';
+                    $_SESSION['type_false'] = 'danger';
+                    header('Location: ' . _WEB_ROOT . "/Auth/changePassword?email=$email&accessEmail=$emailAccess");
+                }
+            } else {
+                $_SESSION['msg_false'] = 'Cập nhật thất bại, vui lòng lặp lại các bước!';
+                $_SESSION['type_false'] = 'danger';
+                header('Location: ' . _WEB_ROOT . '/Auth/enterEmail');
+            }
         }
     }
 }

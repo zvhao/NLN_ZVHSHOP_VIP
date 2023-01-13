@@ -2,17 +2,22 @@
 
 class Contact extends Controller
 {
-    private $products;
-    private $categories;
-    private $users;
-    private $cart;
-    private $contacts;
+    private BillModel $bills;
+    private CartModel $cart;
+    private CategoryModel $categories;
+    private CommentModel $comment;
+    private ProductModel $products;
+    private UserModel $users;
+    private ContactModel $contacts;
     function __construct()
     {
-        $this->products = $this->model('ProductModel');
-        $this->categories = $this->model('CategoryModel');
-        $this->contacts = $this->model('ContactModel');
+        $this->bills = $this->model('BillModel');
         $this->cart = $this->model('CartModel');
+        $this->categories = $this->model('CategoryModel');
+        $this->comment = $this->model('CommentModel');
+        $this->products = $this->model('ProductModel');
+        $this->users = $this->model('UserModel');
+        $this->contacts = $this->model('ContactModel');
     }
 
     public function index()
@@ -54,8 +59,19 @@ class Contact extends Controller
 
     public function admin()
     {
+        $responded = 'NULL';
+        $orderBy = '';
 
-        $contacts = $this->contacts->getAllContact();
+        if(isset($_GET['responded']) && $_GET['responded'] != '') {
+            $responded = $_GET['responded'];
+        }
+        if(isset($_GET['order_by']) && $_GET['order_by'] != '') {
+            $orderBy = $_GET['order_by'];
+        }
+
+        $contacts = $this->contacts->getAllContact($responded, $orderBy);
+
+
 
         return $this->view("admin", [
             'page' => 'contact/list',
@@ -100,14 +116,14 @@ class Contact extends Controller
             $status = $this->contacts->respondContact($id_contact, $respond);
             if ($status) {
 
-                $subject =  'ZVHSHOP phản hồi liên hệ';
-                $content = 'Chào ' . $name . '</br>';
-                $content .= 'Cảm ơn bạn đã liên hệ với chúng tôi với nội dung: </br>';
-                $content .= $contentContact . '</br></br>';
-                $content .= 'Phản hồi từ quản trị viên:</br>';
-                $content .= $respond . '</br></br>';
-                $content .= 'Nếu có mọi thắc mắc, phản hồi nào cần ZVHSHOP giải đáp, vui lòng reply mail này.</br>';
-                $content .= 'Trân trọng cảm ơn';
+                $subject =  "ZVHSHOP phản hồi liên hệ";
+                $content = "Chào " . $name . "</br>";
+                $content .= "Cảm ơn bạn đã liên hệ với chúng tôi với nội dung: </br>";
+                $content .= $contentContact . "</br></br>";
+                $content .= "Phản hồi từ quản trị viên:</br>";
+                $content .= $respond . "</br></br>";
+                $content .= "Nếu có mọi thắc mắc, phản hồi nào cần ZVHSHOP giải đáp, vui lòng reply mail này.</br>";
+                $content .= "Trân trọng cảm ơn";
                 $statusMail = sendMail($email, $subject, $content);
                 if ($statusMail) {
                     $checkLogin = true;
@@ -123,7 +139,7 @@ class Contact extends Controller
                 $checkLogin = false;
             }
             if ($checkLogin) {
-                $_SESSION['msg'] = $message;
+                $_SESSION['msg_contact'] = $message;
                 header('Location: ' . _WEB_ROOT . '/contact/admin');
             } else {
 
