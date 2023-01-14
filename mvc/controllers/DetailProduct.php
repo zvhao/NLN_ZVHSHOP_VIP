@@ -58,8 +58,8 @@ class DetailProduct extends Controller
         }
         $commentsNew = [];
         foreach($comments as $comment) {
-            if($this->comment->getRespond($comment['id'])) {
-                $comment['respond_content'] = $this->comment->getRespond($comment['id'])['content'];
+            if($this->comment->getOneComment($comment['id'])) {
+                $comment['respond_content'] = $this->comment->getOneComment($comment['id'])['responded'];
             } else {
                 $comment['respond_content'] = '';
             }

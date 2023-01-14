@@ -14,7 +14,7 @@
                             <li class="list-top-item header-hotline">
                                 <i class="fa-solid fa-phone"></i>
                                 <span class="font-weight-bold">HOTLINE:</span>
-                                <a href="tel:0938744376">09090909090</a>
+                                <a href="tel:0938744376">0938744376</a>
                             </li>
                             <li class="list-top-item header-search">
                                 <form action="<?= _WEB_ROOT . '/product/show_product' ?>" method="GET" class="header-search-form input-group">

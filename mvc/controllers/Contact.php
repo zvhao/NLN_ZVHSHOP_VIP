@@ -117,13 +117,13 @@ class Contact extends Controller
             if ($status) {
 
                 $subject =  "ZVHSHOP phản hồi liên hệ";
-                $content = "Chào " . $name . "</br>";
-                $content .= "Cảm ơn bạn đã liên hệ với chúng tôi với nội dung: </br>";
-                $content .= $contentContact . "</br></br>";
-                $content .= "Phản hồi từ quản trị viên:</br>";
-                $content .= $respond . "</br></br>";
-                $content .= "Nếu có mọi thắc mắc, phản hồi nào cần ZVHSHOP giải đáp, vui lòng reply mail này.</br>";
-                $content .= "Trân trọng cảm ơn";
+                $content = "<p>Chào " . $name . "</p></br>";
+                $content .= "C<p>ảm ơn bạn đã liên hệ với chúng tôi với nội dung: </p></br>";
+                $content .= "<p>" . $contentContact . "</p></br></br>";
+                $content .= "<p>Phản hồi từ quản trị viên:</p></br>";
+                $content .= "<p>" . $respond . "</p></br></br>";
+                $content .= "<p>Nếu có mọi thắc mắc, phản hồi nào cần ZVHSHOP giải đáp, vui lòng reply mail này.</p></br>";
+                $content .= "<p>Trân trọng cảm ơn</p>";
                 $statusMail = sendMail($email, $subject, $content);
                 if ($statusMail) {
                     $checkLogin = true;
@@ -148,3 +148,4 @@ class Contact extends Controller
         }
     }
 }
+

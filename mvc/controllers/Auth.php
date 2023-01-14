@@ -137,9 +137,9 @@ class Auth extends Controller
                         $linkActive = _WEB_ROOT . '/auth/verify_email/?email=' . $email . "&accessEmail=" . $emailHash;
 
                         $subject =  $name . ' vui lòng kích hoạt tài khoản';
-                        $content = 'Chào ' . $name . '</br>';
-                        $content .= 'Vui lòng click vào link dưới đây để kích hoạt tài khoản: ';
-                        $content .= $linkActive . '</br>';
+                        $content = '<p>Chào ' . $name . '</p></br>';
+                        $content .= '<p>Vui lòng click vào link dưới đây để kích hoạt tài khoản: </p>';
+                        $content .= '<p>' . $linkActive . '</p></br>';
                         $content .= 'Trân trọng cảm ơn';
                         $statusMail = sendMail($email, $subject, $content);
                         if ($statusMail) {
@@ -221,13 +221,27 @@ class Auth extends Controller
 
     function enterEmail()
     {
-
+        $infoCart = [];
+        $detailCart = [];
+        if (isset($_SESSION['user']) && $_SESSION['user']['id']) {
+            $id_user = $_SESSION['user']['id'];
+            $detailCart = $this->cart->getAllDetailCart($id_user);
+            $infoCart = $this->cart->SelectCart($id_user);
+            // show_array($infoCart);
+        }
+        if (isset($_SESSION['cart']['buy'])) {
+            $detailCart = $_SESSION['cart']['buy'];
+            $infoCart = $this->cart->infoCart();
+        }
+        $categories = $this->categories->getAllCl();
         $this->view("client", [
             'page' => 'enter_email',
             'title' => 'Kiểm tra tài khoản',
             'css' => ['base', 'main'],
             'js' => ['main', 'jquery.validate', 'form_validate'],
-
+            'categories' => $categories,
+            'infoCart' => $infoCart,
+            'detailCart' => $detailCart,
 
         ]);
     }
@@ -258,13 +272,14 @@ class Auth extends Controller
                 $emailHash = password_hash($email, PASSWORD_DEFAULT);
                 $linkActive = _WEB_ROOT . '/auth/treatment_email/?email=' . $email . "&accessEmail=" . $emailHash;
                 $linkContact = _WEB_ROOT . '/contact';
+
                 $subject = 'Thay đổi mật khẩu';
-                $content = 'Chào ' . $fullName . '</br>';
-                $content .= 'Vui lòng click vào link dưới đây để thay đổi mật khẩu: ';
-                $content .= $linkActive . '</br>';
-                $content .= 'Nếu bạn không yêu cầu thay đổi mật khẩu, vui lòng bỏ qua mail này hoặc liên hệ ngay với chúng tôi qua link:</br>';
-                $content .= $linkContact . '</br>';
-                $content .= 'Trân trọng cảm ơn';
+                $content = '<p>Chào ' . $fullName . '</p></br>';
+                $content .= '<p>Vui lòng click vào link dưới đây để thay đổi mật khẩu: </p>';
+                $content .= "<p>" . $linkActive . '</p></br>';
+                $content .= '<p>Nếu bạn không yêu cầu thay đổi mật khẩu, vui lòng bỏ qua mail này hoặc liên hệ ngay với chúng tôi qua link: ' . $linkContact . '</p>';
+
+                $content .= '<p>Trân trọng cảm ơn</p>';
                 $statusMail = sendMail($email, $subject, $content);
                 if ($statusMail) {
                     $checkLogin = true;
@@ -290,6 +305,20 @@ class Auth extends Controller
     {
         $email = $_GET['email'];
         $emailAccess = $_GET['accessEmail'];
+        $infoCart = [];
+        $detailCart = [];
+        if (isset($_SESSION['user']) && $_SESSION['user']['id']) {
+            $id_user = $_SESSION['user']['id'];
+            $detailCart = $this->cart->getAllDetailCart($id_user);
+            $infoCart = $this->cart->SelectCart($id_user);
+            // show_array($infoCart);
+        }
+        if (isset($_SESSION['cart']['buy'])) {
+            $detailCart = $_SESSION['cart']['buy'];
+            $infoCart = $this->cart->infoCart();
+        }
+        $categories = $this->categories->getAllCl();
+
         $this->view("client", [
             'page' => 'change_password',
             'title' => 'Thay đổi mật khẩu',
@@ -297,6 +326,9 @@ class Auth extends Controller
             'js' => ['main', 'jquery.validate', 'form_validate'],
             'email' => $email,
             'emailAccess' => $emailAccess,
+            'categories' => $categories,
+            'infoCart' => $infoCart,
+            'detailCart' => $detailCart,
         ]);
     }
 
