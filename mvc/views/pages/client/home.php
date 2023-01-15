@@ -2,7 +2,6 @@
 
 <!-- slider -->
 <?php
-// show_array($_SESSION['user']);
 
 ?>
 

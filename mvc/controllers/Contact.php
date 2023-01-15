@@ -105,20 +105,14 @@ class Contact extends Controller
             $respond = $_POST['respond'];
             $name = $_POST['name'];
 
-            // $data = array(
-            //     'id_contact' => $id_contact,
-            //     'contentContact' => $contentContact,
-            //     'respond' => $respond,
-            //     'name' => $name,
-            // );
-            // show_array($data);
+
 
             $status = $this->contacts->respondContact($id_contact, $respond);
             if ($status) {
 
                 $subject =  "ZVHSHOP phản hồi liên hệ";
                 $content = "<p>Chào " . $name . "</p></br>";
-                $content .= "C<p>ảm ơn bạn đã liên hệ với chúng tôi với nội dung: </p></br>";
+                $content .= "<p>Cảm ơn bạn đã liên hệ với chúng tôi với nội dung: </p></br>";
                 $content .= "<p>" . $contentContact . "</p></br></br>";
                 $content .= "<p>Phản hồi từ quản trị viên:</p></br>";
                 $content .= "<p>" . $respond . "</p></br></br>";
@@ -129,22 +123,21 @@ class Contact extends Controller
                     $checkLogin = true;
 
                     $message = 'Phản hồi thành công';
+                    $type_contact = 'success';
                 } else {
                     $checkLogin = false;
-
+                    $type_contact = 'danger';
                     $message = 'Phản hồi thất bại thất bại';
                 }
             } else {
                 $message = 'Đã xảy ra sự cố với hệ thống, vui lòng thử lại sau';
                 $checkLogin = false;
             }
-            if ($checkLogin) {
-                $_SESSION['msg_contact'] = $message;
-                header('Location: ' . _WEB_ROOT . '/contact/admin');
-            } else {
 
+                $_SESSION['msg_contact'] = $message;
+                $_SESSION['type_contact'] = $type_contact;
                 header('Location: ' . _WEB_ROOT . '/contact/admin');
-            }
+
         }
     }
 }

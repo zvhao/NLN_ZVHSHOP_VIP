@@ -73,6 +73,7 @@ if (!empty($data['products'])) {
                     <td class="align-middle">
                         <p class="m-0"><?= $product['total_rating']. ' sao' ?></p>
                         <p class="m-0"><?= $product['sold']. ' đã bán' ?></p>
+                        <p class="m-0">còn lại <span class="text-primary"><?= $product['remaining'] ?></span></p>
                         <p class="m-0"><?= $product['countCmt']. ' đánh giá' ?></p>
                        
                 </td>

@@ -21,6 +21,15 @@
 	</div>
 	<hr>
 	<?php
+	if (isset($_SESSION['msg_contact']) && $_SESSION['msg_contact'] != "") {
+	?>
+		<div id="message" class="alert alert-<?= $_SESSION['type_contact'] ?>"><?php echo  $_SESSION['msg_contact'] ?></div>
+	<?php
+		$_SESSION['msg_contact'] = '';
+		$_SESSION['type_contact'] = '';
+	}
+	?>
+	<?php
 	if (isset($data['contacts']) && $data['contacts']) {
 		foreach ($data['contacts'] as $contact) {
 	?>
@@ -38,7 +47,7 @@
 							</div>
 							<div class="border-left border-primary p-3">
 								<p class="user-select-all"><?= $contact['content'] ?></p>
-								
+
 
 							</div>
 						</div>

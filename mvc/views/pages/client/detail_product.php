@@ -91,7 +91,8 @@
                     <p class="price-product fs-1"><?php numberFormat($data['product']['price']) ?></p>
                     <div class="num-order-product">
                         <span>Số lượng:</span>
-                        <input type="number" name="num_order" value="1" min="1" class="num-order mb-3 ">
+                        <input type="number" name="num_order" value="1" min="1" max="<?= $data['product']['remaining'] ?>" class="num-order mb-3 ">
+                        <span><?= $data['product']['remaining'] ?> sản phẩm có sẵn</span>
                         <p><input type="submit" name="add-to-cart" href="" title="" class="add-to-cart mt-3" value="Thêm vào giỏ hàng"></p>
 
                 </form>

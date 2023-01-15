@@ -85,7 +85,7 @@ class Cart extends Controller
         $image = $product['image'];
         $name = $product['name'];
         $price = $product['price'];
-        // $qty = $qty;
+        $remaining = $product['remaining'];
         $dated_at = date('Y-m-d H:i:s');
         $sub_total = $product['price'] * $qty;
 
@@ -108,7 +108,7 @@ class Cart extends Controller
             } else if (isset($_POST['num_order'])) {
                 $qty = $_POST['num_order'];
                 $sub_total = $price * $qty;
-                $this->cart->insertDetailCart($id_cart, $id_pro, $image, $name, $price, $qty, $sub_total, $dated_at);
+                $this->cart->insertDetailCart($id_cart, $id_pro, $image, $name, $price, $remaining, $qty, $sub_total, $dated_at);
             }
             $detailCart = $this->cart->getAllDetailCart($id_user);
 
@@ -132,6 +132,7 @@ class Cart extends Controller
                 'image' => $product['image'],
                 'name' => $product['name'],
                 'price' => $product['price'],
+                'remaining' => $product['remaining'],
                 'qty' => $qty,
                 'dated_at' => date('Y-m-d H:i:s'),
                 'sub_total' => $product['price'] * $qty,

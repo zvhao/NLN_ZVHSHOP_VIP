@@ -1,16 +1,18 @@
 <?php
 class UserModel extends DB
 {
-    function verifyEmail($email){
+    function verifyEmail($email)
+    {
         $date = date("Y-m-d H:i:s");
         $update = "UPDATE users SET email_verify = '$date' WHERE email = '$email'";
         return $this->pdo_execute($update);
     }
-    function updatePassword($email, $password){
+    function updatePassword($email, $password)
+    {
         $update = "UPDATE users SET password = '$password' WHERE email = '$email'";
         return $this->pdo_execute($update);
     }
-    
+
     function getAll($keyword = '', $id = 0, $gr_id = 0)
     {
         $sql = "SELECT * FROM users WHERE 1";
@@ -69,26 +71,24 @@ class UserModel extends DB
         return $this->pdo_execute($insert);
     }
 
-    function updateUser($id, $name, $avatar, $group, $email, $password, $phone, $address, $desc, $updated_at)
+    function updateUser($id, $name, $avatar, $group, $phone, $address, $desc, $updated_at)
     {
-        if (!empty($password) && empty($avatar)) {
-            $update = "UPDATE users SET name = '$name', gr_id = '$group', email = '$email', password = '$password', phone = '$phone', address = '$address', description = '$desc', updated_at = '$updated_at' WHERE id = '$id'";
-        } else if (empty($password) && !empty($avatar)) {
-            $update = "UPDATE users SET name = '$name', avatar = '$avatar', gr_id = '$group', email = '$email', phone = '$phone', address = '$address', description = '$desc', updated_at = '$updated_at' WHERE id = '$id'";
-        } else if (empty($password) && empty($avatar)) {
-            $update = "UPDATE users SET name = '$name', gr_id = '$group', email = '$email', phone = '$phone', address = '$address', description = '$desc', updated_at = '$updated_at' WHERE id = '$id'";
+        if (!empty($avatar)) {
+            $update = "UPDATE users SET name = '$name', avatar = '$avatar', gr_id = '$group', phone = '$phone', address = '$address', description = '$desc', updated_at = '$updated_at' WHERE id = '$id'";
+        } else if (empty($avatar)) {
+            $update = "UPDATE users SET name = '$name', gr_id = '$group', phone = '$phone', address = '$address', description = '$desc', updated_at = '$updated_at' WHERE id = '$id'";
         } else {
-            $update = "UPDATE users SET name = '$name', avatar = '$avatar', gr_id = '$group', email = '$email', password = '$password', phone = '$phone', address = '$address', description = '$desc', updated_at = '$updated_at' WHERE id = '$id'";
+            $update = "UPDATE users SET name = '$name', avatar = '$avatar', gr_id = '$group', phone = '$phone', address = '$address', description = '$desc', updated_at = '$updated_at' WHERE id = '$id'";
         }
         return $this->pdo_execute($update);
     }
 
-    function updateProfile($id, $name, $avatar, $email, $phone, $address, $desc, $updated_at)
+    function updateProfile($id, $name, $avatar, $phone, $address, $desc, $updated_at)
     {
         if (empty($avatar)) {
-            $update = "UPDATE users SET name = '$name', email = '$email', phone = '$phone', address = '$address', description = '$desc', updated_at = '$updated_at' WHERE id = '$id'";
+            $update = "UPDATE users SET name = '$name', phone = '$phone', address = '$address', description = '$desc', updated_at = '$updated_at' WHERE id = '$id'";
         } else {
-            $update = "UPDATE users SET name = '$name', avatar = '$avatar', email = '$email', phone = '$phone', address = '$address', description = '$desc', updated_at = '$updated_at' WHERE id = '$id'";
+            $update = "UPDATE users SET name = '$name', avatar = '$avatar', phone = '$phone', address = '$address', description = '$desc', updated_at = '$updated_at' WHERE id = '$id'";
         }
 
         return $this->pdo_execute($update);

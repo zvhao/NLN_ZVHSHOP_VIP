@@ -254,7 +254,7 @@ class Product extends Controller
             $image = $this->processImg($_FILES['product']['name'], $_FILES['product']['tmp_name']);
             $name = $_POST['productname'];
             $price = $_POST['price'];
-
+            $remaining = $_POST['remaining'];
             $category = $_POST['category'];
             $desc = $_POST['description'];
             $detail_img = $_FILES['detail_image'];
@@ -267,7 +267,7 @@ class Product extends Controller
                 array_push($image_array, $img);
             }
 
-            $idProduct = $this->products->insertPro($name, $image, $category, $price, $desc, $created_at);
+            $idProduct = $this->products->insertPro($name, $image, $category, $price, $remaining, $desc, $created_at);
             if (!empty($image_array) && $image_array[0] != '') {
                 foreach ($image_array as $name)
                     $this->products->addImageProduct($idProduct, $name, $created_at);
@@ -312,6 +312,7 @@ class Product extends Controller
 
             $name = $_POST['productname'];
             $price = $_POST['price'];
+            $remaining = $_POST['remaining'];
             $category = $_POST['category'];
             $desc = $_POST['description'];
 
@@ -327,7 +328,7 @@ class Product extends Controller
                 $image = $this->processImg($_FILES['product']['name'], $_FILES['product']['tmp_name']);
             }
 
-            $status = $this->products->updateProduct($id, $name, $image, $category, $price, $desc, $updated_at);
+            $status = $this->products->updateProduct($id, $name, $image, $category, $price, $remaining, $desc, $updated_at);
             // show_array($image_array);
 
             if (!empty($image_array['0'])) {

@@ -121,7 +121,7 @@ foreach ($urlNew as $item) {
 
                 </label>
             </div>
-            <a href="<?php echo _WEB_ROOT . '/bill/show_bill' ?>">Xem đơn hàng</a>
+            <a href="<?= _WEB_ROOT . '/bill/detail_bill/' . $_SESSION['bill_new'] ?>">Xem đơn hàng</a>
         </div>
         <p>
             &nbsp;

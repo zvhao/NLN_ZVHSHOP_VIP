@@ -25,7 +25,7 @@
 			</a>
 		</div>
 		<div class="col-3 mb-3 p-3">
-			<a href="<?= _WEB_ROOT . '/bill' ?>" style="height: 200px;" class="d-flex p-3 align-items-center justify-content-around rounded-pill  text-center bg-warning">
+			<a href="<?= _WEB_ROOT . '/statistical' ?>" style="height: 200px;" class="d-flex p-3 align-items-center justify-content-around rounded-pill  text-center bg-warning">
 				<i class="display-3 fa-solid fa-coins"></i>
 				<h5 class="display-5 m-0">DOANH THU <p class="m-0"><?= numberFormat($data['sumBill']) ?></p>
 				</h5>

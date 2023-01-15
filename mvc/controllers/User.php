@@ -108,34 +108,18 @@ class User extends Controller
 
             $name = $_POST['username'];
             $avatar = $this->processImg();
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            if (!empty($password)) {
-                $password = password_hash($password, PASSWORD_DEFAULT);
-            }
+
             $phone = $_POST['phone'];
             $address = $_POST['address'];
             $group = $_POST['group'];
             $desc = $_POST['description'];
             $updated_at = date('Y-m-d H:i:s');
-            $users = $this->user->getAll('', $id);
+            $users = $this->user->getAll('', $id, 0);
             $check = 0;
 
-            foreach ($users as $user) {
-                if ($user['name'] == $name) {
-                    $check = 1;
-                    break;
-                } else {
-                    $check = 0;
-                }
-            }
             $header = 0;
-            if ($check == 1) {
-                $header = 0;
-                $type = 'danger';
-                $msg = 'User user name already exists';
-            } else {
-                $status = $this->user->updateUser($id, $name, $avatar, $group, $email, $password, $phone, $address, $desc, $updated_at);
+
+                $status = $this->user->updateUser($id, $name, $avatar, $group, $phone, $address, $desc, $updated_at);
                 if ($status) {
                     $header = 1;
                     $type = 'success';
@@ -145,11 +129,11 @@ class User extends Controller
                     $type = 'danger';
                     $msg = 'System error';
                 }
-            }
+
 
             if ($header === 0) {
                 return $this->view('admin', [
-                    'page' => 'users/update',
+                    'page' => 'user/update',
                     'user' => $user,
                     'msg' => $msg,
                     'type' => $type,
@@ -219,20 +203,18 @@ class User extends Controller
 
     function update_profile()
     {
-        if (isset($_POST['update_profile']) && ($_POST['update_profile'])) {
-            $id = $_POST['id'];
+        if (isset($_POST['update_profile']) && isset($_SESSION['user']) && ($_POST['update_profile'])) {
+            $id = $_SESSION['user']['id'];
             $name = $_POST['name'];
             $avatar = $this->processImg();
             // show_array($avatar);
-            $email = $_POST['email'];
             $phone = $_POST['phone'];
             $address = $_POST['address'];
             $desc = $_POST['desc'];
             $updated_at = date('Y-m-d H:i:s');
 
-            $status = $this->user->updateProfile($id, $name, $avatar, $email, $phone, $address, $desc, $updated_at);
+            $status = $this->user->updateProfile($id, $name, $avatar, $phone, $address, $desc, $updated_at);
             if (isset($_SESSION['user'])) {
-                $email = $_SESSION['user']['email'];
                 $_SESSION['user'] = $this->user->SelectUser($id);
             }
 

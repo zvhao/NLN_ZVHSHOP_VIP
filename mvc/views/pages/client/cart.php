@@ -1,4 +1,5 @@
 <?php
+// show_array($data['detailCart']);
 
 ?>
 
@@ -49,8 +50,10 @@
 								<a href="<?php echo _WEB_ROOT . '/detailproduct/product/'; if(isset($_SESSION['user'])) echo $item['id_pro']; else echo $item['id'];  ?>" title="" class="name-product text-truncate"><?= $item['name'] ?></a>
 							</td>
 							<td class="text-end pe-5"><?= numberFormat($item['price']) ?></td>
-							<td>
-								<input type="number" data-id="<?= $item['id'] ?>" name="qty[<?= $item['id'] ?>]" value="<?= $item['qty'] ?>" class="num-order" min="1">
+							<td class="text-center">
+								<input type="number" data-id="<?= $item['id'] ?>" name="qty[<?= $item['id'] ?>]" value="<?= $item['qty'] ?>" class="num-order" min="1" max="<?= $item['remaining'] ?>">còn lại 
+								<span data-name="remaining-<?= $item['id'] ?>"><?= $item['remaining'] - $item['qty'] ?></span>
+								<input type="hidden" id="remaining-<?= $item['id'] ?>" value="<?= $item['remaining'] ?>">
 							</td>
 							<td class=" text-end pe-5" id="sub_total-<?= $item['id'] ?>"><?= numberFormat($item['sub_total']) ?></td>
 							<td>

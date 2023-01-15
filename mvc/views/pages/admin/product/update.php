@@ -88,6 +88,9 @@ if (!empty($data['msg'])) {
       <div class="mb-3 col-span-6">
         <label for="exampleInputEmail1" class="form-label">Price</label>
         <input type="text" class="form-control" name="price" placeholder="Example: 205" value="<?php echo $data['product']['price'] ?>">
+
+        <label for="" class="form-label mt-4">Số lượng có sẳn</label>
+        <input required type="number" class="form-control" name="remaining" min="0" value="<?php echo $data['product']['remaining'] ?>">
       </div>
       <div class="mb-3 col-span-6">
         <label for="exampleInputEmail1" class="form-label">Description</label>
@@ -97,6 +100,5 @@ if (!empty($data['msg'])) {
 
 
   </div>
-  <input type="hidden" name="update_product" value="update_product">
-  <button type="submit" class="btn btn-primary">Cập nhật</button>
+  <button type="submit" name="update_product" value="update_product" class="btn btn-primary w-100">Cập nhật</button>
 </form>

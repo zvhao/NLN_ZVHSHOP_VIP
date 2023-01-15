@@ -52,12 +52,18 @@ if (!empty($data['msg'])) {
             </div>
         </div>
 
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Giá</label>
-            <input required type="text" class="form-control" name="price" placeholder="Ví dụ: 2300000">
+        <div class="mb-3 row">
+            <div class="col">
+                <label for="" class="form-label">Giá</label>
+                <input required type="text" class="form-control" name="price" placeholder="Ví dụ: 2300000">
+            </div>
+            <div class="col">
+                <label for="" class="form-label">Số lượng có sẳn</label>
+                <input required type="number" class="form-control" name="remaining" min="0" >
+            </div>
         </div>
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Mô tả</label>
+            <label for="" class="form-label">Mô tả</label>
             <textarea rows="4" type="text" class="form-control" name="description" placeholder="Mô tả"></textarea>
         </div>
 
@@ -67,6 +73,5 @@ if (!empty($data['msg'])) {
 
 
     </div>
-    <input type="hidden" name="add_product" value="add_product">
-    <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+    <button type="submit" class="btn btn-primary w-100" name="add_product" value="add_product">Thêm sản phẩm</button>
 </form>

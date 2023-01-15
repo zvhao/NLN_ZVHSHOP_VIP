@@ -193,28 +193,59 @@ class Bill extends Controller
 			} else $user_id = 0;
 			$created_at = date('Y-m-d H:i:s');
 
-			$idBill = $this->bills->insertBill($fullname, $tel, $email, $address, $note, $total, $method, $user_id, $created_at);
-
-			if ($idBill) {
-				if (isset($_SESSION['user'])) {
-					foreach ($detailCart as $item) {
-						$this->bills->insertDetailBill($item['id_pro'], $item['image'], $item['name'], $item['price'], $item['qty'],  $item['sub_total'], $idBill, $created_at);
+			if (isset($_SESSION['user'])) {
+				foreach ($detailCart as $item) {
+					$product = $this->products->SelectProduct($item['id_pro']);
+					if ($item['qty'] <= $product['remaining']) {
+						$checkBill = true;
+					} else {
+						$checkBill = false;
+						break;
 					}
-					$this->cart->deleteDetailCart(0, $infoCart['id']);
-					$this->cart->updateCart($id_user, 0, 0);
-				} else {
-					foreach ($detailCart as $item) {
-						if (isset($item['id']) && $item['id']) {
-							$this->bills->insertDetailBill($item['id'], $item['image'], $item['name'], $item['price'], $item['qty'],  $item['sub_total'], $idBill, $created_at);
-						}
-					}
-					unset($_SESSION['cart']);
 				}
-				$_SESSION['bill_new'] = $idBill;
+			} else {
+				foreach ($detailCart as $item) {
+					$product = $this->products->SelectProduct($item['id']);
+					if ($item['qty'] <= $product['remaining']) {
+						$checkBill = true;
+					} else {
+						$checkBill = false;
+						unset($_SESSION['user']);
+						redirectTo("auth/login");
+						break;
+					}
+				}
+			}
+
+
+			if ($checkBill) {
+				$idBill = $this->bills->insertBill($fullname, $tel, $email, $address, $note, $total, $method, $user_id, $created_at);
+				if ($idBill) {
+					if (isset($_SESSION['user'])) {
+						foreach ($detailCart as $item) {
+							$this->bills->insertDetailBill($item['id_pro'], $item['image'], $item['name'], $item['price'], $item['qty'],  $item['sub_total'], $idBill, $created_at);
+							$this->products->updateRemaining($item['id_pro'], (int)($this->products->SelectProduct($item['id_pro'])['remaining'] - $item['qty']));
+						}
+						$this->cart->deleteDetailCart(0, $infoCart['id']);
+						$this->cart->updateCart($id_user, 0, 0);
+					} else {
+						foreach ($detailCart as $item) {
+							if (isset($item['id']) && $item['id']) {
+								$this->bills->insertDetailBill($item['id'], $item['image'], $item['name'], $item['price'], $item['qty'],  $item['sub_total'], $idBill, $created_at);
+								$this->products->updateRemaining($item['id'], (int)($this->products->SelectProduct($item['id'])['remaining'] - $item['qty']));
+							}
+						}
+						unset($_SESSION['cart']);
+					}
+					$_SESSION['bill_new'] = $idBill;
+					redirectTo("bill/detail_bill/$idBill");
+				}
+			} else {
+				unset($_SESSION['user']);
+				redirectTo("auth/login");
 			}
 
 			// show_array($_SESSION['bill_new']);
-			redirectTo("bill/detail_bill/$idBill");
 		}
 	}
 

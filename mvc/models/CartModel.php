@@ -8,9 +8,9 @@ class CartModel extends DB
 		return $this->pdo_execute($sql);
 	}
 
-	public function insertDetailCart($id_cart, $id_pro, $image, $name, $price, $qty, $sub_total, $created_at)
+	public function insertDetailCart($id_cart, $id_pro, $image, $name, $price, $remaining, $qty, $sub_total, $created_at)
 	{
-		$sql = "INSERT INTO detail_cart(id_cart, id_pro, image, name, price, qty, sub_total, created_at) VALUES('$id_cart', '$id_pro', '$image', '$name', '$price', '$qty', '$sub_total', '$created_at')";
+		$sql = "INSERT INTO detail_cart(id_cart, id_pro, image, name, price, remaining, qty, sub_total, created_at) VALUES('$id_cart', '$id_pro', '$image', '$name', '$price', '$remaining', '$qty', '$sub_total', '$created_at')";
 		return $this->pdo_execute($sql);
 	}
 
@@ -26,7 +26,7 @@ class CartModel extends DB
 
 	public function getAllDetailCart($id_user)
 	{
-		$select = "SELECT detail_cart.id, detail_cart.id_cart, detail_cart.id_pro, detail_cart.image, detail_cart.name, detail_cart.price, detail_cart.qty, detail_cart.sub_total, detail_cart.created_at FROM `detail_cart` JOIN cart ON detail_cart.id_cart = cart.id WHERE cart.id_user = '$id_user' ORDER BY created_at DESC";
+		$select = "SELECT detail_cart.id, detail_cart.id_cart, detail_cart.id_pro, detail_cart.image, detail_cart.name, detail_cart.price, detail_cart.remaining, detail_cart.qty, detail_cart.sub_total, detail_cart.created_at FROM `detail_cart` JOIN cart ON detail_cart.id_cart = cart.id WHERE cart.id_user = '$id_user' ORDER BY created_at DESC";
 		return $this->pdo_query($select);
 	}
 

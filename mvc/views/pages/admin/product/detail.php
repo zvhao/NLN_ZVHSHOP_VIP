@@ -18,7 +18,8 @@
 					<span class=""><span class="text-primary"><?= $data['favorites'] ?></span> lượt thích</span>
 				</span>
 				<span class="mr-5"><span class="text-primary"><?= $data['sold'] ?></span> đã bán</span>
-				<span class=""><span class="text-primary"><?= $data['countComment'] ?></span> đánh giá</span>
+				<span class="mr-5"><span class="text-primary"><?= $data['countComment'] ?></span> đánh giá</span>
+				<span class=""><span class="text-primary"><?= $data['product']['remaining'] ?></span>  sản phẩm có sẵn</span>
 			</div>
 			<p class="font-weight-bold text-primary" style="font-size: 1.4rem;"><?php numberFormat($data['product']['price']) ?></p>
 		</div>

@@ -49,9 +49,8 @@
                     <i class="fa-solid fa-eye-slash eye-icon showHidePw"></i>
 
                 </div>
-                <input type="hidden" name="register" value="register">
                 <div class="input-field">
-                    <button class="w-100 btn-main p-4" type="submit">Đăng ký</button>
+                    <button name="register" value="register" class="w-100 btn-main p-4" type="submit">Đăng ký</button>
                 </div>
             </form>
 

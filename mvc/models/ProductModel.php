@@ -43,9 +43,9 @@ class ProductModel extends DB
         return $this->pdo_query($select);
     }
 
-    function insertPro($name, $image, $cate_id, $price, $desc, $created_at)
+    function insertPro($name, $image, $cate_id, $price, $remaining, $desc, $created_at)
     {
-        $pro = "INSERT INTO products(name, image, cate_id, price, description, created_at) VALUES('$name', '$image', '$cate_id','$price', '$desc', '$created_at')";
+        $pro = "INSERT INTO products(name, image, cate_id, price, remaining, description, created_at) VALUES('$name', '$image', '$cate_id','$price', '$remaining', '$desc', '$created_at')";
         return $this->pdo_execute_lastInsertID($pro);
     }
 
@@ -92,12 +92,12 @@ class ProductModel extends DB
         }
     }
 
-    function updateProduct($id, $name, $image, $cate_id, $price, $desc, $updated_at)
+    function updateProduct($id, $name, $image, $cate_id, $price, $remaining, $desc, $updated_at)
     {
         if (empty($image)) {
-            $update = "UPDATE products SET name = '$name', cate_id = '$cate_id', price = '$price', description = '$desc', updated_at = '$updated_at' WHERE id = '$id'";
+            $update = "UPDATE products SET name = '$name', cate_id = '$cate_id', price = '$price', remaining = '$remaining', description = '$desc', updated_at = '$updated_at' WHERE id = '$id'";
         } else {
-            $update = "UPDATE products SET name = '$name', image = '$image', cate_id = '$cate_id', price = '$price', description = '$desc', updated_at = '$updated_at' WHERE id = '$id'";
+            $update = "UPDATE products SET name = '$name', image = '$image', cate_id = '$cate_id', price = '$price', remaining = '$remaining', description = '$desc', updated_at = '$updated_at' WHERE id = '$id'";
         }
         return $this->pdo_execute($update);
     }
@@ -162,6 +162,12 @@ class ProductModel extends DB
     public function updateRating($id, $totalRating)
     {
         $sql = "UPDATE products SET total_rating = '$totalRating' WHERE id = '$id'";
+        return $this->pdo_execute($sql);
+    }
+
+    public function updateRemaining($id, $remaining)
+    {
+        $sql = "UPDATE products SET remaining = '$remaining' WHERE id = '$id'";
         return $this->pdo_execute($sql);
     }
 
