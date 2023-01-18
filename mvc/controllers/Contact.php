@@ -36,7 +36,7 @@ class Contact extends Controller
         }
         $categories = $this->categories->getAllCl();
         $cate = 0;
-        $products = $this->products->getAll('', 0, $cate);
+        $products = $this->products->getAll('', 0, $cate, '');
 
         $productNew = [];
         foreach ($products as $item) {

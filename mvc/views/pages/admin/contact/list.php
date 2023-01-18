@@ -11,12 +11,8 @@
 		<button class="btn btn-primary px-4" name="btn-filter" value="yes">Lọc</button>
 	</form>
 	<div class="row font-weight-bold">
-		<div class="col-6">
-			<div class="row">
-				<h4 class="col-4 font-weight-bold">Thông tin liên hệ</h4>
-				<h4 class="col-8 font-weight-bold">Nội dung liên hệ</h4>
-			</div>
-		</div>
+		<h4 class="col-6 font-weight-bold">Nội dung liên hệ</h4>
+
 		<h4 class="col-6 font-weight-bold">Phản hồi liên hệ</h4>
 	</div>
 	<hr>

@@ -3,15 +3,9 @@
 	<form class="col-4" action="<?= _WEB_ROOT . '/bill' ?>" method="POST">
 		<select name="status" class="custom-select mb-2">
 			<option value="-1" selected>Chọn trạng thái...</option>
-			<option value="0" <?php if (isset($_POST['status']) && $_POST['status'] == 0 || isset($_GET['status']) && $_GET['status'] == 0) {
-									echo 'selected';
-								} ?>>Đang xác nhận</option>
-			<option value="1" <?php if (isset($_POST['status']) && $_POST['status'] == 1 || isset($_GET['status']) && $_GET['status'] == 1) {
-									echo 'selected';
-								} ?>>Đang vận chuyển</option>
-			<option value="2" <?php if (isset($_POST['status']) && $_POST['status'] == 2 || isset($_GET['status']) && $_GET['status'] == 2) {
-									echo 'selected';
-								} ?>>Đã giao</option>
+			<option value="0" <?= selectedStatusBill('status', 0) ?>>Đang xác nhận</option>
+			<option value="1" <?= selectedStatusBill('status', 1) ?>>Đang vận chuyển</option>
+			<option value="2" <?= selectedStatusBill('status', 2) ?>>Đã giao</option>
 		</select>
 		<button type="submit" class="btn btn-outline-primary mb-2">Lọc trạng thái</button>
 
@@ -79,7 +73,7 @@ if (!empty($_SESSION['msg'])) {
 					<td class="text-center align-middle">
 						<input type="hidden" name="href-<?= $bill['id'] ?>" value="<?php echo _WEB_ROOT . '/bill/update_bill/' . $bill['id'] ?>">
 						<button type="button" class="btn btn-primary btn-detail-bill mr-2" data-id="<?= $bill['id'] ?>" data-toggle="modal" data-target="#modal">Xem</button>
-						<button class="btn btn-outline-primary btn-update-status" href="<?php echo _WEB_ROOT . '/bill/update_bill/' . $bill['id'] ?>" data-id="<?= $bill['id'] ?>" <?php if ($bill['status'] == 2) echo 'disabled' ?> title="Vận chuyển" >
+						<button class="btn btn-outline-primary btn-update-status" href="<?php echo _WEB_ROOT . '/bill/update_bill/' . $bill['id'] ?>" data-id="<?= $bill['id'] ?>" <?php if ($bill['status'] == 2) echo 'disabled' ?> title="Vận chuyển">
 							<i class="fa-solid fa-dolly" data-id="<?= $bill['id'] ?>"></i>
 						</button>
 						<a class="handle_delete btn btn-outline-danger ml-2" href="<?php echo _WEB_ROOT . '/bill/delete_bill/' . $bill['id'] ?>">
@@ -101,34 +95,34 @@ if (!empty($_SESSION['msg'])) {
 </table>
 
 
-	<!-- Modal -->
-	<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-		<div class="modal-dialog" style="max-width: 75%;">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modalLabel">ĐƠN HÀNG</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="max-width: 75%;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalLabel">ĐƠN HÀNG</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body row" style="font-size: 1rem;">
+				<div class="d-flex flex-column col-5 bill-info-user">
 				</div>
-				<div class="modal-body row" style="font-size: 1rem;">
-					<div class="d-flex flex-column col-5 bill-info-user">
+
+				<div class="col-7 bill-info-product">
+					<div class="checkout-heading mb-3 text-primary font-weight-bold" style="font-size: 1.6rem;">Thông tin đơn hàng</div>
+					<div class="bill-info-pro-list" style=" max-height: 40vh; overflow-y: auto;">
+
+					</div>
+					<div class="bill-info-bill row border-top border-primary pt-3 pr-3">
+
 					</div>
 
-					<div class="col-7 bill-info-product">
-						<div class="checkout-heading mb-3 text-primary font-weight-bold" style="font-size: 1.6rem;">Thông tin đơn hàng</div>
-						<div class="bill-info-pro-list" style=" max-height: 40vh; overflow-y: auto;">
-
-						</div>
-						<div class="bill-info-bill row border-top border-primary pt-3 pr-3">
-
-						</div>
-						
-					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
+</div>

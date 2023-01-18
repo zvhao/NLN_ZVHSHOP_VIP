@@ -1,3 +1,6 @@
+<?php
+// show_array($_SERVER)
+?>
 <div class="grid wide">
     <nav>
         <ol class="breadcrumb">
@@ -34,16 +37,28 @@
     </nav>
 
     <ul class="category-list row">
-        <?php
-        foreach ($data['categories'] as $category) {
+        <!-- <div class="row"> -->
+            <?php
+            foreach ($data['categories'] as $category) {
 
-        ?>
-            <li class="category-item col"><a href="?cate=<?php echo $category['id_cate'] ?>" class="category-l <?php if (isset($_GET['cate']) && $category['id_cate'] == $_GET['cate']) echo 'active-cate' ?>"><?php echo $category['name'] ?></a></li>
+            ?>
+                <li class="category-item col"><a href="?cate=<?php echo $category['id_cate'] ?>" class="category-l <?php if (isset($_GET['cate']) && $category['id_cate'] == $_GET['cate']) echo 'active-cate' ?>"><?php echo $category['name'] ?></a></li>
 
-        <?php
-        }
+            <?php
+            }
 
-        ?>
+            ?>
+        <!-- </div> -->
+        <!-- <div class="dropdown col p-0">
+            <li class="category-item category-l dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Giá
+            </li>
+            <ul class="dropdown-menu font-size-14" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="">Dưới 1 triệu</a></li>
+                <li><a class="dropdown-item" href="">Từ 1 triệu đến 3 triệu</a></li>
+                <li><a class="dropdown-item" href="">Trên 3 triệu</a></li>
+            </ul>
+        </div> -->
     </ul>
 
 
@@ -65,17 +80,17 @@
 
                                 <span class="home-product-item__price-current"><?= numberFormat($item['price']) ?></span>
                                 <span style="font-size: 16px;" class="home-product-item__favorite">
-                                                            <i class="<?= $item['liked'] == 1?'fa-solid':'fa-regular' ?> fa-heart"></i>
-                                                        </span>
+                                    <i class="<?= $item['liked'] == 1 ? 'fa-solid' : 'fa-regular' ?> fa-heart"></i>
+                                </span>
                             </div>
                             <div style="font-size: 14px;" class="home-product-item__action">
-                                                        <div class="d-flex justify-content-between">
-                                                            <div class="home-product-item__rating">
-                                                            <?= getRatingStarRound($item['total_rating']) ?>
-                                                            </div>
-                                                            <div class="home-product-item__sold">Đã bán <?= $item['sold'] ?></div>
-                                                        </div>
-                                                    </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="home-product-item__rating">
+                                        <?= getRatingStarRound($item['total_rating']) ?>
+                                    </div>
+                                    <div class="home-product-item__sold">Đã bán <?= $item['sold'] ?></div>
+                                </div>
+                            </div>
 
                         </div>
                     </a>

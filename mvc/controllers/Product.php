@@ -43,14 +43,14 @@ class Product extends Controller
             $cate  = $_GET['cate'];
             $keyword = '';
         }
-        $products = $this->products->getAll($keyword, 0, $cate);
+        $products = $this->products->getAll($keyword, 0, $cate, '');
 
         $count_product = !empty($products) ? count($products) : 0;
         
         $num_per_page = 8;
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $start = ($page - 1) * $num_per_page;
-        $SelectProByPage = $this->products->SelectProByPage($start, $num_per_page, $keyword, 0, $cate);
+        $SelectProByPage = $this->products->SelectProByPage($start, $num_per_page, $keyword, 0, $cate, '');
         
         foreach ($SelectProByPage as $item) {
             if (!empty($this->products->soldPro($item['id']))) {
@@ -107,6 +107,7 @@ class Product extends Controller
 
         $keyword = '';
         $cate = 0;
+        $price = '';
         if (isset($_GET['search'])) {
             $keyword = $_GET['search'];
             $cate = 0;
@@ -115,7 +116,10 @@ class Product extends Controller
             $cate  = $_GET['cate'];
             $keyword = '';
         }
-        $products = $this->products->getAll($keyword, 0, $cate);
+        if(isset($_GET['price'])) {
+            $price = $_GET['price'];
+        }
+        $products = $this->products->getAll($keyword, 0, $cate, $price);
 
 
         $count_product = !empty($products) ? count($products) : 0;
@@ -123,7 +127,8 @@ class Product extends Controller
         $num_per_page = 8;
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $start = ($page - 1) * $num_per_page;
-        $SelectProByPage = $this->products->SelectProByPage($start, $num_per_page, $keyword, 0, $cate);
+        $SelectProByPage = $this->products->SelectProByPage($start, $num_per_page, $keyword, 0, $cate, $price);
+        // show_array($SelectProByPage);
         foreach ($SelectProByPage as $item) {
             $soldArr = $this->products->soldPro($item['id']);
             $item['sold'] = 0;

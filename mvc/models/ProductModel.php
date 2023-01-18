@@ -1,7 +1,7 @@
 <?php
 class ProductModel extends DB
 {
-    function getAll($keyword = '', $id = 0, $cate_id = 0)
+    function getAll($keyword = '', $id = 0, $cate_id = 0, $between = '')
     {
         $select = "SELECT * FROM products WHERE 1";
         if (!empty($keyword)) {
@@ -14,6 +14,30 @@ class ProductModel extends DB
         if ($cate_id > 0) {
             $select .= " AND cate_id = $cate_id";
         }
+        if(!empty($between)) {
+            $select .= " AND price BETWEEN $between";
+        }
+        $select .= " ORDER BY id DESC";
+        return $this->pdo_query($select);
+    }
+
+    function getAllClient($keyword = '', $id = 0, $cate_id = 0, $between = '')
+    {
+        $select = "SELECT * FROM products WHERE 1";
+        if (!empty($keyword)) {
+            $select .= " AND  name like '%" . $keyword . "%'";
+        }
+
+        if ($id > 0) {
+            $select .= " AND id <> $id";
+        }
+        if ($cate_id > 0) {
+            $select .= " AND cate_id = $cate_id";
+        }
+        if(!empty($between)) {
+            $select .= " AND price BETWEEN $between";
+        }
+
         $select .= " ORDER BY id DESC";
         return $this->pdo_query($select);
     }
@@ -22,17 +46,20 @@ class ProductModel extends DB
         return $this->pdo_query_value('SELECT count(*) FROM products');
     }
 
-    function SelectProByPage($start, $num_per_page, $keyword = '', $id = 0, $cate_id = 0) {
-        $select = "SELECT * FROM products ";
+    function SelectProByPage($start, $num_per_page, $keyword = '', $id = 0, $cate_id = 0, $between = '') {
+        $select = "SELECT * FROM products WHERE 1";
         if (!empty($keyword)) {
-            $select .= " WHERE  name like '%" . $keyword . "%'";
+            $select .= " AND  name like '%" . $keyword . "%'";
         }
 
         if ($id > 0) {
-            $select .= " WHERE id <> $id";
+            $select .= " AND id <> $id";
         }
         if ($cate_id > 0) {
-            $select .= " WHERE cate_id = $cate_id";
+            $select .= " AND cate_id = $cate_id";
+        }
+        if(!empty($between)) {
+            $select .= " AND price $between";
         }
         $select .= "  ORDER BY id DESC LIMIT $start, $num_per_page";
         return $this->pdo_query($select);

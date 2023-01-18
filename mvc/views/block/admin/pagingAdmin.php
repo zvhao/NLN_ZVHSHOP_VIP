@@ -64,19 +64,19 @@ if ($count_product > $num_per_page) {
 				<li class="page-item">
 					<a class="page-link px-4 outline-main" href="
 							  <?php echo _WEB_ROOT . "/$pagePag?";
-								if (!empty($_POST['cate'])) {
+								if (isset($_POST['cate']) && !empty($_POST['cate'])) {
 									echo 'cate=' . $_POST['cate'];
 								}
-								if (!empty($_GET['cate'])) {
+								if (isset($_GET['cate']) && !empty($_GET['cate'])) {
 									echo 'cate=' . $_GET['cate'];
 								}
-								if (!empty($_POST['status'])) {
+								if (isset($_POST['status']) && !empty($_POST['status'])) {
 									echo 'status=' . $_POST['status'];
 								}
-								if (!empty($_GET['status'])) {
+								if (isset($_GET['status']) && !empty($_GET['status'])) {
 									echo 'status=' . $_GET['status'];
 								}
-								if (!empty($_GET['search'])) {
+								if (isset($_GET['search']) && !empty($_GET['search'])) {
 									echo 'search=' . $_GET['search'];
 								}
 
