@@ -17,7 +17,7 @@ function getStatusBill($status)
 
 function selectedStatusBill($status, $val)
 {
-	if (isset($_POST[$status]) && $status == $val || isset($_GET[$status]) && $status == $val) {
+	if (isset($_POST[$status]) && $_POST[$status] == $val || isset($_GET[$status]) && $_GET[$status] == $val) {
 		echo 'selected';
 	}
 }

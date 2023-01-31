@@ -82,7 +82,7 @@ class BillModel extends DB
 
 	public function sumBill()
 	{
-		$select = "SELECT SUM(total) FROM bills";
+		$select = "SELECT SUM(total) FROM bills where status = 2";
 		if ($this->pdo_query_one($select)) {
 			return $this->pdo_query_value($select);
 		} else {
@@ -131,5 +131,11 @@ class BillModel extends DB
 	public function numBuyOneProduct($id_pro)
 	{
 		return $this->pdo_query_value("SELECT SUM(qty) FROM `detail_bill` WHERE id_pro = $id_pro");
+	}
+
+	public function getBillByMonth($lastMonth)
+	{
+		$select = "SELECT SUM(total)as sumBill, COUNT(id) as countBill FROM bills WHERE STATUS = 2 and created_at LIKE '%" . $lastMonth . "%' ";
+		return $this->pdo_query_one($select);
 	}
 }

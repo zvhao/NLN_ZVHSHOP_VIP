@@ -3,9 +3,9 @@
 	<form class="col-4" action="<?= _WEB_ROOT . '/bill' ?>" method="POST">
 		<select name="status" class="custom-select mb-2">
 			<option value="-1" selected>Chọn trạng thái...</option>
-			<option value="0" <?= selectedStatusBill('status', 0) ?>>Đang xác nhận</option>
-			<option value="1" <?= selectedStatusBill('status', 1) ?>>Đang vận chuyển</option>
-			<option value="2" <?= selectedStatusBill('status', 2) ?>>Đã giao</option>
+			<option value="0" <?= selectedStatusBill('status', 0) ?> >Đang xác nhận</option>
+			<option value="1" <?= selectedStatusBill('status', 1) ?> >Đang vận chuyển</option>
+			<option value="2" <?= selectedStatusBill('status', 2) ?> >Đã giao</option>
 		</select>
 		<button type="submit" class="btn btn-outline-primary mb-2">Lọc trạng thái</button>
 

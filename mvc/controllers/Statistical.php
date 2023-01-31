@@ -21,9 +21,16 @@ class Statistical extends Controller
 
     function index()
     {
-        $dateStart = '2000-01-01 00:00:01';
+        // $dateStart = '2000-01-01 00:00:01';
         $dateEnd = date("Y-m-d H:i:s");
         // $id = 0;
+        $lastMonth = date("Y-m", strtotime('-1 month', strtotime(date('Y-m'))));
+
+        $statisticalBillByMonth = $this->bills->getBillByMonth($lastMonth);
+
+        $dateStart = date("Y-m") . '-01 00:00:01';
+
+        // show_array($timeNowMonth);
 
         if (isset($_POST['btn-statistical'])) {
             if ($_POST['date_start'] > date("Y-m-d") || $_POST['date_end'] > date("Y-m-d")) {
@@ -72,6 +79,7 @@ class Statistical extends Controller
             'countBillStatistical' => $countBillStatistical,
             'billsNew' => $billsNew,
             // 'detailBillStatistical' => $detailBillStatistical,
+            'statisticalBillByMonth' => $statisticalBillByMonth,
         ]);
     }
 
