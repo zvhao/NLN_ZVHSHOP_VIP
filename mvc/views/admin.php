@@ -36,6 +36,7 @@ if ((int)$_SESSION['user']['gr_id'] != 1) {
   <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-minimal@4/minimal.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
   <link rel="stylesheet" href="<?php echo _PATH_ROOT_PUBLIC . "/admin/" ?>assets/css/normalize.css">
+  <link rel="stylesheet" href="<?php echo _PATH_ROOT_PUBLIC . "/admin/" ?>assets/css/main.css">
 
   <style>
 
@@ -53,7 +54,7 @@ if ((int)$_SESSION['user']['gr_id'] != 1) {
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="<?= _WEB_ROOT . '/admin' ?>" class="nav-link">Quản lý</a>
+          <a href="<?= _WEB_ROOT . '/admin' ?>" class="nav-link">Tổng quan</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
           <a href="<?= _WEB_ROOT . '/contact/admin' ?>" class="nav-link">Liên hệ</a>
@@ -167,20 +168,6 @@ if ((int)$_SESSION['user']['gr_id'] != 1) {
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                <i class="fa-solid fa-warehouse"></i>
-                <p class="px-3">
-                  Kho hàng
-                </p>
-              </a>
-              <div class="dropdown-menu bg-gradient-gray-dark">
-                <a class="dropdown-item" href="#">Đơn vị</a>
-                <a class="dropdown-item" href="#">Nhà cung cấp</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li>
-
           </ul>
         </nav>
         <!-- /.sidebar-menu -->

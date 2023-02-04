@@ -210,8 +210,6 @@ class Bill extends Controller
 						$checkBill = true;
 					} else {
 						$checkBill = false;
-						unset($_SESSION['user']);
-						redirectTo("auth/login");
 						break;
 					}
 				}
@@ -237,12 +235,12 @@ class Bill extends Controller
 						}
 						unset($_SESSION['cart']);
 					}
+					if(isset($_SESSION['bill_new'])) {
+						unset($_SESSION['bill_new']);
+					}
 					$_SESSION['bill_new'] = $idBill;
 					redirectTo("bill/detail_bill/$idBill");
 				}
-			} else {
-				unset($_SESSION['user']);
-				redirectTo("auth/login");
 			}
 
 			// show_array($_SESSION['bill_new']);
@@ -356,6 +354,10 @@ class Bill extends Controller
 			echo json_encode($returnData);
 		}
 		// vui lòng tham khảo thêm tại code demo
+	}
+
+	function redirectTo() {
+		redirectTo('/bill/detail_bill/' . $_SESSION['bill_new']);
 	}
 
 

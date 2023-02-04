@@ -1,24 +1,89 @@
 <?php
 $lastMonth = date("Y-m", strtotime('-1 month', strtotime(date('Y-m'))));
 ?>
-<form action="" method="post" class="">
+
+<div>
+	<h4>THÁNG TRƯỚC</h4>
 	<div class="row">
 		<div class="col-3 mb-3 p-3">
-			<a href="<?= _WEB_ROOT . '/user' ?>" style="height: 200px;" class="d-flex p-3 align-items-center justify-content-around rounded-pill  text-center bg-success">
-				<i class="display-3 fa-solid fa-coins"></i>
-				<h5 class="display-5 m-0">DOANH THU <br> THÁNG TRƯỚC (<?php echo $lastMonth ?>)<p class="m-0"><?= numberFormat($data['statisticalBillByMonth']['sumBill']) ?></p>
+			<form method="POST" action="" style="height: 200px;" class="d-flex p-3 align-items-center justify-content-around rounded-pill  text-center bg-success">
+				<button type="submit" class="bg-transparent" name="btn-last-month">
+					<i class="display-3 fa-solid fa-coins text-light"></i>
+				</button>
+				<h5 class="display-5 m-0">DOANH THU <br>(<?php echo $lastMonth ?>)<p class="m-0 font-weight-bold"><?= numberFormat($data['statisticalBillByMonth']['sumBill']) ?></p>
 					<p class="pt-2"><?= $data['statisticalBillByMonth']['countBill'] ?> ĐƠN HÀNG</p>
 				</h5>
-			</a>
+			</form>
 		</div>
+		<?php
+		if (isset($data['bestSellerByMonth']) && !empty($data['bestSellerByMonth'])) {
+			foreach ($data['bestSellerByMonth'] as $item) {
+		?>
+				<div class="col-3 mb-3 p-3">
+					<a target="_blank" href="<?= _WEB_ROOT . '/product/detail_product_admin/' . $item['id_pro'] ?>" style="height: 200px;" class="d-flex p-3 align-items-center justify-content-around rounded-pill  text-center bg-danger">
+						<i class="display-3 fa-solid fa-star text-warning"></i>
+						<h5 class="display-5 m-0">
+							<p>BESTSELLER</p>
+							<p style="display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+overflow: hidden;"><?= $item['name_pro'] ?></p>
+							<p class="m-0 pt-2">ĐÃ BÁN <?= $item['bestSeller'] ?></p>
+						</h5>
+					</a>
+
+				</div>
+		<?php
+			}
+		}
+		?>
+
 	</div>
+</div>
+<div>
+	<h4>THÁNG NÀY</h4>
+	<div class="row">
+		<div class="col-3 mb-3 p-3">
+			<form method="POST" action="" style="height: 200px;" class="d-flex p-3 align-items-center justify-content-around rounded-pill  text-center bg-success">
+				<button type="submit" class="bg-transparent" name="btn-current-month">
+					<i class="display-3 fa-solid fa-coins text-light"></i>
+				</button>
+				<h5 class="display-5 m-0">DOANH THU <br>(<?php echo date("Y-m") ?>)<p class="m-0 font-weight-bold"><?= numberFormat($data['statisticalBillByCurrentMonth']['sumBill']) ?></p>
+					<p class="pt-2"><?= $data['statisticalBillByCurrentMonth']['countBill'] ?> ĐƠN HÀNG</p>
+				</h5>
+			</form>
+		</div>
+		<?php
+		if (isset($data['bestSellerByCurrentMonth']) && !empty($data['bestSellerByCurrentMonth'])) {
+			foreach ($data['bestSellerByCurrentMonth'] as $item) {
+		?>
+				<div class="col-3 mb-3 p-3">
+					<a target="_blank" href="<?= _WEB_ROOT . '/product/detail_product_admin/' . $item['id_pro'] ?>" style="height: 200px;" class="d-flex p-3 align-items-center justify-content-around rounded-pill  text-center bg-danger">
+						<i class="display-3 fa-solid fa-star text-warning"></i>
+						<h5 class="display-5 m-0">
+							<p>BESTSELLER</p>
+							<p style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;"><?= $item['name_pro'] ?></p>
+							<p class="m-0 pt-2">ĐÃ BÁN <?= $item['bestSeller'] ?></p>
+						</h5>
+					</a>
+
+				</div>
+		<?php
+			}
+		}
+		?>
+
+	</div>
+</div>
+
+<form action="" method="post" class="mb-5">
 	<div>
 		<div class="d-flex mt-3">
 
 			<div class="mr-3">
 				<label for="date_start" class="form-label">Thời gian bắt đầu</label>
 				<input type="date" name="date_start" id="date_start" class="form-control" value="<?php
-																									if (isset($_POST['btn-statistical'])) {
+																									if (isset($_POST['btn-statistical']) || isset($_POST['btn-last-month']) || isset($_POST['btn-current-month'])) {
 																										echo $_POST['date_start'];
 																									} else echo date("Y-m-01"); ?>">
 			</div>
@@ -26,7 +91,7 @@ $lastMonth = date("Y-m", strtotime('-1 month', strtotime(date('Y-m'))));
 			<div class="mr-5">
 				<label for="date_end" class="form-label">Thời gian kết thúc</label>
 				<input type="date" name="date_end" id="date_end" class="form-control" value="<?php
-																								if (isset($_POST['btn-statistical'])) {
+																								if (isset($_POST['btn-statistical']) || isset($_POST['btn-last-month']) || isset($_POST['btn-current-month'])) {
 																									echo $_POST['date_end'];
 																								} else echo date("Y-m-d"); ?>">
 
@@ -56,7 +121,7 @@ if (isset($_SESSION['msg'])) {
 <?php
 }
 
-if (isset($_POST['btn-statistical']) && !isset($_SESSION['msg'])) {
+if (isset($_POST['btn-statistical']) && !isset($_SESSION['msg']) || isset($_POST['btn-last-month']) || isset($_POST['btn-current-month'])) {
 ?>
 
 	<div class="my-4 d-flex ">

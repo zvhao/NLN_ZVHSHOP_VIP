@@ -78,7 +78,7 @@ if (!empty($data['products'])) {
                        
                 </td>
                     <td class="align-middle text-center">
-                        <a class="btn btn-primary btn-detail-bill mr-2" href="<?php echo _WEB_ROOT . '/product/detail_product_admin/' . $product['id'] ?>" data-id="<?= $bill['id'] ?>">Xem</a>
+                        <a class="btn btn-primary btn-detail-bill mr-2" href="<?php echo _WEB_ROOT . '/product/detail_product_admin/' . $product['id'] ?>" data-id="<?= $product['id'] ?>">Xem</a>
                         <a class="btn btn-outline-primary mr-2" href="<?php echo _WEB_ROOT . '/product/update_product/' . $product['id'] ?>">
                             <i class="far fa-edit"></i>
                         </a>

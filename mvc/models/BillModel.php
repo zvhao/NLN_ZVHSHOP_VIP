@@ -89,7 +89,7 @@ class BillModel extends DB
 			return [];
 		}
 	}
-	public function sumDetailBill()
+	public function bestSellerAll()
 	{
 		$select = " SELECT name_pro,SUM(qty) as tong  FROM detail_bill  GROUP BY id_pro  HAVING SUM(qty) = (SELECT MAX(tong) as tong FROM (SELECT id_pro,SUM(qty) as tong  FROM detail_bill GROUP BY id_pro) as abc)";
 		return $this->pdo_query_one($select);
@@ -137,5 +137,23 @@ class BillModel extends DB
 	{
 		$select = "SELECT SUM(total)as sumBill, COUNT(id) as countBill FROM bills WHERE STATUS = 2 and created_at LIKE '%" . $lastMonth . "%' ";
 		return $this->pdo_query_one($select);
+	}
+
+	public function bestSellerByMonth($lastMonth)
+	{
+		$select = "SELECT id_pro, name_pro, SUM(qty) as bestSeller FROM  detail_bill JOIN bills ON detail_bill.id_bill = bills.id WHERE status = 2 AND bills.created_at like '%" . $lastMonth . "%' GROUP BY id_pro HAVING SUM(qty) = 
+		(SELECT MAX(sumQty)maxSum FROM (
+		SELECT SUM(qty)sumQty, bills.id, status, detail_bill.id_pro, detail_bill.name_pro, bills.created_at FROM detail_bill JOIN bills ON detail_bill.id_bill = bills.id WHERE status = 2 AND bills.created_at like '%" . $lastMonth . "%' GROUP BY id_pro) as abc)";
+		return $this->pdo_query($select);
+	}
+
+	public function top5BestSeller() {
+		$select = "SELECT id_pro, name_pro, detail_bill.image, detail_bill.price, total_rating, SUM(qty) as sumQty FROM detail_bill JOIN bills ON detail_bill.id_bill = bills.id JOIN products ON detail_bill.id_pro = products.id WHERE status = 2 GROUP BY id_pro ORDER BY sumQty DESC LIMIT 5";
+		return $this->pdo_query($select);
+	}
+
+	public function top5Favorites() {
+		$select = "SELECT id_pro, name, image, total_rating, COUNT(*)countFavorite FROM `favorite` JOIN products ON favorite.id_pro = products.id GROUP BY id_pro ORDER BY count(*) desc LIMIT 5";
+		return $this->pdo_query($select);
 	}
 }

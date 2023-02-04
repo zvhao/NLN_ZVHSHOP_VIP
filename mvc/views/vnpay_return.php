@@ -12,8 +12,9 @@ foreach ($urlNew as $item) {
     $itemNew = explode('=', $item);
     $arrLast[$itemNew[0]] = $itemNew[1];
 }
-// print_r($arrLast);
 ?> -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -121,7 +122,7 @@ foreach ($urlNew as $item) {
 
                 </label>
             </div>
-            <a href="<?= _WEB_ROOT . '/bill/detail_bill/' . $_SESSION['bill_new'] ?>">Xem đơn hàng</a>
+            <a href="<?= _WEB_ROOT . '/bill/redirectTo' ?>">Xem đơn hàng</a>
         </div>
         <p>
             &nbsp;

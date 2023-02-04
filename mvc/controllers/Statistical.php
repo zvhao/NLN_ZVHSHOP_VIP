@@ -2,35 +2,38 @@
 
 class Statistical extends Controller
 {
-	private BillModel $bills;
-	private CartModel $cart;
-	private CategoryModel $categories;
-	private CommentModel $comment;
-	private ProductModel $products;
-	private UserModel $users;
-	function __construct()
-	{
-		$this->bills = $this->model('BillModel');
-		$this->cart = $this->model('CartModel');
-		$this->categories = $this->model('CategoryModel');
-		$this->comment = $this->model('CommentModel');
-		$this->products = $this->model('ProductModel');
-		$this->users = $this->model('UserModel');
-
-	}
+    private BillModel $bills;
+    private CartModel $cart;
+    private CategoryModel $categories;
+    private CommentModel $comment;
+    private ProductModel $products;
+    private UserModel $users;
+    function __construct()
+    {
+        $this->bills = $this->model('BillModel');
+        $this->cart = $this->model('CartModel');
+        $this->categories = $this->model('CategoryModel');
+        $this->comment = $this->model('CommentModel');
+        $this->products = $this->model('ProductModel');
+        $this->users = $this->model('UserModel');
+    }
 
     function index()
     {
-        // $dateStart = '2000-01-01 00:00:01';
+        $dateStart = date("Y-m") . '-01 00:00:01';
         $dateEnd = date("Y-m-d H:i:s");
         // $id = 0;
         $lastMonth = date("Y-m", strtotime('-1 month', strtotime(date('Y-m'))));
 
         $statisticalBillByMonth = $this->bills->getBillByMonth($lastMonth);
+        $bestSellerByMonth = $this->bills->bestSellerByMonth($lastMonth);
 
-        $dateStart = date("Y-m") . '-01 00:00:01';
+        $statisticalBillByCurrentMonth = $this->bills->getBillByMonth(date("Y-m"));
+        $bestSellerByCurrentMonth = $this->bills->bestSellerByMonth(date("Y-m"));
 
-        // show_array($timeNowMonth);
+
+
+        // show_array($bestSellerByMonth);
 
         if (isset($_POST['btn-statistical'])) {
             if ($_POST['date_start'] > date("Y-m-d") || $_POST['date_end'] > date("Y-m-d")) {
@@ -46,13 +49,25 @@ class Statistical extends Controller
             }
         }
 
+        if (isset($_POST['btn-last-month'])) {
+            $_POST['date_start'] = $lastMonth . '-01';
+            $dateStart = $_POST['date_start'];
+            $_POST['date_end'] = date("Y-m-t", strtotime($_POST['date_start']));
+            $dateEnd = $_POST['date_end'] . ' 23:59:59';
+        }
+        if (isset($_POST['btn-current-month'])) {
+            $_POST['date_start'] =  date("Y-m") . '-01';
+            $dateStart = $_POST['date_start'];
+            $_POST['date_end'] = date("Y-m-d");
+            $dateEnd = date("Y-m-d H:i:s");
+        }
+
         // $id = $_SESSION['idDetailBill'];
 
         $sumBillStatistical = $this->bills->sumBillStatistical($dateStart, $dateEnd);
         $countBillStatistical = $this->bills->countBillStatistical($dateStart, $dateEnd);
         $BillStatistical = $this->bills->BillStatistical($dateStart, $dateEnd);
-        // $detailBillStatistical = $this->bills->detailBillStatistical($id);
-        // $SelectOneBill = $this->bills->SelectOneBill($id);
+
 
         $billsNew = [];
         foreach ($BillStatistical as $bill) {
@@ -80,6 +95,10 @@ class Statistical extends Controller
             'billsNew' => $billsNew,
             // 'detailBillStatistical' => $detailBillStatistical,
             'statisticalBillByMonth' => $statisticalBillByMonth,
+            'bestSellerByMonth' => $bestSellerByMonth,
+            'statisticalBillByCurrentMonth' => $statisticalBillByCurrentMonth,
+            'bestSellerByCurrentMonth' => $bestSellerByCurrentMonth,
+
         ]);
     }
 
