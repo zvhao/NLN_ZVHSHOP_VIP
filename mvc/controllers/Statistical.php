@@ -36,7 +36,9 @@ class Statistical extends Controller
         // show_array($bestSellerByMonth);
 
         if (isset($_POST['btn-statistical'])) {
-            if ($_POST['date_start'] > date("Y-m-d") || $_POST['date_end'] > date("Y-m-d")) {
+            if (empty($_POST['date_start']) || empty($_POST['date_end'])) {
+                $_SESSION['msg'] = 'Vui lòng nhập ngày!';
+            } else if ($_POST['date_start'] > date("Y-m-d") || $_POST['date_end'] > date("Y-m-d")) {
                 $_SESSION['msg'] = 'Vui lòng nhập ngày không lớn hơn ngày hiện tại!';
             } else if (strtotime($_POST['date_start']) > strtotime($_POST['date_end'])) {
                 $_SESSION['msg'] = 'Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc!';

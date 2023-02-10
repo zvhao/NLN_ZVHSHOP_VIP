@@ -26,9 +26,14 @@ redirectToDetailBill($data['listIdBill'])
 				<p>Email: <span class="text-color-main"><?= $data['bill']['email'] ?></span> </p>
 				<p>Địa chỉ nhận hàng: <span class="text-color-main"><?= $data['bill']['address'] ?></span> </p>
 				<p>Ghi chú: <?= $data['bill']['note'] ?: '...' ?></p>
-				<h2 class="mt-5">Nếu có thắc mắc, vấn đề về đơn hàng, hãy
+				<h2 class="my-5">Nếu có thắc mắc, vấn đề về đơn hàng, hãy
 					<a class="btn btn-main fs-4" href="<?= _WEB_ROOT . '/contact' ?>">LIÊN HỆ</a>
 				</h2>
+				<p>
+					<a class="btn btn-outline-main fs-4" href="<?= _WEB_ROOT . '/bill' ?>">ĐƠN HÀNG CỦA TÔI</a>
+
+				</p>
+
 			</div>
 			<div class="col-6">
 				<div class="checkout-heading">Thông tin đơn hàng</div>

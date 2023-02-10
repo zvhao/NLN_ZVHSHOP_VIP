@@ -2,11 +2,13 @@
 
 class Admin extends Controller
 {
-    private $products;
-    private $categories;
-    private $users;
-    private $cart;
-    private $bills;
+
+    private BillModel $bills;
+    private CartModel $cart;
+    private CategoryModel $categories;
+    private CommentModel $comment;
+    private ProductModel $products;
+    private UserModel $users;
     
     function __construct()
     {

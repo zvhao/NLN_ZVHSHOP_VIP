@@ -2099,7 +2099,7 @@ a.google {
 .bill-section {
     background-color: #eff6ff;
     border-radius: var(--border-radius);
-    /* box-shadow: 2px 3px 10px #60a5fa; */
+    box-shadow: 2px 3px 10px #60a5fa;
 }
 
 .bill-total {

@@ -13,13 +13,13 @@
             </div>
             <div class="intro-body text-justify">
                 <p>
-                    Tháng 8/2022, Shop cầu lông <a href="home">ZVH Shop</a> ra đời, đây là website cung
+                    Tháng 1/2023, Shop cầu lông <a href="home">ZVH Shop</a> ra đời, đây là website cung
                     cấp
                     những thông tin chuyên nghiệp về tin tức và diễn đàn cầu lông. Nhận thấy sự phát triển của
                     cầu
                     lông trong nước, bên cạnh đó là mong muốn phục vụ tốt hơn cho thành viên và những bạn yêu
                     mến
-                    cầu lông. Tháng 8/2022, Ban Quản Trị ZVH Shop đã mạnh dạn xây dựng Shop cầu lông <a href="home">ZVH Shop</a> để có thể làm được vai trò này. Với kinh nghiệm nhiều năm
+                    cầu lông. Tháng 1/2023, Ban Quản Trị ZVH Shop đã mạnh dạn xây dựng Shop cầu lông <a href="home">ZVH Shop</a> để có thể làm được vai trò này. Với kinh nghiệm nhiều năm
                     hoạt động trong
                     lĩnh vực cầu lông, đến với ZVH Shop bạn sẽ yên tâm về chất lượng sản phẩm, đội ngũ tư vấn
                     sản

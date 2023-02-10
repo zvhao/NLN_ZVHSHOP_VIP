@@ -1,10 +1,13 @@
 <?php
 class User extends Controller
 {
-    private $group;
-    private $user;
-    private $categories;
-    private $cart;
+    private BillModel $bills;
+    private CartModel $cart;
+    private CategoryModel $categories;
+    private CommentModel $comment;
+    private ProductModel $products;
+    private UserModel $user;
+    private GroupUserModel $group;
     public function __construct()
     {
         $this->group = $this->model("GroupUserModel");

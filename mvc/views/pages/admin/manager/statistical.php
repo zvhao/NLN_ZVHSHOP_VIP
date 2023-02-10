@@ -76,35 +76,35 @@ overflow: hidden;"><?= $item['name_pro'] ?></p>
 	</div>
 </div>
 
-<form action="" method="post" class="mb-5">
-	<div>
-		<div class="d-flex mt-3">
+<form action="" method="post" class="mb-3">
+	<div class="d-flex mt-3">
+		<div class="mr-3">
+			<label for="date_start" class="form-label">Chọn tháng thống kê</label>
+			<input type="month" class="form-control" value="">
+		</div>
 
-			<div class="mr-3">
-				<label for="date_start" class="form-label">Thời gian bắt đầu</label>
-				<input type="date" name="date_start" id="date_start" class="form-control" value="<?php
-																									if (isset($_POST['btn-statistical']) || isset($_POST['btn-last-month']) || isset($_POST['btn-current-month'])) {
-																										echo $_POST['date_start'];
-																									} else echo date("Y-m-01"); ?>">
-			</div>
-
-			<div class="mr-5">
-				<label for="date_end" class="form-label">Thời gian kết thúc</label>
-				<input type="date" name="date_end" id="date_end" class="form-control" value="<?php
+		<div class="mr-3">
+			<label for="date_start" class="form-label">Thời gian bắt đầu</label>
+			<input type="date" name="date_start" id="date_start" class="form-control" value="<?php
 																								if (isset($_POST['btn-statistical']) || isset($_POST['btn-last-month']) || isset($_POST['btn-current-month'])) {
-																									echo $_POST['date_end'];
-																								} else echo date("Y-m-d"); ?>">
-
-			</div>
-			<div class="d-flex align-items-end">
-
-				<button type="submit" class="btn btn-primary px-5" name="btn-statistical">Thống kê</button>
-				<span class="text-danger ml-4">* Chỉ thống kê các đơn hàng đã giao</span>
-			</div>
+																									echo $_POST['date_start'];
+																								} else echo date("Y-m-01"); ?>">
 		</div>
-		<div>
+
+		<div class="mr-5">
+			<label for="date_end" class="form-label">Thời gian kết thúc</label>
+			<input type="date" name="date_end" id="date_end" class="form-control" value="<?php
+																							if (isset($_POST['btn-statistical']) || isset($_POST['btn-last-month']) || isset($_POST['btn-current-month'])) {
+																								echo $_POST['date_end'];
+																							} else echo date("Y-m-d"); ?>">
 
 		</div>
+		<div class="d-flex align-items-end">
+
+			<button type="submit" class="btn btn-primary px-5" name="btn-statistical">Thống kê</button>
+			<span class="text-danger ml-4">* Chỉ thống kê các đơn hàng đã giao</span>
+		</div>
+	</div>
 </form>
 
 
@@ -115,8 +115,8 @@ overflow: hidden;"><?= $item['name_pro'] ?></p>
 // show_array($_SESSION);
 if (isset($_SESSION['msg'])) {
 ?>
-	<div class="mt-2">
-		<span class="text-danger"><?= $_SESSION['msg']; ?></span>
+	<div class="">
+		<span class="ml-5 mb-4 text-danger"><?= $_SESSION['msg']; ?></span>
 	</div>
 <?php
 }
@@ -124,7 +124,7 @@ if (isset($_SESSION['msg'])) {
 if (isset($_POST['btn-statistical']) && !isset($_SESSION['msg']) || isset($_POST['btn-last-month']) || isset($_POST['btn-current-month'])) {
 ?>
 
-	<div class="my-4 d-flex ">
+	<div class="py-4 d-flex ">
 		<h4 class=" mr-5"><?= 'Thống kê từ ngày ' . date("d-m-Y", strtotime($_POST['date_start'])) . ' đến ' . date("d-m-Y", strtotime($_POST['date_end'])) . ' có ' . $data['countBillStatistical'] . ' đơn hàng' ?> </h4>
 		<h4>Tổng doanh thu là <b class="text-primary"><?= numberFormat($data['sumBillStatistical']) ?></b></h4>
 	</div>
