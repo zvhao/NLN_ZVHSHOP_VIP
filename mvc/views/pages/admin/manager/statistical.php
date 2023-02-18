@@ -78,10 +78,10 @@ overflow: hidden;"><?= $item['name_pro'] ?></p>
 
 <form action="" method="post" class="mb-3">
 	<div class="d-flex mt-3">
-		<div class="mr-3">
+		<!-- <div class="mr-3">
 			<label for="date_start" class="form-label">Chọn tháng thống kê</label>
 			<input type="month" class="form-control" value="">
-		</div>
+		</div> -->
 
 		<div class="mr-3">
 			<label for="date_start" class="form-label">Thời gian bắt đầu</label>

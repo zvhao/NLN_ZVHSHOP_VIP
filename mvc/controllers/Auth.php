@@ -138,8 +138,8 @@ class Auth extends Controller
 
                         $subject =  $name . ' vui lòng kích hoạt tài khoản';
                         $content = '<p>Chào ' . $name . '</p></br>';
-                        $content .= '<p>Vui lòng click vào link dưới đây để kích hoạt tài khoản: </p>';
-                        $content .= '<p>' . $linkActive . '</p></br>';
+                        $content .= '<p>Vui lòng click vào nút dưới đây để kích hoạt tài khoản: </p>';
+                        $content .= "<p><a href='$linkActive'><button>KÍCH HOẠT TÀI KHOẢN</button></a></p></br>";
                         $content .= 'Trân trọng cảm ơn';
                         $statusMail = sendMail($email, $subject, $content);
                         if ($statusMail) {
@@ -275,8 +275,8 @@ class Auth extends Controller
 
                 $subject = 'Thay đổi mật khẩu';
                 $content = '<p>Chào ' . $fullName . '</p></br>';
-                $content .= '<p>Vui lòng click vào link dưới đây để thay đổi mật khẩu: </p>';
-                $content .= "<p>" . $linkActive . '</p></br>';
+                $content .= '<p>Vui lòng click vào nút dưới đây để thay đổi mật khẩu: </p>';
+                $content .= "<p><a href='$linkActive'><button>THAY ĐỔI MẬT KHẨU</button></a></p></br>";
                 $content .= '<p>Nếu bạn không yêu cầu thay đổi mật khẩu, vui lòng bỏ qua mail này hoặc liên hệ ngay với chúng tôi qua link: ' . $linkContact . '</p>';
 
                 $content .= '<p>Trân trọng cảm ơn</p>';
@@ -374,6 +374,9 @@ class Auth extends Controller
                     $password = password_hash($password, PASSWORD_DEFAULT);
                     $status = $this->users->updatePassword($email, $password);
                     $_SESSION['msg'] = 'Thay đổi mật khẩu thành công, bạn có thể đăng nhập bằng mật khẩu mới';
+                    if (isset($_SESSION['user'])) {
+                        unset($_SESSION['user']);
+                    }
                     header('Location: ' . _WEB_ROOT . "/Auth/login");
                 } else {
                     $_SESSION['msg_false'] = 'Vui lòng nhập lại mật khẩu khác ';
